@@ -66,6 +66,11 @@ Yes. You can show unlimited number of captcha in same page.
 
 == Changelog ==
 
+= 2.2 =
+
+* Security update.
+* WooCommerce checkout form issue fixed.
+
 = 2.1 =
 
 * Captcha in WooCommerce added (WooCommerce Login, Registration, Lost password, Reset password forms).
@@ -92,6 +97,11 @@ Yes. You can show unlimited number of captcha in same page.
 * Initial release.
 
 == Upgrade Notice ==
+
+= 2.2 =
+
+* Security update.
+* WooCommerce checkout form issue fixed.
 
 = 2.1 =
 

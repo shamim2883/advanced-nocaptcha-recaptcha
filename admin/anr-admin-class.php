@@ -115,6 +115,7 @@ if (!class_exists('anr_admin_class'))
 							__( 'Comment Form', 'advanced-nocaptcha-recaptcha' )   				=> 'comment',
 							__( 'bbPress New topic', 'advanced-nocaptcha-recaptcha' )   			=> 'bb_new',
 							__( 'bbPress reply to topic', 'advanced-nocaptcha-recaptcha' )		=> 'bb_reply',
+							__( 'WooCommerce Checkout', 'advanced-nocaptcha-recaptcha' )		=> 'wc_checkout',
 									
 							);
 									
@@ -140,14 +141,14 @@ if (!class_exists('anr_admin_class'))
           <thead>
           <tr><th width = '50%'>".__("Setting", 'advanced-nocaptcha-recaptcha')."</th><th width = '50%'>".__("Value", 'advanced-nocaptcha-recaptcha')."</th></tr>
           </thead>
-          <tr><td>".__("Site Key", 'advanced-nocaptcha-recaptcha')."<br/><small><a href='https://www.google.com/recaptcha/admin' target='_blank'>Get From Google</a></small></td><td><input type='text' size = '40' name='site_key' value='".anr_get_option('site_key')."' /></td></tr>
-		  <tr><td>".__("Secret key", 'advanced-nocaptcha-recaptcha')."<br/><small><a href='https://www.google.com/recaptcha/admin' target='_blank'>Get From Google</a></small></td><td><input type='text' size = '40' name='secret_key' value='".anr_get_option('secret_key')."' /></td></tr>
+          <tr><td>".__("Site Key", 'advanced-nocaptcha-recaptcha')."<br/><small><a href='https://www.google.com/recaptcha/admin' target='_blank'>Get From Google</a></small></td><td><input type='text' size = '40' name='site_key' value='".esc_attr( anr_get_option('site_key') )."' /></td></tr>
+		  <tr><td>".__("Secret key", 'advanced-nocaptcha-recaptcha')."<br/><small><a href='https://www.google.com/recaptcha/admin' target='_blank'>Get From Google</a></small></td><td><input type='text' size = '40' name='secret_key' value='".esc_attr( anr_get_option('secret_key') )."' /></td></tr>
 		  
 		  <tr><td>".__("Language", 'advanced-nocaptcha-recaptcha')."</td><td><select name='language'>";
 		  
 		  foreach ( $languages as $language => $code ) {
 		  
-		  echo "<option value='$code' ".selected(anr_get_option('language'), $code,false).">$language</option>";
+		  echo "<option value='". esc_attr( $code ) ."' ".selected(anr_get_option('language'), $code,false).">".esc_html( $language )."</option>";
 		  
 		  }
 		  
@@ -164,19 +165,21 @@ if (!class_exists('anr_admin_class'))
 		  <option value='compact' ".selected(anr_get_option('size'), 'compact',false).">Compact</option>
 		  
 		  </select></td></tr>
-		  <tr><td>".__("Error Message", 'advanced-nocaptcha-recaptcha')."</td><td><input type='text' size = '40' name='error_message' value='".anr_get_option('error_message', '<strong>ERROR</strong>: Please solve Captcha correctly.')."' /></td></tr>
+		  <tr><td>".__("Error Message", 'advanced-nocaptcha-recaptcha')."</td><td><input type='text' size = '40' name='error_message' value='".wp_kses_post( anr_get_option('error_message', '<strong>ERROR</strong>: Please solve Captcha correctly.') )."' /></td></tr>
 		  
 		  <tr><td>".__("Show Captcha on", 'advanced-nocaptcha-recaptcha')."</td><td>";
 		  
 		  foreach ( $locations as $location => $slug ) {
 		  
-		  echo "<ul colspan='2'><label><input type='checkbox' name='$slug' value='1' ".checked(anr_get_option($slug), '1', false)." /> $location</label></ul>";
+		  echo "<ul colspan='2'><label><input type='checkbox' name='" . esc_attr( $slug ) . "' value='1' ".checked(anr_get_option($slug), '1', false)." /> ". esc_html( $location ) ."</label></ul>";
 		  
 		  }
+		  /**
 		  if ( function_exists('fepcf_plugin_activate'))
 		  echo "<ul colspan='2'><label><input type='checkbox' name='fep_contact_form' value='1' ".checked(anr_get_option('fep_contact_form'), '1', false)." /> FEP Contact Form</label></ul>";
 		  else
 		  echo "<ul colspan='2'><label><input type='checkbox' name='fep_contact_form' disabled value='1' ".checked(anr_get_option('fep_contact_form'), '1', false)." /> FEP Contact Form (is not installed) <a href='https://wordpress.org/plugins/fep-contact-form/' target='_blank'>Install Now</a></label></ul>";
+		  */
 		  
 		  echo "<ul colspan='2'> For other forms see <a href='".esc_url(admin_url( 'admin.php?page=anr-instruction' ))."'>Instruction</a></ul>";
 		  echo "</td></tr>";

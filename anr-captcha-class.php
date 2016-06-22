@@ -28,11 +28,17 @@ if (!class_exists('anr_captcha_class'))
 					add_action ('woocommerce_login_form', array($this, 'form_field'), 99);
 					add_filter ('authenticate', array($this, 'login_verify'), 999 );
 				}
+				
+			if ( '1' == anr_get_option( 'wc_checkout' )) {
+					add_action( 'woocommerce_after_checkout_validation', array($this, 'wc_checkout_verify') );
+					add_action ('woocommerce_checkout_after_order_review', array($this, 'wc_form_field') );
+				}
 			
 			if ( '1' == anr_get_option( 'registration' )) {
 					add_action ('register_form', array($this, 'form_field'), 99);
 					add_filter ('registration_errors', array($this, 'registration_verify'), 10, 3 );
 					add_filter ('woocommerce_registration_errors', array($this, 'registration_verify'), 10, 3 );
+					add_action ('woocommerce_checkout_after_order_review', array($this, 'wc_form_field') );
 				}
 			
 			if ( '1' == anr_get_option( 'ms_user_signup' )) {
@@ -43,7 +49,7 @@ if (!class_exists('anr_captcha_class'))
 			if ( '1' == anr_get_option( 'lost_password' )) {
 					add_action ('lostpassword_form', array($this, 'form_field'), 99);
 					add_action ('woocommerce_lostpassword_form', array($this, 'form_field'), 99);
-					add_action ('allow_password_reset', array($this, 'lostpassword_verify'), 10, 2); //lostpassword_post does not return wp_error
+					add_action ('allow_password_reset', array($this, 'lostpassword_verify'), 10, 2); //lostpassword_post does not return wp_error( prior WP 4.4 )
 				}
 				
 			if ( '1' == anr_get_option( 'reset_password' )) {
@@ -166,6 +172,18 @@ if (!class_exists('anr_captcha_class'))
 				return;
 				
 			anr_captcha_form_field();
+			
+		}
+	
+	function wc_form_field()
+		{
+			
+			if( ! is_user_logged_in() && 'yes' == get_option( 'woocommerce_enable_signup_and_login_from_checkout', 'yes' ) && '1' == anr_get_option( 'registration' ) ){
+				$this->form_field();
+				
+			} elseif( '1' == anr_get_option( 'wc_checkout' ) ){
+				$this->form_field();
+			}
 			
 		}
 	
@@ -330,7 +348,19 @@ if (!class_exists('anr_captcha_class'))
 				bbp_add_error('anr_error', $error_message);
 			}
 		}
+	
+	function wc_checkout_verify()
+		{
+			
+			if( ! is_user_logged_in() && 'yes' == get_option( 'woocommerce_enable_signup_and_login_from_checkout', 'yes' ) && '1' == anr_get_option( 'registration' ) ){
+				// verification done during ragistration, So no need any more verification
+				
+			} elseif( ! $this->verify() ){
 
+				$error_message = anr_get_option( 'error_message' );
+				wc_add_notice( $error_message, 'error' );
+			}
+		}
 
 	
   } //END CLASS
