@@ -2,8 +2,8 @@
 Contributors: shamim51
 Tags: recaptcha,nocaptcha,no captcha,bot,spam,captcha,contact form 7 captcha,woocommerce captcha,woocommerce nocaptcha, woocommerce,widget,plugin,sidebar,shortcode,page,posts,comments,google,bbpress,multisite,multiple
 Donate link: https://www.paypal.me/hasanshamim
-Requires at least: 2.8
-Tested up to: 4.5.2
+Requires at least: 3.0
+Tested up to: 4.5.3
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -66,6 +66,12 @@ Yes. You can show unlimited number of captcha in same page.
 
 == Changelog ==
 
+= 2.3 =
+
+* Comment form captcha issue fixed.
+* Captcha now wraped in anr_captcha_field div class.
+* Comment form captcha p tag removed.
+
 = 2.2 =
 
 * Security update.
@@ -97,6 +103,12 @@ Yes. You can show unlimited number of captcha in same page.
 * Initial release.
 
 == Upgrade Notice ==
+
+= 2.3 =
+
+* Comment form captcha issue fixed.
+* Captcha now wraped in anr_captcha_field div class.
+* Comment form captcha p tag removed.
 
 = 2.2 =
 

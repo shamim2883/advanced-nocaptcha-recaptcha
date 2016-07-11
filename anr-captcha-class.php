@@ -59,7 +59,11 @@ if (!class_exists('anr_captcha_class'))
 				}
 					
 			if ( '1' == anr_get_option( 'comment' )) {
-					add_filter ('comment_form_field_comment', array($this, 'comment_form_field') );
+					if( ! is_user_logged_in() ) {
+						add_action ('comment_form_after_fields', array($this, 'form_field'), 99);
+					} else {
+						add_filter ('comment_form_field_comment', array($this, 'comment_form_field'), 99 );
+					}
 					add_filter ('preprocess_comment', array($this, 'comment_verify') );
 				}
 			
@@ -91,7 +95,7 @@ if (!class_exists('anr_captcha_class'))
 		$site_key 	= trim(anr_get_option( 'site_key' ));
 		$number 	= $this->total_captcha();
 		
-		$field = '<div id="anr_captcha_field_' . $number . '"></div>';
+		$field = '<div class="anr_captcha_field"><div id="anr_captcha_field_' . $number . '"></div></div>';
 		
 		if ( 1 == $no_js )
 			{
@@ -210,7 +214,7 @@ if (!class_exists('anr_captcha_class'))
 			if ( is_user_logged_in() && $loggedin_hide )
 				return $defaults;
 				
-				$defaults = $defaults. '<p>' .anr_captcha_form_field( false ). '</p>';
+				$defaults = $defaults . anr_captcha_form_field( false );
 				return $defaults;
 			
 			
