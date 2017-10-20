@@ -49,7 +49,8 @@ if (!class_exists('anr_captcha_class'))
 			if ( '1' == anr_get_option( 'lost_password' )) {
 					add_action ('lostpassword_form', array($this, 'form_field'), 99);
 					add_action ('woocommerce_lostpassword_form', array($this, 'form_field'), 99);
-					add_action ('allow_password_reset', array($this, 'lostpassword_verify'), 10, 2); //lostpassword_post does not return wp_error( prior WP 4.4 )
+					//add_action ('allow_password_reset', array($this, 'lostpassword_verify'), 10, 2); //lostpassword_post does not return wp_error( prior WP 4.4 )
+                    add_action('lostpassword_post', array($this, 'lostpassword_verify_44'));
 				}
 				
 			if ( '1' == anr_get_option( 'reset_password' )) {
@@ -280,6 +281,14 @@ if (!class_exists('anr_captcha_class'))
 			}
 			
 			return $result;
+		}
+        
+    function lostpassword_verify_44( $errors )
+		{
+			if ( ! $this->verify() ) {
+				$error_message = anr_get_option( 'error_message' );
+				$errors->add('anr_error', $error_message);
+			}
 		}
 		
 		
