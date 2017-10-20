@@ -36,6 +36,7 @@ if (!class_exists('anr_captcha_class'))
 			
 			if ( '1' == anr_get_option( 'registration' )) {
 					add_action ('register_form', array($this, 'form_field'), 99);
+                    add_action ('woocommerce_register_form', array($this, 'form_field'), 99);
 					add_filter ('registration_errors', array($this, 'registration_verify'), 10, 3 );
 					add_filter ('woocommerce_registration_errors', array($this, 'registration_verify'), 10, 3 );
 					add_action ('woocommerce_checkout_after_order_review', array($this, 'wc_form_field') );
