@@ -25,6 +25,7 @@ if (!class_exists('anr_captcha_class'))
 			
 			if ( '1' == anr_get_option( 'login' ) && !defined('XMLRPC_REQUEST')) {
 					add_action ('login_form', array($this, 'login_form_field'), 99);
+					add_filter( 'login_form_middle', array( $this, 'login_form_return' ), 99 );
 					add_action ('woocommerce_login_form', array($this, 'login_form_field'), 99);
 					add_filter ('authenticate', array($this, 'login_verify'), 999, 3 );
 					
@@ -251,6 +252,18 @@ if (!class_exists('anr_captcha_class'))
 		if( $this->show_login_captcha() ){
 			$this->form_field();
 		}
+	}
+	
+	function login_form_return( $field = '' ) {
+		if ( $this->show_login_captcha() ) {
+
+			if ( is_user_logged_in() && anr_get_option( 'loggedin_hide' ) ) {
+				return $field;
+			}
+
+			$field = anr_captcha_form_field( false );
+		}
+		return $field;
 	}
 	
 	function wc_form_field()
