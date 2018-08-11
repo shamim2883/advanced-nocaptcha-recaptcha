@@ -20,6 +20,30 @@ function anr_get_option( $option, $default = '', $section = 'anr_admin_options' 
 
     return $default;
 }
+
+function anr_update_option( $options, $value = '', $section = 'anr_admin_options' ) {
+	
+	if( $options && ! is_array( $options ) ){
+		$options = array(
+			$options => $value,
+		);
+	}
+	if( ! is_array( $options ) )
+	return false;
+	
+	if ( is_multisite() ) {
+		$same_settings = apply_filters( 'anr_same_settings_for_all_sites', false );
+	} else {
+		$same_settings = false;
+	}
+	if ( $same_settings ) {
+		update_site_option( $section, wp_parse_args( $options, get_site_option( $section ) ) );
+	} else {
+		update_option( $section, wp_parse_args( $options, get_option( $section ) ) );
+	}
+
+    return true;
+}
 	
 function anr_translation()
 	{
@@ -77,9 +101,10 @@ function anr_wp_footer()
 	anr_captcha_class::init()->footer_script();
 }
 
-add_action( 'anr_captcha_form_field', 'anr_captcha_form_field' );
+add_action( 'anr_captcha_form_field', function(){ anr_captcha_form_field( true ); } );
+add_shortcode( 'anr-captcha', 'anr_captcha_form_field' );
 
-function anr_captcha_form_field( $echo = true )
+function anr_captcha_form_field( $echo = false )
 	{
 		
 		if ( $echo ) {
@@ -90,14 +115,16 @@ function anr_captcha_form_field( $echo = true )
 		
 	}
 	
-function anr_verify_captcha()
+function anr_verify_captcha( $response = false )
 	{
 		$secre_key 	= trim(anr_get_option( 'secret_key' )); 
-		$response = isset( $_POST['g-recaptcha-response'] ) ? $_POST['g-recaptcha-response'] : '';
 		$remoteip = $_SERVER["REMOTE_ADDR"];
 		
 		if ( !$secre_key ) //if $secre_key is not set
 			return true;
+		
+		if( false === $response )
+			$response = isset( $_POST['g-recaptcha-response'] ) ? $_POST['g-recaptcha-response'] : '';
 		
 		if ( !$response || !$remoteip )
 			return false;

@@ -4,29 +4,31 @@ if (!class_exists('anr_captcha_class'))
 {
   class anr_captcha_class
   {
- 	private static $instance;
+	private static $instance;
 	
 	private static $captcha_count = 0;
 	
 	public static function init()
-        {
-            if(!self::$instance instanceof self) {
-                self::$instance = new self;
-            }
-            return self::$instance;
-        }
+		{
+			if(!self::$instance instanceof self) {
+				self::$instance = new self;
+			}
+			return self::$instance;
+		}
 		
-    function actions_filters()
-    	{
+	function actions_filters()
+		{
 			if ( '1' == anr_get_option( 'fep_contact_form' )) {
 					add_action ('fepcf_message_form_after_content', array($this, 'form_field'), 99);
 					add_action ('fepcf_action_message_before_send', array($this, 'fepcf_verify'));
 				}
 			
 			if ( '1' == anr_get_option( 'login' ) && !defined('XMLRPC_REQUEST')) {
-					add_action ('login_form', array($this, 'form_field'), 99);
-					add_action ('woocommerce_login_form', array($this, 'form_field'), 99);
-					add_filter ('authenticate', array($this, 'login_verify'), 999 );
+					add_action ('login_form', array($this, 'login_form_field'), 99);
+					add_action ('woocommerce_login_form', array($this, 'login_form_field'), 99);
+					add_filter ('authenticate', array($this, 'login_verify'), 999, 3 );
+					
+					add_action ('wp_login', array($this, 'clear_data'), 10, 2);
 				}
 				
 			if ( '1' == anr_get_option( 'wc_checkout' )) {
@@ -36,7 +38,7 @@ if (!class_exists('anr_captcha_class'))
 			
 			if ( '1' == anr_get_option( 'registration' )) {
 					add_action ('register_form', array($this, 'form_field'), 99);
-                    add_action ('woocommerce_register_form', array($this, 'form_field'), 99);
+					add_action ('woocommerce_register_form', array($this, 'form_field'), 99);
 					add_filter ('registration_errors', array($this, 'registration_verify'), 10, 3 );
 					add_filter ('woocommerce_registration_errors', array($this, 'registration_verify'), 10, 3 );
 					add_action ('woocommerce_checkout_after_order_review', array($this, 'wc_form_field') );
@@ -51,12 +53,12 @@ if (!class_exists('anr_captcha_class'))
 					add_action ('lostpassword_form', array($this, 'form_field'), 99);
 					add_action ('woocommerce_lostpassword_form', array($this, 'form_field'), 99);
 					//add_action ('allow_password_reset', array($this, 'lostpassword_verify'), 10, 2); //lostpassword_post does not return wp_error( prior WP 4.4 )
-                    add_action('lostpassword_post', array($this, 'lostpassword_verify_44'));
+					add_action('lostpassword_post', array($this, 'lostpassword_verify_44'));
 				}
 				
 			if ( '1' == anr_get_option( 'reset_password' )) {
 					add_action ('resetpass_form', array($this, 'form_field'), 99);
-					add_action ('woocommerce_lostpassword_form', array($this, 'form_field'), 99);
+					add_action ('woocommerce_resetpassword_form', array($this, 'form_field'), 99);
 					add_filter ('validate_password_reset', array($this, 'reset_password_verify'), 10, 2 );
 				}
 					
@@ -68,11 +70,14 @@ if (!class_exists('anr_captcha_class'))
 					}
 					add_filter ('preprocess_comment', array($this, 'comment_verify') );
 				}
-			
-			if ( function_exists( 'wpcf7_add_shortcode' )) {
-					wpcf7_add_shortcode('anr_nocaptcha', array($this, 'wpcf7_form_field'), true);
-					add_filter('wpcf7_validate_anr_nocaptcha', array($this, 'wpcf7_verify'), 10, 2);
-				}
+
+			if ( function_exists( 'wpcf7_add_form_tag' ) ) {
+				wpcf7_add_form_tag('anr_nocaptcha', array($this, 'wpcf7_form_field'), array( 'name-attr' => true ) );
+				add_filter('wpcf7_validate_anr_nocaptcha', array($this, 'wpcf7_verify'), 10, 2);
+			} elseif( function_exists( 'wpcf7_add_shortcode' ) ){
+				wpcf7_add_shortcode('anr_nocaptcha', array($this, 'wpcf7_form_field'), true);
+				add_filter('wpcf7_validate_anr_nocaptcha', array($this, 'wpcf7_verify'), 10, 2);
+			}
 				
 			if ( '1' == anr_get_option( 'bb_new' )) {
 					add_action ('bbp_theme_before_topic_form_submit_wrapper', array($this, 'form_field'), 99);
@@ -83,7 +88,7 @@ if (!class_exists('anr_captcha_class'))
 					add_action ('bbp_theme_before_reply_form_submit_wrapper', array($this, 'form_field'), 99);
 					add_action ('bbp_new_reply_pre_extras', array($this, 'bb_reply_verify'), 10, 2 );
 				}
-    	}
+		}
 		
 	function total_captcha()
 	{
@@ -150,20 +155,40 @@ if (!class_exists('anr_captcha_class'))
 		
 		?>
 	<script type="text/javascript">
-      var anr_onloadCallback = function() {
+	  var anr_onloadCallback = function() {
+		 var anr_obj = {
+			 'sitekey' : '<?php echo esc_js( $site_key ); ?>',
+			 'size' : '<?php echo esc_js( $size ); ?>',
+		 };
+		 <?php if( 'invisible' == $size ){
+			 wp_enqueue_script( 'jquery' ); ?>
+			 anr_obj.badge = '<?php echo esc_js( anr_get_option( 'badge', 'bottomright' ) ); ?>';
+		<?php } else { ?>
+			anr_obj.theme = '<?php echo esc_js( $theme ); ?>';
+		<?php } ?>
+		
 	  <?php for ( $num = 1; $num <= $number; $num++ ) { ?>
 				var anr_captcha_<?php echo $num; ?>;
-				anr_captcha_<?php echo $num; ?> = grecaptcha.render('anr_captcha_field_<?php echo $num; ?>', {
-				  'sitekey' : '<?php echo esc_js( $site_key ); ?>',
-				  'theme' : '<?php echo esc_js( $theme ); ?>',
-				  'size' : '<?php echo esc_js( $size ); ?>'
-				});
+				
+			<?php if( 'invisible' == $size ){ ?>
+				var anr_form<?php echo $num; ?> = jQuery('#anr_captcha_field_<?php echo $num; ?>').closest('form')[0];
+				anr_obj.callback = function(){ anr_form<?php echo $num; ?>.submit(); };
+				anr_obj["expired-callback"] = function(){ grecaptcha.reset(anr_captcha_<?php echo $num; ?>); };
+				
+				anr_form<?php echo $num; ?>.onsubmit = function(evt){
+					evt.preventDefault();
+					//grecaptcha.reset(anr_captcha_<?php echo $num; ?>);
+					grecaptcha.execute(anr_captcha_<?php echo $num; ?>);
+				};
+		   <?php } ?>
+			
+			anr_captcha_<?php echo $num; ?> = grecaptcha.render('anr_captcha_field_<?php echo $num; ?>', anr_obj );
 		<?php } ?>
-      };
-    </script>
+	  };
+	</script>
 	<script src="https://www.google.com/recaptcha/api.js?onload=anr_onloadCallback&render=explicit<?php echo esc_js( $lang ); ?>"
-        async defer>
-    </script>
+		async defer>
+	</script>
 
 		<?php 
 
@@ -177,9 +202,56 @@ if (!class_exists('anr_captcha_class'))
 			if ( is_user_logged_in() && $loggedin_hide )
 				return;
 				
-			anr_captcha_form_field();
+			anr_captcha_form_field( true );
 			
 		}
+		
+	function post_id(){
+		global $wpdb;
+		static $post_id;
+		
+		if( ! absint( anr_get_option( 'failed_login_allow' ) ) ){
+			return 0;
+		}
+		if( is_numeric( $post_id ) ){
+			return $post_id;
+		}
+		$post_id = $wpdb->get_var( "SELECT ID FROM $wpdb->posts WHERE post_type = 'anr-post' LIMIT 1");
+		
+		if( ! $post_id ){
+			$wpdb->insert( $wpdb->posts, array( 'post_type' => 'anr-post' ) );
+			$post_id = $wpdb->insert_id;
+		}
+		$post_id = absint( $post_id );
+		
+		return $post_id;
+	}
+	
+	function show_login_captcha(){
+		global $wpdb;
+		
+		$show_captcha = true;
+		$ip = $_SERVER['REMOTE_ADDR'];
+		//filter_var( $ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE );
+		$count = absint( anr_get_option( 'failed_login_allow' ) );
+		$post_id = $this->post_id();
+		
+		if( $count && $post_id && filter_var( $ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE ) ){
+			$user_logins = $wpdb->get_col( $wpdb->prepare( "SELECT meta_value FROM $wpdb->postmeta WHERE post_id = %d AND meta_key = %s", $post_id, md5( $ip ) ) );
+			
+			if( count( $user_logins ) < $count && count( array_unique( $user_logins ) ) <= 1 ){
+				$show_captcha = false;
+			}
+		}
+
+		return $show_captcha;
+	}
+	function login_form_field()
+	{	
+		if( $this->show_login_captcha() ){
+			$this->form_field();
+		}
+	}
 	
 	function wc_form_field()
 		{
@@ -205,7 +277,7 @@ if (!class_exists('anr_captcha_class'))
 					echo '<p class="error">' . $errmsg . '</p>';
 				}
 
-				anr_captcha_form_field();
+				anr_captcha_form_field( true );
 
 		}
 		
@@ -243,15 +315,39 @@ if (!class_exists('anr_captcha_class'))
 			}
 		}
 		
-	function login_verify ( $user )
+	function login_verify ( $user, $username = '', $password = '' )
 		{
-			if ( ! $this->verify() ) {
+			global $wpdb;
+			
+			$show_captcha = $this->show_login_captcha();
+			
+			if ( ! ( $user instanceof WP_User ) ){
+				if( ! $show_captcha && $username && ( $post_id = $this->post_id() ) ){
+					if( is_email( $username ) ){
+						$user_data = get_user_by( 'email', $username );
+						if( $user_data ){
+							$username = $user_data->user_login;
+						}
+					}
+					$wpdb->insert( $wpdb->postmeta, array( 'post_id' => $post_id, 'meta_key' => md5( $_SERVER['REMOTE_ADDR'] ), 'meta_value' => $username ), array( '%d', '%s', '%s' ) );
+				}
+				return $user;
+			}
+			if ( $show_captcha && ! $this->verify() ) {
 				$error_message = anr_get_option( 'error_message' );
 				return new WP_Error( 'anr_error', $error_message );
 			}
 			
 			return $user;
 		}
+	
+	function clear_data( $user_login, $user ){
+		global $wpdb;
+		
+		if( $post_id = $this->post_id() ){
+			$wpdb->query( $wpdb->prepare( "DELETE FROM $wpdb->postmeta WHERE post_id = %d AND ( meta_key = %s OR meta_value = %s )", $post_id, md5( $_SERVER['REMOTE_ADDR'] ), $user_login ) );
+		}
+	}
 		
 	function registration_verify (  $errors, $sanitized_user_login, $user_email )
 		{
@@ -283,8 +379,8 @@ if (!class_exists('anr_captcha_class'))
 			
 			return $result;
 		}
-        
-    function lostpassword_verify_44( $errors )
+		
+	function lostpassword_verify_44( $errors )
 		{
 			if ( ! $this->verify() ) {
 				$error_message = anr_get_option( 'error_message' );
@@ -313,33 +409,21 @@ if (!class_exists('anr_captcha_class'))
 			return $commentdata;
 		}
 		
-	function wpcf7_form_field( $tags )
+	function wpcf7_form_field( $tag )
 		{
 			$loggedin_hide 	= anr_get_option( 'loggedin_hide' ); 
 			
 			if ( is_user_logged_in() && $loggedin_hide )
-				return;
+				return '';
 				
-				return anr_captcha_form_field( false )."<span class='wpcf7-form-control-wrap g-recaptcha-response'></span>";
-			
-			
+			return anr_captcha_form_field( false ). sprintf( '<span class="wpcf7-form-control-wrap %s"></span>', $tag->name );
 		}
 		
 	function wpcf7_verify( $result, $tag  )
 		{
-			$tag = new WPCF7_Shortcode( $tag );
-			$name = $tag->name;
-			
 			if ( ! $this->verify() ) {
-			
-				$error_message = anr_get_option( 'error_message' ).'<button onclick="javascript:location.reload();">Reload Captcha</button>';
-				
-				if ( method_exists($result, 'invalidate' ) ) { // wpcf7 4.1
-					$result->invalidate( $tag, $error_message );
-				} else {
-					$result['valid'] = false;
-					$result['reason'][$name] = $error_message;
-				}
+				$error_message = str_replace(__('<strong>ERROR</strong>: ', 'advanced-nocaptcha-recaptcha'), '', anr_get_option( 'error_message' ));
+				$result->invalidate( $tag, $error_message );
 			}
 
 		return $result;

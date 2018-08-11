@@ -1,17 +1,17 @@
 <?php
 /*
-Plugin Name: Advanced noCaptcha reCaptcha
-Plugin URI: https://shamimbiplob.wordpress.com/contact-us/
-Description: Show noCaptcha in Comment Form (after Comment textarea before submit button), Contact Form 7, bbPress, Login, Register, Lost Password, Reset Password. Also can implement in any other form easily.
-Version: 2.4
+Plugin Name: Advanced noCaptcha & invisible Captcha
+Plugin URI: https://www.shamimsplugins.com/contact-us/
+Description: Show noCaptcha or invisible captcha in Comment Form (after Comment textarea before submit button), bbPress, Login, Register, Lost Password, Reset Password. Also can implement in any other form easily.
+Version: 2.7
 Author: Shamim
-Author URI: https://shamimbiplob.wordpress.com/contact-us/
+Author URI: https://www.shamimsplugins.com/contact-us/
 Text Domain: advanced-nocaptcha-recaptcha
 License: GPLv2 or later
 */
 //DEFINE
-define('ANR_PLUGIN_DIR',plugin_dir_path( __FILE__ ));
-define('ANR_PLUGIN_URL',plugins_url().'/advanced-nocaptcha-recaptcha/');
+define('ANR_PLUGIN_DIR', plugin_dir_path( __FILE__ ));
+define('ANR_PLUGIN_URL', plugins_url( '/', __FILE__ ) );
 
 require_once('functions.php');
 
