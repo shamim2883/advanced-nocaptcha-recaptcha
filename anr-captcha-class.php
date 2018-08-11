@@ -236,7 +236,7 @@ if (!class_exists('anr_captcha_class'))
 		$count = absint( anr_get_option( 'failed_login_allow' ) );
 		$post_id = $this->post_id();
 		
-		if( $count && $post_id && filter_var( $ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE ) ){
+		if( $count && $post_id && filter_var( $ip, FILTER_VALIDATE_IP ) ){
 			$user_logins = $wpdb->get_col( $wpdb->prepare( "SELECT meta_value FROM $wpdb->postmeta WHERE post_id = %d AND meta_key = %s", $post_id, md5( $ip ) ) );
 			
 			if( count( $user_logins ) < $count && count( array_unique( $user_logins ) ) <= 1 ){
