@@ -3,8 +3,8 @@
 Plugin Name: Advanced noCaptcha & invisible Captcha
 Plugin URI: https://www.shamimsplugins.com/contact-us/
 Description: Show noCaptcha or invisible captcha in Comment Form (after Comment textarea before submit button), bbPress, Login, Register, Lost Password, Reset Password. Also can implement in any other form easily.
-Version: 2.7
-Author: Shamim
+Version: 2.8
+Author: Shamim Hasan
 Author URI: https://www.shamimsplugins.com/contact-us/
 Text Domain: advanced-nocaptcha-recaptcha
 License: GPLv2 or later
