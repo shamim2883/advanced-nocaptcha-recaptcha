@@ -490,5 +490,5 @@ if (!class_exists('anr_captcha_class'))
   } //END CLASS
 } //ENDIF
 
-add_action('init', array(anr_captcha_class::init(), 'actions_filters'));
+add_action( 'after_setup_theme', array( anr_captcha_class::init(), 'actions_filters' ), 999 );
 
