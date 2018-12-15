@@ -41,8 +41,8 @@ if (!class_exists('anr_captcha_class'))
 					add_action ('register_form', array($this, 'form_field'), 99);
 					add_action ('woocommerce_register_form', array($this, 'form_field'), 99);
 					add_filter ('registration_errors', array($this, 'registration_verify'), 10, 3 );
-					add_filter ('woocommerce_registration_errors', array($this, 'registration_verify'), 10, 3 );
-					add_action ('woocommerce_checkout_after_order_review', array($this, 'wc_form_field') );
+					add_filter ('woocommerce_registration_errors', array($this, 'wc_registration_verify'), 10, 3 );
+					//add_action ('woocommerce_checkout_after_order_review', array($this, 'wc_form_field') );
 				}
 			
 			if ( '1' == anr_get_option( 'ms_user_signup' )) {
@@ -371,6 +371,18 @@ if (!class_exists('anr_captcha_class'))
 			
 			return $errors;
 		}
+        
+    function wc_registration_verify (  $errors, $sanitized_user_login, $user_email ){
+        if ( defined( 'WOOCOMMERCE_CHECKOUT' ) && ! anr_get_option( 'wc_checkout' ) ) {
+            return $errors;
+        }
+		if ( ! $this->verify() ) {
+			$error_message = anr_get_option( 'error_message' );
+			$errors->add( 'anr_error', $error_message );
+		}
+		
+		return $errors;
+	}
 	
 	function ms_form_field_verify( $result )
 
@@ -462,8 +474,9 @@ if (!class_exists('anr_captcha_class'))
 	
 	function wc_checkout_verify()
 		{
+            $is_reg_enable = apply_filters( 'woocommerce_checkout_registration_enabled', 'yes' === get_option( 'woocommerce_enable_signup_and_login_from_checkout' ) );
 			
-			if( ! is_user_logged_in() && 'yes' == get_option( 'woocommerce_enable_signup_and_login_from_checkout', 'yes' ) && '1' == anr_get_option( 'registration' ) ){
+			if( ! is_user_logged_in() && $is_reg_enable && '1' == anr_get_option( 'registration' ) ){
 				// verification done during ragistration, So no need any more verification
 				
 			} elseif( ! $this->verify() ){

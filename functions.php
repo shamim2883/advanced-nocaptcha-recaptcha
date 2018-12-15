@@ -75,17 +75,12 @@ function anr_login_enqueue_scripts()
 	
 function anr_include_require_files() 
 	{
-	if ( is_admin() ) 
-		{
-			$fep_files = array(
-							'admin' => 'admin/anr-admin-class.php'
-							);
-										
-		} else {
-			$fep_files = array(
-							'main' => 'anr-captcha-class.php'
-							);
-				}
+		$fep_files = array(
+			'main' => 'anr-captcha-class.php'
+		);
+	if ( is_admin() ) {
+			$fep_files['admin'] = 'admin/anr-admin-class.php';
+	}
 					
 	$fep_files = apply_filters('anr_include_files', $fep_files );
 	

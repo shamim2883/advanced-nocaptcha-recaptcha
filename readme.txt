@@ -3,8 +3,8 @@ Contributors: shamim51
 Tags: recaptcha,nocaptcha,invisible,no captcha,bot,spam,captcha,woocommerce captcha,woocommerce nocaptcha, woocommerce,widget,plugin,sidebar,shortcode,page,posts,comments,google,bbpress,multisite,multiple
 Donate link: https://www.paypal.me/hasanshamim
 Requires at least: 4.4
-Tested up to: 4.9.8
-Stable tag: 2.8
+Tested up to: 5.0.1
+Stable tag: 3.1
 Requires PHP: 5.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -80,6 +80,11 @@ To show noCaptcha use [anr_nocaptcha g-recaptcha-response]
 8. Advanced noCaptcha reCaptcha Setup Instruction
 
 == Changelog ==
+
+= 3.1 =
+
+* Sometimes fatal error if is_admin return true in front-end.
+* Do not show captcha in checkout if not checked for checkout.
 
 = 2.8 =
 

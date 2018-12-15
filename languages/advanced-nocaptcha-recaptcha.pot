@@ -1,8 +1,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Advanced noCaptcha reCaptcha 2.5\n"
-"POT-Creation-Date: 2018-06-25 00:44+0600\n"
+"Project-Id-Version: Advanced noCaptcha reCaptcha 3.1\n"
+"POT-Creation-Date: 2018-12-15 19:18+0600\n"
 "PO-Revision-Date: 2018-04-12 17:20+0600\n"
 "Last-Translator: \n"
 "Language-Team: Shamim\n"
@@ -375,7 +375,7 @@ msgstr ""
 msgid "Save Options"
 msgstr ""
 
-#: admin/anr-admin-class.php:213 admin/anr-admin-class.php:297
+#: admin/anr-admin-class.php:213 admin/anr-admin-class.php:303
 #, php-format
 msgid ""
 "For paid support pleasse visit <a href='%s' target='_blank'>Advanced "
@@ -394,57 +394,57 @@ msgstr ""
 msgid "Sorry, your nonce did not verify!"
 msgstr ""
 
-#: admin/anr-admin-class.php:283
+#: admin/anr-admin-class.php:289
 msgid "Advanced noCaptcha reCaptcha Setup Instruction"
 msgstr ""
 
-#: admin/anr-admin-class.php:285
+#: admin/anr-admin-class.php:291
 #, php-format
 msgid ""
 "Get your site key and secret key from <a href='%s' target='_blank'>GOOGLE</"
 "a> if you do not have already."
 msgstr ""
 
-#: admin/anr-admin-class.php:286
+#: admin/anr-admin-class.php:292
 msgid "Goto SETTINGS page of this plugin and set up as you need. and ENJOY..."
 msgstr ""
 
-#: admin/anr-admin-class.php:288
+#: admin/anr-admin-class.php:294
 msgid "Implement noCaptcha in Contact Form 7"
 msgstr ""
 
-#: admin/anr-admin-class.php:289
+#: admin/anr-admin-class.php:295
 msgid "To show noCaptcha use "
 msgstr ""
 
-#: admin/anr-admin-class.php:291
+#: admin/anr-admin-class.php:297
 msgid "Implement noCaptcha in WooCommerce"
 msgstr ""
 
-#: admin/anr-admin-class.php:292
+#: admin/anr-admin-class.php:298
 msgid ""
 "If Login Form, Registration Form, Lost Password Form, Reset Password Form is "
 "selected in SETTINGS page of this plugin they will show and verify Captcha "
 "in WooCommerce respective forms also."
 msgstr ""
 
-#: admin/anr-admin-class.php:294
+#: admin/anr-admin-class.php:300
 msgid "If you want to implement noCaptcha in any other custom form"
 msgstr ""
 
-#: admin/anr-admin-class.php:295
+#: admin/anr-admin-class.php:301
 msgid "To show form field use "
 msgstr ""
 
-#: admin/anr-admin-class.php:296
+#: admin/anr-admin-class.php:302
 msgid "To verify use "
 msgstr ""
 
-#: admin/anr-admin-class.php:308
+#: admin/anr-admin-class.php:314
 msgid "Settings"
 msgstr ""
 
-#: anr-captcha-class.php:311 anr-captcha-class.php:366
-#: anr-captcha-class.php:425
+#: anr-captcha-class.php:324 anr-captcha-class.php:391
+#: anr-captcha-class.php:450
 msgid "<strong>ERROR</strong>: "
 msgstr ""
