@@ -43,6 +43,7 @@ if (!class_exists('anr_admin_class'))
 	//add_submenu_page('anr-admin-settings', 'Advanced noCaptcha reCaptcha - ' .__('Instruction','fepcf'), __('Instruction','fepcf'), 'manage_options', 'anr-instruction', array($this, "InstructionPage"));
 	
 	add_options_page( __('Advanced noCaptcha & invisible captcha Settings','advanced-nocaptcha-recaptcha'), __('Advanced noCaptcha & invisible captcha','advanced-nocaptcha-recaptcha'), 'manage_options', 'anr-admin-settings', array($this, 'admin_settings') );
+    add_submenu_page('anr-non-exist-menu', 'Advanced noCaptcha reCaptcha - ' .__('Instruction','advanced-nocaptcha-recaptcha'), __('Instruction','advanced-nocaptcha-recaptcha'), 'manage_options', 'anr-instruction', array($this, "InstructionPage"));
 	
 	}
 	
@@ -210,6 +211,7 @@ if (!class_exists('anr_admin_class'))
 		  <tr><td colspan='2'><span><input class='button-primary' type='submit' name='anr-admin-settings-submit' value='".__("Save Options", 'advanced-nocaptcha-recaptcha')."' /></span></td><td><input type='hidden' name='token' value='$token' /></td></tr>
 		  </table>
 		  </form>
+          <ul><a href='" . esc_url( admin_url( 'admin.php?page=anr-instruction' ) ) . "'>" . __( 'Setup Instruction', 'front-end-pm' ) . "</a></ul>
 		  <ul>".sprintf(__("For paid support pleasse visit <a href='%s' target='_blank'>Advanced noCaptcha reCaptcha</a>", 'advanced-nocaptcha-recaptcha'),esc_url($url))."</ul>
 		  </div></div></div>
 		  ". $this->anr_admin_sidebar(). "
@@ -279,6 +281,7 @@ function anr_admin_sidebar()
 	{
 	$url = 'https://www.shamimsplugins.com/contact-us/';
 	echo '<div id="poststuff">
+    <div><a class="button" href="' . esc_url( admin_url( 'options-general.php?page=anr-admin-settings' ) ) . '">' . esc_html__( 'Back to Settings', 'advanced-nocaptcha-recaptcha' ) . '</a></div>
 
 		<div id="post-body" class="metabox-holder columns-2">
 
@@ -289,7 +292,7 @@ function anr_admin_sidebar()
 		  <h2>".__("Advanced noCaptcha reCaptcha Setup Instruction", 'advanced-nocaptcha-recaptcha')."</h2>
 		  <p><ul>
 		  <li>".sprintf(__("Get your site key and secret key from <a href='%s' target='_blank'>GOOGLE</a> if you do not have already.", 'advanced-nocaptcha-recaptcha'),esc_url('https://www.google.com/recaptcha/admin'))."</li>
-		  <li>".__("Goto SETTINGS page of this plugin and set up as you need. and ENJOY...", 'advanced-nocaptcha-recaptcha')."</li><br/>
+		  <li>".sprintf(__("Goto %s page of this plugin and set up as you need. and ENJOY...", 'advanced-nocaptcha-recaptcha'), '<a href="' . esc_url( admin_url( 'options-general.php?page=anr-admin-settings' ) ) . '">' . esc_html__( 'Settings', 'advanced-nocaptcha-recaptcha' ) . '</a>' ) . "</li><br/>
 		  
 		  <h3>".__("Implement noCaptcha in Contact Form 7", 'advanced-nocaptcha-recaptcha')."</h3><br />
 		  <li>".__("To show noCaptcha use ", 'advanced-nocaptcha-recaptcha')."<code>[anr_nocaptcha g-recaptcha-response]</code></li><br />
@@ -298,10 +301,13 @@ function anr_admin_sidebar()
 		  <li>".__("If Login Form, Registration Form, Lost Password Form, Reset Password Form is selected in SETTINGS page of this plugin they will show and verify Captcha in WooCommerce respective forms also.", 'advanced-nocaptcha-recaptcha')."</li><br />
 		  
 		  <h3>".__("If you want to implement noCaptcha in any other custom form", 'advanced-nocaptcha-recaptcha')."</h3><br />
-		  <li>".__("To show form field use ", 'advanced-nocaptcha-recaptcha')."<code>do_action( 'anr_captcha_form_field' )</code></li>
+		  <li>".__("To show noCaptcha in a form use ", 'advanced-nocaptcha-recaptcha')."<code>do_action( 'anr_captcha_form_field' )</code> OR <code>[anr-captcha]</code></li>
 		  <li>".__("To verify use ", 'advanced-nocaptcha-recaptcha')."<code>anr_verify_captcha()</code> it will return true on success otherwise false</li><br />
 		  <li>".sprintf(__("For paid support pleasse visit <a href='%s' target='_blank'>Advanced noCaptcha reCaptcha</a>", 'advanced-nocaptcha-recaptcha'),esc_url($url))."</li>
-		  </ul></p></div></div></div>
+		  </ul></p></div>
+          </div>
+          <div><a class='button' href='" . esc_url( admin_url( 'options-general.php?page=anr-admin-settings' ) ) . "'>" . esc_html__( 'Back to Settings', 'advanced-nocaptcha-recaptcha' ) . "</a></div>
+          </div>
 		  ". $this->anr_admin_sidebar(). "
 		  </div></div>";
 		  }
