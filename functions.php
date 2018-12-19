@@ -1,5 +1,14 @@
 <?php
 
+add_action( 'after_setup_theme', 'anr_plugin_update' );
+
+function anr_plugin_update() {
+	$prev_version = anr_get_option( 'version', '3.1' );
+	if ( version_compare( $prev_version, ANR_PLUGIN_VERSION, '!=' ) ) {
+		do_action( 'anr_plugin_update', $prev_version );
+		anr_update_option( 'version', ANR_PLUGIN_VERSION );
+	}
+}
 
 function anr_get_option( $option, $default = '', $section = 'anr_admin_options' ) {
 	
