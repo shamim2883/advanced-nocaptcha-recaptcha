@@ -141,11 +141,10 @@ function anr_enqueue_scripts()
 	
 function anr_login_enqueue_scripts()
     {
-		$remove_css	= trim(anr_get_option( 'remove_css' ));
 		
-		if ( !$remove_css )
-		wp_enqueue_style( 'anr-login-style', ANR_PLUGIN_URL . 'style/style.css' );
-		
+		if ( ! anr_get_option( 'remove_css' ) && 'normal' === anr_get_option( 'size', 'normal' ) ) {
+			wp_enqueue_style( 'anr-login-style', ANR_PLUGIN_URL . 'style/style.css' );
+		}
 	}
 	
 function anr_include_require_files() 
