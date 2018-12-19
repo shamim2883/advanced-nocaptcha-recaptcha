@@ -91,6 +91,13 @@ if (!class_exists('anr_captcha_class'))
 				}
 		}
 		
+		function add_error_to_mgs( $mgs = false ) {
+			if ( false === $mgs ) {
+				$mgs = anr_get_option( 'error_message', '' );
+			}
+			return '<strong>' . __( 'ERROR', 'advanced-nocaptcha-recaptcha' ) . '</strong>: ' . $mgs;
+		}
+		
 	function total_captcha()
 	{
 		return self::$captcha_count;
