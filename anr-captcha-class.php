@@ -328,10 +328,9 @@ if (!class_exists('anr_captcha_class'))
 		
 	function fepcf_verify ( $errors )
 		{
-			$error_message = str_replace(__('<strong>ERROR</strong>: ', 'advanced-nocaptcha-recaptcha'), '', anr_get_option( 'error_message' ));
 			
-			if ( ! $this->verify() ){	
-				$errors->add('anr_error', $error_message);
+			if ( ! $this->verify() ){
+				$errors->add('anr_error', anr_get_option( 'error_message' ) );
 			}
 		}
 		
@@ -354,8 +353,7 @@ if (!class_exists('anr_captcha_class'))
 				return $user;
 			}
 			if ( $show_captcha && ! $this->verify() ) {
-				$error_message = anr_get_option( 'error_message' );
-				return new WP_Error( 'anr_error', $error_message );
+				return new WP_Error( 'anr_error', $this->add_error_to_mgs() );
 			}
 			
 			return $user;
@@ -372,8 +370,7 @@ if (!class_exists('anr_captcha_class'))
 	function registration_verify (  $errors, $sanitized_user_login, $user_email )
 		{
 			if ( ! $this->verify() ) {
-				$error_message = anr_get_option( 'error_message' );
-				$errors->add( 'anr_error', $error_message );
+				$errors->add( 'anr_error', $this->add_error_to_mgs() );
 			}
 			
 			return $errors;
@@ -384,8 +381,7 @@ if (!class_exists('anr_captcha_class'))
 			return $errors;
 		}
 		if ( ! $this->verify() ) {
-			$error_message = anr_get_option( 'error_message' );
-			$errors->add( 'anr_error', $error_message );
+			$errors->add( 'anr_error', $this->add_error_to_mgs() );
 		}
 		
 		return $errors;
@@ -395,8 +391,7 @@ if (!class_exists('anr_captcha_class'))
 
 		{
 			if ( ! $this->verify() ) {
-				$error_message = str_replace(__('<strong>ERROR</strong>: ', 'advanced-nocaptcha-recaptcha'), '', anr_get_option( 'error_message' ));
-				$result['errors']->add( 'anr_error', $error_message );
+				$result['errors']->add( 'anr_error', anr_get_option( 'error_message' ) );
 			}
 
 			return $result;
@@ -405,8 +400,7 @@ if (!class_exists('anr_captcha_class'))
 	function lostpassword_verify( $result, $user_id )
 		{
 			if ( ! $this->verify() ) {
-				$error_message = anr_get_option( 'error_message' );
-				return new WP_Error( 'anr_error', $error_message );
+				return new WP_Error( 'anr_error', $this->add_error_to_mgs() );
 			}
 			
 			return $result;
@@ -415,8 +409,7 @@ if (!class_exists('anr_captcha_class'))
 	function lostpassword_verify_44( $errors )
 		{
 			if ( ! $this->verify() ) {
-				$error_message = anr_get_option( 'error_message' );
-				$errors->add('anr_error', $error_message);
+				$errors->add('anr_error', $this->add_error_to_mgs() );
 			}
 		}
 		
@@ -425,8 +418,7 @@ if (!class_exists('anr_captcha_class'))
 		{
 			
 			if ( ! $this->verify() ) {
-				$error_message = anr_get_option( 'error_message' );
-				$errors->add('anr_error', $error_message);
+				$errors->add('anr_error', $this->add_error_to_mgs() );
 			}
 		}
 		
@@ -434,8 +426,7 @@ if (!class_exists('anr_captcha_class'))
 		{
 			
 			if ( ! $this->verify() ) {
-				$error_message = anr_get_option( 'error_message' );
-				wp_die( $error_message, 200 );
+				wp_die( $this->add_error_to_mgs(), 200 );
 			}
 			
 			return $commentdata;
@@ -454,8 +445,7 @@ if (!class_exists('anr_captcha_class'))
 	function wpcf7_verify( $result, $tag  )
 		{
 			if ( ! $this->verify() ) {
-				$error_message = str_replace(__('<strong>ERROR</strong>: ', 'advanced-nocaptcha-recaptcha'), '', anr_get_option( 'error_message' ));
-				$result->invalidate( $tag, $error_message );
+				$result->invalidate( $tag, anr_get_option( 'error_message' ) );
 			}
 
 		return $result;
@@ -465,8 +455,7 @@ if (!class_exists('anr_captcha_class'))
 		{
 			
 			if ( ! $this->verify() ) {
-				$error_message = anr_get_option( 'error_message' );
-				bbp_add_error('anr_error', $error_message);
+				bbp_add_error('anr_error', $this->add_error_to_mgs() );
 			}
 		}
 		
@@ -474,8 +463,7 @@ if (!class_exists('anr_captcha_class'))
 		{
 			
 			if ( ! $this->verify() ) {
-				$error_message = anr_get_option( 'error_message' );
-				bbp_add_error('anr_error', $error_message);
+				bbp_add_error('anr_error', $this->add_error_to_mgs() );
 			}
 		}
 	
@@ -487,9 +475,7 @@ if (!class_exists('anr_captcha_class'))
 				// verification done during ragistration, So no need any more verification
 				
 			} elseif( ! $this->verify() ){
-
-				$error_message = anr_get_option( 'error_message' );
-				wc_add_notice( $error_message, 'error' );
+				wc_add_notice( $this->add_error_to_mgs(), 'error' );
 			}
 		}
 
