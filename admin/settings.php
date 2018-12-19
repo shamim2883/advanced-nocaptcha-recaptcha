@@ -231,19 +231,19 @@ class ANR_Settings {
 	function callback( $field ) {
 		$attrib = '';
 		if ( ! empty( $field['required'] ) ) {
-			$attrib .= 'required = "required" ';
+			$attrib .= ' required = "required"';
 		}
 		if ( ! empty( $field['readonly'] ) ) {
-			$attrib .= 'readonly = "readonly" ';
+			$attrib .= ' readonly = "readonly"';
 		}
 		if ( ! empty( $field['disabled'] ) ) {
-			$attrib .= 'disabled = "disabled" ';
+			$attrib .= ' disabled = "disabled"';
 		}
 		if ( ! empty( $field['minlength'] ) ) {
-			$attrib .= 'minlength = "' . absint( $field['minlength'] ) . '" ';
+			$attrib .= ' minlength = "' . absint( $field['minlength'] ) . '"';
 		}
 		if ( ! empty( $field['maxlength'] ) ) {
-			$attrib .= 'maxlength = "' . absint( $field['maxlength'] ) . '" ';
+			$attrib .= ' maxlength = "' . absint( $field['maxlength'] ) . '"';
 		}
 
 		$value = anr_get_option( $field['id'], $field['std'] );
@@ -256,7 +256,7 @@ class ANR_Settings {
 			case 'hidden':
 			case 'submit':
 				printf(
-					'<input type="%1$s" id="anr_admin_options[%2$s]" class="%3$s" name="anr_admin_options[%4$s]" placeholder="%5$s" value="%6$s" %7$s />',
+					'<input type="%1$s" id="anr_admin_options[%2$s]" class="%3$s" name="anr_admin_options[%4$s]" placeholder="%5$s" value="%6$s"%7$s />',
 					esc_attr( $field['type'] ),
 					esc_attr( $field['id'] ),
 					esc_attr( $field['class'] ),
@@ -269,7 +269,7 @@ class ANR_Settings {
 			case 'checkbox':
 				printf( '<input type="hidden" name="anr_admin_options[%s]" value="" />', esc_attr( $field['id'] ) );
 				printf(
-					'<label><input type="%1$s" id="anr_admin_options[%2$s]" class="%3$s" name="anr_admin_options[%4$s]" value="%5$s" %6$s /> %7$s</label>',
+					'<label><input type="%1$s" id="anr_admin_options[%2$s]" class="%3$s" name="anr_admin_options[%4$s]" value="%5$s"%6$s /> %7$s</label>',
 					'checkbox',
 					esc_attr( $field['id'] ),
 					esc_attr( $field['class'] ),
@@ -283,7 +283,7 @@ class ANR_Settings {
 				printf( '<input type="hidden" name="anr_admin_options[%s][]" value="" />', esc_attr( $field['id'] ) );
 				foreach ( $field['options'] as $key => $label ) {
 					printf(
-						'<label><input type="%1$s" id="anr_admin_options[%2$s][%5$s]" class="%3$s" name="anr_admin_options[%4$s][]" value="%5$s" %6$s /> %7$s</label><br>',
+						'<label><input type="%1$s" id="anr_admin_options[%2$s][%5$s]" class="%3$s" name="anr_admin_options[%4$s][]" value="%5$s"%6$s /> %7$s</label><br>',
 						'checkbox',
 						esc_attr( $field['id'] ),
 						esc_attr( $field['class'] ),
