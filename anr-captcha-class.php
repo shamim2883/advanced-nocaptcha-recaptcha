@@ -337,11 +337,14 @@ if (!class_exists('anr_captcha_class'))
 	function login_verify ( $user, $username = '', $password = '' )
 		{
 			global $wpdb;
+			if ( ! $username ) {
+				return $user;
+			}
 			
 			$show_captcha = $this->show_login_captcha();
 			
 			if ( ! ( $user instanceof WP_User ) ){
-				if( ! $show_captcha && $username && ( $post_id = $this->post_id() ) ){
+				if( ! $show_captcha && ( $post_id = $this->post_id() ) ){
 					if( is_email( $username ) ){
 						$user_data = get_user_by( 'email', $username );
 						if( $user_data ){
@@ -350,7 +353,7 @@ if (!class_exists('anr_captcha_class'))
 					}
 					$wpdb->insert( $wpdb->postmeta, array( 'post_id' => $post_id, 'meta_key' => md5( $_SERVER['REMOTE_ADDR'] ), 'meta_value' => $username ), array( '%d', '%s', '%s' ) );
 				}
-				return $user;
+				//return $user;
 			}
 			if ( $show_captcha && ! $this->verify() ) {
 				return new WP_Error( 'anr_error', $this->add_error_to_mgs() );
