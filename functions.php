@@ -10,6 +10,61 @@ function anr_plugin_update() {
 	}
 }
 
+add_action( 'anr_plugin_update', 'anr_plugin_update_32' );
+
+function anr_plugin_update_32( $prev_version ){
+	if ( version_compare( $prev_version, '3.2', '<' ) ) {
+		if ( is_multisite() ) {
+			$same_settings = apply_filters( 'anr_same_settings_for_all_sites', false );
+		} else {
+			$same_settings = false;
+		}
+		if ( $same_settings ) {
+			$options = get_site_option( 'anr_admin_options' );
+		} else {
+			$options = get_option( 'anr_admin_options' );
+		}
+		if ( ! $options || ! is_array( $options ) ) {
+			return;
+		}
+		$options['error_message'] = str_replace( __( '<strong>ERROR</strong>: ', 'advanced-nocaptcha-recaptcha' ), '', anr_get_option( 'error_message' ) );
+		
+		$forms = [];
+		if ( ! empty( $options['login'] ) ) {
+			$forms[] = 'login';
+		}
+		if ( ! empty( $options['registration'] ) ) {
+			$forms[] = 'registration';
+		}
+		if ( ! empty( $options['ms_user_signup'] ) ) {
+			$forms[] = 'ms_user_signup';
+		}
+		if ( ! empty( $options['lost_password'] ) ) {
+			$forms[] = 'lost_password';
+		}
+		if ( ! empty( $options['reset_password'] ) ) {
+			$forms[] = 'reset_password';
+		}
+		if ( ! empty( $options['comment'] ) ) {
+			$forms[] = 'comment';
+		}
+		if ( ! empty( $options['bb_new'] ) ) {
+			$forms[] = 'bb_new';
+		}
+		if ( ! empty( $options['bb_reply'] ) ) {
+			$forms[] = 'bb_reply';
+		}
+		if ( ! empty( $options['wc_checkout'] ) ) {
+			$forms[] = 'wc_checkout';
+		}
+		$options['forms'] = $forms;
+		
+		unset( $options['login'], $options['registration'], $options['ms_user_signup'], $options['lost_password'], $options['reset_password'], $options['comment'], $options['bb_new'], $options['bb_reply'], $options['wc_checkout'] );
+		
+		anr_update_option( $options );
+	}
+}
+
 function anr_get_option( $option, $default = '', $section = 'anr_admin_options' ) {
 	
     if ( is_multisite() ) {
