@@ -29,35 +29,35 @@ function anr_plugin_update_32( $prev_version ){
 		}
 		$options['error_message'] = str_replace( __( '<strong>ERROR</strong>: ', 'advanced-nocaptcha-recaptcha' ), '', anr_get_option( 'error_message' ) );
 		
-		$forms = [];
+		$enabled_forms = [];
 		if ( ! empty( $options['login'] ) ) {
-			$forms[] = 'login';
+			$enabled_forms[] = 'login';
 		}
 		if ( ! empty( $options['registration'] ) ) {
-			$forms[] = 'registration';
+			$enabled_forms[] = 'registration';
 		}
 		if ( ! empty( $options['ms_user_signup'] ) ) {
-			$forms[] = 'ms_user_signup';
+			$enabled_forms[] = 'ms_user_signup';
 		}
 		if ( ! empty( $options['lost_password'] ) ) {
-			$forms[] = 'lost_password';
+			$enabled_forms[] = 'lost_password';
 		}
 		if ( ! empty( $options['reset_password'] ) ) {
-			$forms[] = 'reset_password';
+			$enabled_forms[] = 'reset_password';
 		}
 		if ( ! empty( $options['comment'] ) ) {
-			$forms[] = 'comment';
+			$enabled_forms[] = 'comment';
 		}
 		if ( ! empty( $options['bb_new'] ) ) {
-			$forms[] = 'bb_new';
+			$enabled_forms[] = 'bb_new';
 		}
 		if ( ! empty( $options['bb_reply'] ) ) {
-			$forms[] = 'bb_reply';
+			$enabled_forms[] = 'bb_reply';
 		}
 		if ( ! empty( $options['wc_checkout'] ) ) {
-			$forms[] = 'wc_checkout';
+			$enabled_forms[] = 'wc_checkout';
 		}
-		$options['forms'] = $forms;
+		$options['enabled_forms'] = $enabled_forms;
 		
 		unset( $options['login'], $options['registration'], $options['ms_user_signup'], $options['lost_password'], $options['reset_password'], $options['comment'], $options['bb_new'], $options['bb_reply'], $options['wc_checkout'] );
 		
@@ -113,11 +113,11 @@ function anr_is_form_enabled( $form ) {
 	if ( ! $form ) {
 		return false;
 	}
-	$forms = anr_get_option( 'forms', array() );
-	if ( ! is_array( $forms ) ) {
+	$enabled_forms = anr_get_option( 'enabled_forms', array() );
+	if ( ! is_array( $enabled_forms ) ) {
 		return false;
 	}
-	return in_array( $form, $forms, true );
+	return in_array( $form, $enabled_forms, true );
 }
 	
 function anr_translation()

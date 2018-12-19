@@ -77,7 +77,7 @@ class ANR_Settings {
 				'label'      => __( 'Secret Key', 'advanced-nocaptcha-recaptcha' ),
 				'section_id' => 'google_keys',
 			),
-			'forms'              => array(
+			'enabled_forms'      => array(
 				'label'      => __( 'Enabled Forms', 'advanced-nocaptcha-recaptcha' ),
 				'section_id' => 'forms',
 				'type'       => 'multicheck',
