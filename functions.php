@@ -108,6 +108,17 @@ function anr_update_option( $options, $value = '', $section = 'anr_admin_options
 
     return true;
 }
+
+function anr_is_form_enabled( $form ) {
+	if ( ! $form ) {
+		return false;
+	}
+	$forms = anr_get_option( 'forms', array() );
+	if ( ! is_array( $forms ) ) {
+		return false;
+	}
+	return in_array( $form, $forms, true );
+}
 	
 function anr_translation()
 	{
