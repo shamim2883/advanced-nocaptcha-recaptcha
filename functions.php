@@ -154,7 +154,8 @@ function anr_include_require_files()
 			'main' => 'anr-captcha-class.php'
 		);
 	if ( is_admin() ) {
-			$fep_files['admin'] = 'admin/anr-admin-class.php';
+			//$fep_files['admin'] = 'admin/anr-admin-class.php';
+			$fep_files['settings'] = 'admin/settings.php';
 	}
 					
 	$fep_files = apply_filters('anr_include_files', $fep_files );
