@@ -23,7 +23,7 @@ if (!class_exists('anr_captcha_class'))
 					add_action ('fepcf_action_message_before_send', array($this, 'fepcf_verify'));
 				}
 			
-			if ( '1' == anr_get_option( 'login' ) && !defined('XMLRPC_REQUEST')) {
+			if ( anr_is_form_enabled( 'login' ) && !defined('XMLRPC_REQUEST')) {
 					add_action ('login_form', array($this, 'login_form_field'), 99);
 					add_filter( 'login_form_middle', array( $this, 'login_form_return' ), 99 );
 					add_action ('woocommerce_login_form', array($this, 'login_form_field'), 99);
@@ -32,12 +32,12 @@ if (!class_exists('anr_captcha_class'))
 					add_action ('wp_login', array($this, 'clear_data'), 10, 2);
 				}
 				
-			if ( '1' == anr_get_option( 'wc_checkout' )) {
+			if ( anr_is_form_enabled( 'wc_checkout' )) {
 					add_action( 'woocommerce_after_checkout_validation', array($this, 'wc_checkout_verify') );
 					add_action ('woocommerce_checkout_after_order_review', array($this, 'wc_form_field') );
 				}
 			
-			if ( '1' == anr_get_option( 'registration' )) {
+			if ( anr_is_form_enabled( 'registration' )) {
 					add_action ('register_form', array($this, 'form_field'), 99);
 					add_action ('woocommerce_register_form', array($this, 'form_field'), 99);
 					add_filter ('registration_errors', array($this, 'registration_verify'), 10, 3 );
@@ -45,25 +45,25 @@ if (!class_exists('anr_captcha_class'))
 					//add_action ('woocommerce_checkout_after_order_review', array($this, 'wc_form_field') );
 				}
 			
-			if ( '1' == anr_get_option( 'ms_user_signup' )) {
+			if ( anr_is_form_enabled( 'ms_user_signup' )) {
 					add_action ('signup_extra_fields', array($this, 'ms_form_field'), 99);
 					add_filter ('wpmu_validate_user_signup', array($this, 'ms_form_field_verify'));
 				}
 			
-			if ( '1' == anr_get_option( 'lost_password' )) {
+			if ( anr_is_form_enabled( 'lost_password' )) {
 					add_action ('lostpassword_form', array($this, 'form_field'), 99);
 					add_action ('woocommerce_lostpassword_form', array($this, 'form_field'), 99);
 					//add_action ('allow_password_reset', array($this, 'lostpassword_verify'), 10, 2); //lostpassword_post does not return wp_error( prior WP 4.4 )
 					add_action('lostpassword_post', array($this, 'lostpassword_verify_44'));
 				}
 				
-			if ( '1' == anr_get_option( 'reset_password' )) {
+			if ( anr_is_form_enabled( 'reset_password' )) {
 					add_action ('resetpass_form', array($this, 'form_field'), 99);
 					add_action ('woocommerce_resetpassword_form', array($this, 'form_field'), 99);
 					add_filter ('validate_password_reset', array($this, 'reset_password_verify'), 10, 2 );
 				}
 					
-			if ( '1' == anr_get_option( 'comment' )) {
+			if ( anr_is_form_enabled( 'comment' )) {
 					if( ! is_user_logged_in() ) {
 						add_action ('comment_form_after_fields', array($this, 'form_field'), 99);
 					} else {
@@ -80,12 +80,12 @@ if (!class_exists('anr_captcha_class'))
 				add_filter('wpcf7_validate_anr_nocaptcha', array($this, 'wpcf7_verify'), 10, 2);
 			}
 				
-			if ( '1' == anr_get_option( 'bb_new' )) {
+			if ( anr_is_form_enabled( 'bb_new' )) {
 					add_action ('bbp_theme_before_topic_form_submit_wrapper', array($this, 'form_field'), 99);
 					add_action ('bbp_new_topic_pre_extras', array($this, 'bb_new_verify') );
 				}
 				
-			if ( '1' == anr_get_option( 'bb_reply' )) {
+			if ( anr_is_form_enabled( 'bb_reply' )) {
 					add_action ('bbp_theme_before_reply_form_submit_wrapper', array($this, 'form_field'), 99);
 					add_action ('bbp_new_reply_pre_extras', array($this, 'bb_reply_verify'), 10, 2 );
 				}
@@ -269,10 +269,10 @@ if (!class_exists('anr_captcha_class'))
 	function wc_form_field()
 		{
 			
-			if( ! is_user_logged_in() && 'yes' == get_option( 'woocommerce_enable_signup_and_login_from_checkout', 'yes' ) && '1' == anr_get_option( 'registration' ) ){
+			if( ! is_user_logged_in() && 'yes' == get_option( 'woocommerce_enable_signup_and_login_from_checkout', 'yes' ) && anr_is_form_enabled( 'registration' ) ){
 				$this->form_field();
 				
-			} elseif( '1' == anr_get_option( 'wc_checkout' ) ){
+			} elseif( anr_is_form_enabled( 'wc_checkout' ) ){
 				$this->form_field();
 			}
 			
@@ -371,11 +371,11 @@ if (!class_exists('anr_captcha_class'))
 			
 			return $errors;
 		}
-        
-    function wc_registration_verify (  $errors, $sanitized_user_login, $user_email ){
-        if ( defined( 'WOOCOMMERCE_CHECKOUT' ) && ! anr_get_option( 'wc_checkout' ) ) {
-            return $errors;
-        }
+		
+	function wc_registration_verify (  $errors, $sanitized_user_login, $user_email ){
+		if ( defined( 'WOOCOMMERCE_CHECKOUT' ) && ! anr_is_form_enabled( 'wc_checkout' ) ) {
+			return $errors;
+		}
 		if ( ! $this->verify() ) {
 			$error_message = anr_get_option( 'error_message' );
 			$errors->add( 'anr_error', $error_message );
@@ -476,7 +476,7 @@ if (!class_exists('anr_captcha_class'))
 		{
             $is_reg_enable = apply_filters( 'woocommerce_checkout_registration_enabled', 'yes' === get_option( 'woocommerce_enable_signup_and_login_from_checkout' ) );
 			
-			if( ! is_user_logged_in() && $is_reg_enable && '1' == anr_get_option( 'registration' ) ){
+			if( ! is_user_logged_in() && $is_reg_enable && anr_is_form_enabled( 'registration' ) ){
 				// verification done during ragistration, So no need any more verification
 				
 			} elseif( ! $this->verify() ){
