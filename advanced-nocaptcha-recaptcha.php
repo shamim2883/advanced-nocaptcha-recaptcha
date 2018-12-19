@@ -10,6 +10,7 @@ Text Domain: advanced-nocaptcha-recaptcha
 License: GPLv2 or later
 */
 // DEFINE
+define( 'ANR_PLUGIN_VERSION', '3.2' );
 define( 'ANR_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'ANR_PLUGIN_URL', plugins_url( '/', __FILE__ ) );
 
