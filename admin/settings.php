@@ -38,6 +38,7 @@ class ANR_Settings {
 				$field, array(
 					'id'         => $field_id,
 					'label'      => '',
+					'cb_label'   => '',
 					'type'       => 'text',
 					'class'      => 'regular-text',
 					'section_id' => '',
