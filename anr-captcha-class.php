@@ -18,7 +18,7 @@ if (!class_exists('anr_captcha_class'))
 		
 	function actions_filters()
 		{
-			if ( '1' == anr_get_option( 'fep_contact_form' )) {
+			if ( anr_is_form_enabled( 'fep_contact_form' )) {
 					add_action ('fepcf_message_form_after_content', array($this, 'form_field'), 99);
 					add_action ('fepcf_action_message_before_send', array($this, 'fepcf_verify'));
 				}
