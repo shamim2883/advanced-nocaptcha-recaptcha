@@ -268,7 +268,7 @@ if (!class_exists('anr_captcha_class'))
 				return $field;
 			}
 
-			$field = anr_captcha_form_field( false );
+			$field = $field . anr_captcha_form_field( false );
 		}
 		return $field;
 	}
