@@ -1,6 +1,7 @@
 <?php
 
-add_action( 'after_setup_theme', 'anr_plugin_update' );
+// Before all hooks.
+add_action( 'init', 'anr_plugin_update', -15 );
 
 function anr_plugin_update() {
 	$prev_version = anr_get_option( 'version', '3.1' );

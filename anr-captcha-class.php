@@ -486,5 +486,5 @@ if (!class_exists('anr_captcha_class'))
   } //END CLASS
 } //ENDIF
 
-add_action('init', array(anr_captcha_class::init(), 'actions_filters'), -99 );
+add_action('init', array(anr_captcha_class::init(), 'actions_filters'), -9 );
 
