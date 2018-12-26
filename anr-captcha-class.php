@@ -77,14 +77,14 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 				add_filter( 'wpcf7_validate_anr_nocaptcha', array( $this, 'wpcf7_verify' ), 10, 2 );
 			}
 
-			if ( anr_is_form_enabled( 'bb_new' ) ) {
+			if ( anr_is_form_enabled( 'bbp_new' ) ) {
 				add_action( 'bbp_theme_before_topic_form_submit_wrapper', array( $this, 'form_field' ), 99 );
-				add_action( 'bbp_new_topic_pre_extras', array( $this, 'bb_new_verify' ) );
+				add_action( 'bbp_new_topic_pre_extras', array( $this, 'bbp_new_verify' ) );
 			}
 
-			if ( anr_is_form_enabled( 'bb_reply' ) ) {
+			if ( anr_is_form_enabled( 'bbp_reply' ) ) {
 				add_action( 'bbp_theme_before_reply_form_submit_wrapper', array( $this, 'form_field' ), 99 );
-				add_action( 'bbp_new_reply_pre_extras', array( $this, 'bb_reply_verify' ), 10, 2 );
+				add_action( 'bbp_new_reply_pre_extras', array( $this, 'bbp_reply_verify' ), 10, 2 );
 			}
 		}
 
@@ -439,13 +439,13 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 			return $result;
 		}
 
-		function bb_new_verify( $forum_id ) {
+		function bbp_new_verify( $forum_id ) {
 			if ( ! $this->verify() ) {
 				bbp_add_error( 'anr_error', $this->add_error_to_mgs() );
 			}
 		}
 
-		function bb_reply_verify( $topic_id, $forum_id ) {
+		function bbp_reply_verify( $topic_id, $forum_id ) {
 			if ( ! $this->verify() ) {
 				bbp_add_error( 'anr_error', $this->add_error_to_mgs() );
 			}

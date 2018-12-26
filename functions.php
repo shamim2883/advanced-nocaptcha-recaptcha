@@ -50,10 +50,10 @@ function anr_plugin_update_32( $prev_version ) {
 			$enabled_forms[] = 'comment';
 		}
 		if ( ! empty( $options['bb_new'] ) ) {
-			$enabled_forms[] = 'bb_new';
+			$enabled_forms[] = 'bbp_new';
 		}
 		if ( ! empty( $options['bb_reply'] ) ) {
-			$enabled_forms[] = 'bb_reply';
+			$enabled_forms[] = 'bbp_reply';
 		}
 		if ( ! empty( $options['wc_checkout'] ) ) {
 			$enabled_forms[] = 'wc_checkout';
