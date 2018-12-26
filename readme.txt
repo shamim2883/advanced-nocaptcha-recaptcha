@@ -3,8 +3,8 @@ Contributors: shamim51
 Tags: recaptcha,nocaptcha,invisible,no captcha,bot,spam,captcha,woocommerce captcha,woocommerce nocaptcha, woocommerce,widget,plugin,sidebar,shortcode,page,posts,comments,google,bbpress,multisite,multiple
 Donate link: https://www.paypal.me/hasanshamim
 Requires at least: 4.4
-Tested up to: 5.0.1
-Stable tag: 3.1
+Tested up to: 5.0.2
+Stable tag: 4.1
 Requires PHP: 5.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -80,6 +80,16 @@ To show noCaptcha use [anr_nocaptcha g-recaptcha-response]
 8. Advanced noCaptcha reCaptcha Setup Instruction
 
 == Changelog ==
+
+= 4.1 =
+
+* Settings page redesigned.
+* anr_is_form_enabled function added
+* Captcha error show first before username password error. So if captcha is not validated then username password error is not shown.
+* enqueue login css only if normal captcha is shown
+* Enabled forms stored as an array in db. array key is enabled_forms
+* Add class ANR_Settings, removed class anr_admin_class
+* BuddyPress register captcha added
 
 = 3.1 =
 
