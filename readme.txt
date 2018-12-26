@@ -9,11 +9,11 @@ Requires PHP: 5.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Show noCaptchan or invisible captcha in Comment (after Comment textarea before submit button), CF7, bbpress, woocommerce, Login, Register, Lost & Reset Password.
+Show noCaptcha or invisible captcha in Comment (after Comment textarea before submit button), CF7, bbpress, BuddyPress, woocommerce, Login, Register, Lost & Reset Password.
 
 == Description ==
 
-Show noCaptcha or invisible captcha in Comment Form (after Comment textarea before submit button), Contact Form 7, bbPress, woocommerce, Login, Register, Lost Password, Reset Password. Also can implement in any other form easily.
+Show noCaptcha or invisible captcha in Comment Form (after Comment textarea before submit button), Contact Form 7, bbPress, BuddyPress, woocommerce, Login, Register, Lost Password, Reset Password. Also can implement in any other form easily.
 
 * **Allow multiple captcha in same page.**
 * **Allow conditional login captcha** (you can set after how many failed login attempts login captcha will show)
