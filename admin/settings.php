@@ -92,6 +92,7 @@ class ANR_Settings {
 					'comment'        => __( 'Comment Form', 'advanced-nocaptcha-recaptcha' ),
 					'bbp_new'         => __( 'bbPress New topic', 'advanced-nocaptcha-recaptcha' ),
 					'bbp_reply'       => __( 'bbPress reply to topic', 'advanced-nocaptcha-recaptcha' ),
+					'bp_register'       => __( 'BuddyPress register', 'advanced-nocaptcha-recaptcha' ),
 					'wc_checkout'    => __( 'WooCommerce Checkout', 'advanced-nocaptcha-recaptcha' ),
 				),
 				'desc'       => sprintf( __( 'For other forms see <a href="%s">Instruction</a>', 'advanced-nocaptcha-recaptcha' ), esc_url( admin_url( 'admin.php?page=anr-instruction' ) ) ),

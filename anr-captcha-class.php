@@ -41,8 +41,13 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 				add_filter( 'woocommerce_registration_errors', array( $this, 'wc_registration_verify' ), 10, 3 );
 				// add_action ('woocommerce_checkout_after_order_review', array($this, 'wc_form_field') );
 			}
+			
+			if ( anr_is_form_enabled( 'bp_register' ) ) {
+				add_action( 'bp_before_registration_submit_buttons', array( $this, 'bp_form_field' ), 99 );
+				add_action( 'bp_signup_validate', array( $this, 'bp_registration_verify' ) );
+			}
 
-			if ( anr_is_form_enabled( 'ms_user_signup' ) ) {
+			if ( anr_is_form_enabled( 'ms_user_signup' ) && is_multisite() ) {
 				add_action( 'signup_extra_fields', array( $this, 'ms_form_field' ), 99 );
 				add_filter( 'wpmu_validate_user_signup', array( $this, 'ms_form_field_verify' ) );
 			}
@@ -378,10 +383,28 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 				return $errors;
 			}
 			if ( ! $this->verify() ) {
-				$errors->add( 'anr_error', $this->add_error_to_mgs() );
+				$errors->add( 'anr_error', anr_get_option( 'error_message' ) );
 			}
 
 			return $errors;
+		}
+		
+		function bp_form_field() {
+			$loggedin_hide = anr_get_option( 'loggedin_hide' );
+
+			if ( is_user_logged_in() && $loggedin_hide ) {
+				return;
+			}
+
+			do_action( 'bp_anr_error_errors' );
+
+			anr_captcha_form_field( true );
+		}
+		
+		function bp_registration_verify() {
+			if ( ! $this->verify() ) {
+				buddypress()->signup->errors['anr_error'] = anr_get_option( 'error_message' );
+			}
 		}
 
 		function ms_form_field_verify( $result ) {
