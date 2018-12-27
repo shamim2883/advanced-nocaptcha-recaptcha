@@ -30,7 +30,7 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 			}
 
 			if ( anr_is_form_enabled( 'wc_checkout' ) ) {
-				add_action( 'woocommerce_after_checkout_validation', array( $this, 'wc_checkout_verify' ) );
+				add_action( 'woocommerce_after_checkout_validation', array( $this, 'wc_checkout_verify' ), 10, 2 );
 				add_action( 'woocommerce_checkout_after_order_review', array( $this, 'wc_form_field' ) );
 			}
 
@@ -474,13 +474,14 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 			}
 		}
 
-		function wc_checkout_verify() {
+		function wc_checkout_verify( $data, $errors ) {
 			$is_reg_enable = apply_filters( 'woocommerce_checkout_registration_enabled', 'yes' === get_option( 'woocommerce_enable_signup_and_login_from_checkout' ) );
+			$is_reg_required = apply_filters( 'woocommerce_checkout_registration_required', 'yes' !== get_option( 'woocommerce_enable_guest_checkout' ) );
 
-			if ( ! is_user_logged_in() && $is_reg_enable && anr_is_form_enabled( 'registration' ) ) {
+			if ( ! is_user_logged_in() && $is_reg_enable && anr_is_form_enabled( 'registration' ) && ( $is_reg_required || ! empty( $data['createaccount'] ) ) ) {
 				// verification done during ragistration, So no need any more verification
 			} elseif ( ! $this->verify() ) {
-				wc_add_notice( $this->add_error_to_mgs(), 'error' );
+				$errors->add( 'anr_error', anr_get_option( 'error_message' ) );
 			}
 		}
 
