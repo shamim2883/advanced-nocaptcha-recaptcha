@@ -194,6 +194,11 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 			<?php } ?>
 			
 			anr_captcha_<?php echo $num; ?> = grecaptcha.render('anr_captcha_field_<?php echo $num; ?>', anr_obj );
+			if ( typeof wc_checkout_params !== 'undefined' ) {
+				jQuery( document.body ).on( 'checkout_error', function(){
+					grecaptcha.reset(anr_captcha_<?php echo $num; ?>);
+				});
+			}
 		<?php } ?>
 		  };
 		</script>
