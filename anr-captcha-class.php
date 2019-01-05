@@ -447,7 +447,12 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 
 		function comment_verify( $commentdata ) {
 			if ( ! $this->verify() ) {
-				wp_die( $this->add_error_to_mgs(), 200 );
+				wp_die(
+					'<p>' . $this->add_error_to_mgs() . '</p>', __( 'Comment Submission Failure' ), array(
+						'response'  => 403,
+						'back_link' => true,
+					)
+				);
 			}
 
 			return $commentdata;
