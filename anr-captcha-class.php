@@ -71,7 +71,11 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 				} else {
 					add_filter( 'comment_form_field_comment', array( $this, 'comment_form_field' ), 99 );
 				}
-				add_filter( 'preprocess_comment', array( $this, 'comment_verify' ) );
+				if ( version_compare( get_bloginfo( 'version' ), '4.9.0', '>=' ) ) {
+					add_filter( 'pre_comment_approved', array( $this, 'comment_verify_490' ), 99 );
+				} else {
+					add_filter( 'preprocess_comment', array( $this, 'comment_verify' ) );
+				}
 			}
 
 			if ( function_exists( 'wpcf7_add_form_tag' ) ) {
@@ -447,6 +451,13 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 			}
 
 			return $commentdata;
+		}
+
+		function comment_verify_490( $approved ) {
+			if ( ! $this->verify() ) {
+				return new WP_Error( 'anr_error', $this->add_error_to_mgs(), 403 );
+			}
+			return $approved;
 		}
 
 		function wpcf7_form_field( $tag ) {
