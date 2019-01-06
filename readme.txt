@@ -4,7 +4,7 @@ Tags: recaptcha,nocaptcha,invisible,no captcha,bot,spam,captcha,woocommerce capt
 Donate link: https://www.paypal.me/hasanshamim
 Requires at least: 4.4
 Tested up to: 5.0.2
-Stable tag: 4.1
+Stable tag: 4.2
 Requires PHP: 5.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -31,6 +31,7 @@ Show noCaptcha or invisible captcha in Comment Form (after Comment textarea befo
 * FEP Contact Form
 * bbPress New topic
 * bbPress reply to topic
+* BuddyPress register
 
 = Options =
 
@@ -80,6 +81,13 @@ To show noCaptcha use [anr_nocaptcha g-recaptcha-response]
 8. Advanced noCaptcha reCaptcha Setup Instruction
 
 == Changelog ==
+
+= 4.2 =
+
+* BuddyPress mentioned in readme
+* WooCommerce checkout captcha sometimes did not verify
+* Reset captcha if WooCommerce checkout error occur
+* If WordPress version is 4.9.0 or greater then pre_comment_approved filter used for comment which we can now return WP_Error
 
 = 4.1 =
 
