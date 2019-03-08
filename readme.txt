@@ -3,8 +3,8 @@ Contributors: shamim51
 Tags: recaptcha,nocaptcha,invisible,no captcha,bot,spam,captcha,woocommerce captcha,woocommerce nocaptcha, woocommerce,widget,plugin,sidebar,shortcode,page,posts,comments,google,bbpress,multisite,multiple
 Donate link: https://www.paypal.me/hasanshamim
 Requires at least: 4.4
-Tested up to: 5.0.2
-Stable tag: 4.2
+Tested up to: 5.1
+Stable tag: 4.3
 Requires PHP: 5.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -81,6 +81,11 @@ To show noCaptcha use [anr_nocaptcha g-recaptcha-response]
 8. Advanced noCaptcha reCaptcha Setup Instruction
 
 == Changelog ==
+
+= 4.3 =
+
+* Reset captcha if CF7 validation error occur
+* Changed Tested up to
 
 = 4.2 =
 
