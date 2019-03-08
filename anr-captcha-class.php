@@ -203,6 +203,11 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 					grecaptcha.reset(anr_captcha_<?php echo $num; ?>);
 				});
 			}
+			if ( typeof wpcf7 !== 'undefined' ) {
+				document.addEventListener( 'wpcf7submit', function() {
+					grecaptcha.reset(anr_captcha_<?php echo $num; ?>);
+				}, false );
+			}
 		<?php } ?>
 		  };
 		</script>
