@@ -174,6 +174,12 @@ function anr_captcha_form_field( $echo = false ) {
 function anr_verify_captcha( $response = false ) {
 	$secre_key  = trim( anr_get_option( 'secret_key' ) );
 	$remoteip = $_SERVER['REMOTE_ADDR'];
+	
+	$pre_check = apply_filters( 'anr_verify_captcha_pre', null, $response );
+	
+	if ( null !== $pre_check ) {
+		return $pre_check;
+	}
 
 	if ( ! $secre_key ) { // if $secre_key is not set
 		return true;
