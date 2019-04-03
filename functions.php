@@ -80,10 +80,13 @@ function anr_get_option( $option, $default = '', $section = 'anr_admin_options' 
 	}
 
 	if ( isset( $options[ $option ] ) ) {
-		return $options[ $option ];
+		$value      = $options[ $option ];
+		$is_default = false;
+	} else {
+		$value      = $default;
+		$is_default = true;
 	}
-
-	return $default;
+	return apply_filters( 'anr_get_option', $value, $option, $default, $is_default );
 }
 
 function anr_update_option( $options, $value = '', $section = 'anr_admin_options' ) {
