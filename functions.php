@@ -178,6 +178,10 @@ function anr_verify_captcha( $response = false ) {
 	$secre_key  = trim( anr_get_option( 'secret_key' ) );
 	$remoteip = $_SERVER['REMOTE_ADDR'];
 	
+	if ( false === $response ) {
+		$response = isset( $_POST['g-recaptcha-response'] ) ? $_POST['g-recaptcha-response'] : '';
+	}
+	
 	$pre_check = apply_filters( 'anr_verify_captcha_pre', null, $response );
 	
 	if ( null !== $pre_check ) {
@@ -186,10 +190,6 @@ function anr_verify_captcha( $response = false ) {
 
 	if ( ! $secre_key ) { // if $secre_key is not set
 		return true;
-	}
-
-	if ( false === $response ) {
-		$response = isset( $_POST['g-recaptcha-response'] ) ? $_POST['g-recaptcha-response'] : '';
 	}
 
 	if ( ! $response || ! $remoteip ) {
