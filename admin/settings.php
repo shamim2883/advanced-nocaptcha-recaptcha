@@ -13,7 +13,7 @@ class ANR_Settings {
 
 	function actions_filters() {
 		add_action( 'admin_init', array( $this, 'admin_init' ) );
-		add_filter( 'plugin_action_links', array( $this, 'add_settings_link' ), 10, 2 );
+		add_filter( 'plugin_action_links_' . plugin_basename( ANR_PLUGIN_FILE ), array( $this, 'add_settings_link' ) );
 
 		if ( is_multisite() ) {
 			$same_settings = apply_filters( 'anr_same_settings_for_all_sites', false );
@@ -441,13 +441,10 @@ class ANR_Settings {
 	}
 
 
-	function add_settings_link( $links, $file ) {
+	function add_settings_link( $links ) {
 		// add settings link in plugins page
-		$plugin_file = 'advanced-nocaptcha-recaptcha/advanced-nocaptcha-recaptcha.php';
-		if ( $file == $plugin_file ) {
-			$settings_link = '<a href="' . admin_url( 'options-general.php?page=anr-admin-settings' ) . '">' . __( 'Settings', 'advanced-nocaptcha-recaptcha' ) . '</a>';
-			array_unshift( $links, $settings_link );
-		}
+		$settings_link = '<a href="' . admin_url( 'options-general.php?page=anr-admin-settings' ) . '">' . __( 'Settings', 'advanced-nocaptcha-recaptcha' ) . '</a>';
+		array_unshift( $links, $settings_link );
 		return $links;
 	}
 
