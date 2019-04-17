@@ -376,8 +376,8 @@ class ANR_Settings {
 				<div id="post-body" class="metabox-holder columns-2">
 					<div id="post-body-content">
 						<div id="tab_container">
-							<?php settings_errors(); ?>
-							<form method="post" action="<?php echo esc_attr( wp_unslash( $_SERVER['REQUEST_URI'] ) ); ?>">
+							<?php settings_errors( 'anr_admin_options' ); ?>
+							<form method="post" action="<?php echo esc_attr( admin_url( 'options-general.php?page=anr-admin-settings' ) ); ?>">
 								<?php
 								settings_fields( 'anr_admin_options' );
 								do_settings_sections( 'anr_admin_options' );
