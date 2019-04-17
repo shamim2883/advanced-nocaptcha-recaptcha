@@ -366,9 +366,8 @@ class ANR_Settings {
 			}
 			anr_update_option( $value );
 
-			if ( ! count( get_settings_errors() ) ) {
-				add_settings_error( 'anr_admin_options', 'settings_updated', __( 'Settings saved.' ), 'updated' );
-			}
+			wp_safe_redirect( admin_url( 'options-general.php?page=anr-admin-settings&updated=true' ) );
+			exit;
 		}
 		?>
 		<div class="wrap">
