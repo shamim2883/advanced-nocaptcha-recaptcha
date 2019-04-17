@@ -18,7 +18,7 @@ Show noCaptcha or invisible captcha in Comment Form (after Comment textarea befo
 * **Allow multiple captcha in same page.**
 * **Allow conditional login captcha** (you can set after how many failed login attempts login captcha will show)
 
-> [For **Advanced noCaptcha & invisible Captcha PRO** click here](https://www.shamimsplugins.com/products/front-end-pm-pro/?utm_campaign=wordpress&utm_source=readme_pro&utm_medium=description)
+> [For **Advanced noCaptcha & invisible Captcha PRO** click here](https://www.shamimsplugins.com/products/advanced-nocaptcha-and-invisible-captcha-pro/?utm_campaign=wordpress&utm_source=readme_pro&utm_medium=description)
 
 = Show noCaptcha on =
 
