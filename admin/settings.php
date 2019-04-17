@@ -268,6 +268,16 @@ class ANR_Settings {
 					$attrib
 				);
 				break;
+			case 'textarea':
+					printf( '<textarea id="%1$s" class="%2$s" name="anr_admin_options[%3$s]" placeholder="%4$s" %5$s >%6$s</textarea>',
+						esc_attr( $field['id'] ),
+						esc_attr( $field['class'] ),
+						esc_attr( $field['id'] ),
+						isset( $field['placeholder'] ) ? esc_attr( $field['placeholder'] ) : '',
+						$attrib,
+						esc_textarea( $value )
+					);
+					break;
 			case 'checkbox':
 				printf( '<input type="hidden" name="anr_admin_options[%s]" value="" />', esc_attr( $field['id'] ) );
 				printf(
@@ -312,6 +322,9 @@ class ANR_Settings {
 					);
 				}
 				printf( '</select>' );
+				break;
+			case 'html':
+				echo $field['std'];
 				break;
 
 			default:
