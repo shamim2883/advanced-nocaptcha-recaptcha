@@ -70,6 +70,8 @@ Make sure to obtain key for invisible captcha from google. Go to Dashboard > Set
 = How to set captcha in contact form 7? =
 To show noCaptcha use [anr_nocaptcha g-recaptcha-response]
 
+= How to login if i am locked out? =
+You can access your file via FTP or file manager and rename "advanced-nocaptcha-recaptcha" folder to something else. Then login as normal. Then rename back this folder.
 
 == Screenshots ==
 
