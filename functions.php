@@ -146,7 +146,7 @@ function anr_translation() {
 
 function anr_login_enqueue_scripts() {
 
-	if ( ! anr_get_option( 'remove_css' ) && 'normal' === anr_get_option( 'size', 'normal' ) ) {
+	if ( ! anr_get_option( 'remove_css' ) && 'normal' === anr_get_option( 'size', 'normal' ) && 'v2_checkbox' === anr_get_option( 'captcha_version', 'v2_checkbox' ) ) {
 		wp_enqueue_style( 'anr-login-style', ANR_PLUGIN_URL . 'assets/css/style.css' );
 	}
 }
