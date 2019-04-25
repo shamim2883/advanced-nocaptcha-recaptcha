@@ -65,7 +65,9 @@ Yes. this plugin is translate ready. But If your language is not available you c
 Yes. You can show unlimited number of captcha in same page.
 
 = How to set Invisible captcha? =
-Make sure to obtain key for invisible captcha from google. Go to Dashboard > Settings > Advanced noCaptcha & invisible captcha > Size ( Set as Invisible )
+= How to load reCaptcha v3 script only when there is form in that page? =
+Loading v3 script in All Pages help google for analytics. If you want to load script only when there is form in that page please go to Dashboard > Settings > Advanced noCaptcha & invisible Captcha > v3 Script Load and set to "Form Pages".
+If you are not using v3 then script will only load when there is form in that page. no settings required.
 
 = How to set captcha in contact form 7? =
 To show noCaptcha use [anr_nocaptcha g-recaptcha-response]
