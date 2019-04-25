@@ -116,7 +116,7 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 
 			$field = '<div class="anr_captcha_field"><div id="anr_captcha_field_' . $number . '"></div></div>';
 
-			if ( 1 == $no_js ) {
+			if ( 1 == $no_js && 'v2_checkbox' === $version ) {
 				$field .= '<noscript>
 						  <div>
 							<div style="width: 302px; height: 422px; position: relative;">
