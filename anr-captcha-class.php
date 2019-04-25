@@ -148,10 +148,12 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 		}
 
 		function footer_script() {
-			$number          = $this->total_captcha();
 			static $included = false;
+			
+			$number          = $this->total_captcha();
+			$version = anr_get_option( 'captcha_version', 'v2_checkbox' );
 
-			if ( ! $number ) {
+			if ( ! $number && ( 'v3' !== $version || 'all_pages' !== anr_get_option( 'v3_script_load', 'all_pages' ) ) ) {
 				return;
 			}
 
@@ -160,8 +162,6 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 			}
 
 			$included = true;
-
-			$version = anr_get_option( 'captcha_version', 'v2_checkbox' );
 
 			if ( 'v2_checkbox' === $version ) {
 				$this->v2_checkbox_script();

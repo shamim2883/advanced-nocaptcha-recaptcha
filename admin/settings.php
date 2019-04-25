@@ -220,6 +220,18 @@ class ANR_Settings {
 				'sanitize_callback' => 'absint',
 				'desc'              => __( 'Show login Captcha after how many failed attempts? 0 = show always', 'advanced-nocaptcha-recaptcha' ),
 			),
+			'v3_script_load'     => array(
+				'label'      => __( 'v3 Script Load', 'advanced-nocaptcha-recaptcha' ),
+				'section_id' => 'other',
+				'type'       => 'select',
+				'class'      => 'regular hidden anr-show-field-for-v3',
+				'std'        => 'all_pages',
+				'options'    => array(
+					'all_pages'  => __( 'All Pages', 'advanced-nocaptcha-recaptcha' ),
+					'form_pages' => __( 'Form Pages', 'advanced-nocaptcha-recaptcha' ),
+				),
+				'desc'       => __( 'Loading in All Pages help google for analytics', 'advanced-nocaptcha-recaptcha' ),
+			),
 			'score'              => array(
 				'label'      => __( 'Captcha Score', 'advanced-nocaptcha-recaptcha' ),
 				'section_id' => 'other',
