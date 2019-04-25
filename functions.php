@@ -133,7 +133,7 @@ function anr_translation() {
 function anr_login_enqueue_scripts() {
 
 	if ( ! anr_get_option( 'remove_css' ) && 'normal' === anr_get_option( 'size', 'normal' ) ) {
-		wp_enqueue_style( 'anr-login-style', ANR_PLUGIN_URL . 'style/style.css' );
+		wp_enqueue_style( 'anr-login-style', ANR_PLUGIN_URL . 'assets/css/style.css' );
 	}
 }
 
