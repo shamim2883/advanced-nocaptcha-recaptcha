@@ -113,8 +113,12 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 			$no_js    = anr_get_option( 'no_js' );
 			$site_key = trim( anr_get_option( 'site_key' ) );
 			$number   = $this->total_captcha();
+			$version = anr_get_option( 'captcha_version', 'v2_checkbox' );
 
 			$field = '<div class="anr_captcha_field"><div id="anr_captcha_field_' . $number . '" class="anr_captcha_field_div">';
+			if ( 'v3' === $version ) {
+				$field .= '<input type="hidden" name="g-recaptcha-response" value="" />';
+			}
 			$field .= '</div></div>';
 
 			if ( 1 == $no_js && 'v2_checkbox' === $version ) {
