@@ -68,7 +68,7 @@ function anr_plugin_update_32( $prev_version ) {
 
 add_action( 'anr_plugin_update', 'anr_plugin_update_51' );
 
-function anr_plugin_update_50( $prev_version ) {
+function anr_plugin_update_51( $prev_version ) {
 	if ( version_compare( $prev_version, '5.1', '<' ) ) {
 		$options = [];
 		if ( 'invisible' === anr_get_option( 'size' ) ) {
