@@ -269,7 +269,7 @@ class ANR_Settings {
 			case 'hidden':
 			case 'submit':
 				printf(
-					'<input type="%1$s" id="anr_admin_options[%2$s]" class="%3$s" name="anr_admin_options[%4$s]" placeholder="%5$s" value="%6$s"%7$s />',
+					'<input type="%1$s" id="anr_admin_options_%2$s" class="%3$s" name="anr_admin_options[%4$s]" placeholder="%5$s" value="%6$s"%7$s />',
 					esc_attr( $field['type'] ),
 					esc_attr( $field['id'] ),
 					esc_attr( $field['class'] ),
@@ -280,7 +280,7 @@ class ANR_Settings {
 				);
 				break;
 			case 'textarea':
-					printf( '<textarea id="%1$s" class="%2$s" name="anr_admin_options[%3$s]" placeholder="%4$s" %5$s >%6$s</textarea>',
+					printf( '<textarea id="anr_admin_options_%1$s" class="%2$s" name="anr_admin_options[%3$s]" placeholder="%4$s" %5$s >%6$s</textarea>',
 						esc_attr( $field['id'] ),
 						esc_attr( $field['class'] ),
 						esc_attr( $field['id'] ),
@@ -292,7 +292,7 @@ class ANR_Settings {
 			case 'checkbox':
 				printf( '<input type="hidden" name="anr_admin_options[%s]" value="" />', esc_attr( $field['id'] ) );
 				printf(
-					'<label><input type="%1$s" id="anr_admin_options[%2$s]" class="%3$s" name="anr_admin_options[%4$s]" value="%5$s"%6$s /> %7$s</label>',
+					'<label><input type="%1$s" id="anr_admin_options_%2$s" class="%3$s" name="anr_admin_options[%4$s]" value="%5$s"%6$s /> %7$s</label>',
 					'checkbox',
 					esc_attr( $field['id'] ),
 					esc_attr( $field['class'] ),
@@ -306,7 +306,7 @@ class ANR_Settings {
 				printf( '<input type="hidden" name="anr_admin_options[%s][]" value="" />', esc_attr( $field['id'] ) );
 				foreach ( $field['options'] as $key => $label ) {
 					printf(
-						'<label><input type="%1$s" id="anr_admin_options[%2$s][%5$s]" class="%3$s" name="anr_admin_options[%4$s][]" value="%5$s"%6$s /> %7$s</label><br>',
+						'<label><input type="%1$s" id="anr_admin_options_%2$s_%5$s" class="%3$s" name="anr_admin_options[%4$s][]" value="%5$s"%6$s /> %7$s</label><br>',
 						'checkbox',
 						esc_attr( $field['id'] ),
 						esc_attr( $field['class'] ),
@@ -319,7 +319,7 @@ class ANR_Settings {
 				break;
 			case 'select':
 				printf(
-					'<select id="anr_admin_options[%1$s]" class="%2$s" name="anr_admin_options[%1$s]">',
+					'<select id="anr_admin_options_%1$s" class="%2$s" name="anr_admin_options[%1$s]">',
 					esc_attr( $field['id'] ),
 					esc_attr( $field['class'] ),
 					esc_attr( $field['id'] )
