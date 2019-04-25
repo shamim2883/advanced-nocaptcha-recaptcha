@@ -56,7 +56,7 @@ class ANR_Settings {
 			'google_keys' => array(
 				'section_title'    => __( 'Google Keys', 'advanced-nocaptcha-recaptcha' ),
 				'section_callback' => function() {
-					printf( __( 'Get reCaptcha v2 keys from <a href="%s">Google</a>. If you select Invisible captcha, make sure to get keys for Invisible captcha.', 'advanced-nocaptcha-recaptcha' ), 'https://www.google.com/recaptcha/admin' );
+					printf( __( 'Get reCaptcha keys from <a href="%s">Google</a>. Make sure to get keys for your selected captcha version.', 'advanced-nocaptcha-recaptcha' ), 'https://www.google.com/recaptcha/admin' );
 				},
 			),
 			'forms'       => array(
@@ -71,6 +71,19 @@ class ANR_Settings {
 
 	function get_fields() {
 		$fields = array(
+			'captcha_version'            => array(
+				'label'      => __( 'Version', 'advanced-nocaptcha-recaptcha' ),
+				'section_id' => 'google_keys',
+				'type'       => 'select',
+				'class'      => 'regular',
+				'std'        => 'v2_checkbox',
+				'options'    => array(
+					'v2_checkbox'  => __( 'V2 "I\'m not a robot"', 'advanced-nocaptcha-recaptcha' ),
+					'v2_invisible' => __( 'V2 Invisible', 'advanced-nocaptcha-recaptcha' ),
+					'v3'           => __( 'V3', 'advanced-nocaptcha-recaptcha' ),
+				),
+				'desc'       => __( 'Select your reCaptcha version. Make sure to use site key and secret key for your selected version.', 'advanced-nocaptcha-recaptcha' ),
+			),
 			'site_key'           => array(
 				'label'      => __( 'Site Key', 'advanced-nocaptcha-recaptcha' ),
 				'section_id' => 'google_keys',
@@ -162,7 +175,7 @@ class ANR_Settings {
 				'label'      => __( 'Theme', 'advanced-nocaptcha-recaptcha' ),
 				'section_id' => 'other',
 				'type'       => 'select',
-				'class'      => 'regular',
+				'class'      => 'regular hidden anr-show-field-for-v2_checkbox anr-show-field-for-v2_invisible',
 				'std'        => 'light',
 				'options'    => array(
 					'light' => __( 'Light', 'advanced-nocaptcha-recaptcha' ),
@@ -173,20 +186,18 @@ class ANR_Settings {
 				'label'      => __( 'Size', 'advanced-nocaptcha-recaptcha' ),
 				'section_id' => 'other',
 				'type'       => 'select',
-				'class'      => 'regular',
+				'class'      => 'regular hidden anr-show-field-for-v2_checkbox',
 				'std'        => 'normal',
 				'options'    => array(
 					'normal'    => __( 'Normal', 'advanced-nocaptcha-recaptcha' ),
 					'compact'   => __( 'Compact', 'advanced-nocaptcha-recaptcha' ),
-					'invisible' => __( 'Invisible', 'advanced-nocaptcha-recaptcha' ),
 				),
-				'desc'       => __( 'For invisible captcha set this as Invisible. Make sure to use site key and secret key for invisible captcha', 'advanced-nocaptcha-recaptcha' ),
 			),
 			'badge'              => array(
 				'label'      => __( 'Badge', 'advanced-nocaptcha-recaptcha' ),
 				'section_id' => 'other',
 				'type'       => 'select',
-				'class'      => 'regular',
+				'class'      => 'regular hidden anr-show-field-for-v2_invisible',
 				'std'        => 'bottomright',
 				'options'    => array(
 					'bottomright' => __( 'Bottom Right', 'advanced-nocaptcha-recaptcha' ),
@@ -204,6 +215,27 @@ class ANR_Settings {
 				'sanitize_callback' => 'absint',
 				'desc'              => __( 'Show login Captcha after how many failed attempts? 0 = show always', 'advanced-nocaptcha-recaptcha' ),
 			),
+			'score'              => array(
+				'label'      => __( 'Captcha Score', 'advanced-nocaptcha-recaptcha' ),
+				'section_id' => 'other',
+				'type'       => 'select',
+				'class'      => 'regular hidden anr-show-field-for-v3',
+				'std'        => '0.5',
+				'options'    => array(
+					'0.0' => __( '0.0', 'advanced-nocaptcha-recaptcha' ),
+					'0.1' => __( '0.1', 'advanced-nocaptcha-recaptcha' ),
+					'0.2' => __( '0.2', 'advanced-nocaptcha-recaptcha' ),
+					'0.3' => __( '0.3', 'advanced-nocaptcha-recaptcha' ),
+					'0.4' => __( '0.4', 'advanced-nocaptcha-recaptcha' ),
+					'0.5' => __( '0.5', 'advanced-nocaptcha-recaptcha' ),
+					'0.6' => __( '0.6', 'advanced-nocaptcha-recaptcha' ),
+					'0.7' => __( '0.7', 'advanced-nocaptcha-recaptcha' ),
+					'0.8' => __( '0.8', 'advanced-nocaptcha-recaptcha' ),
+					'0.9' => __( '0.9', 'advanced-nocaptcha-recaptcha' ),
+					'1.0' => __( '1.0', 'advanced-nocaptcha-recaptcha' ),
+				),
+				'desc'       => __( 'Higher means more sensitive', 'advanced-nocaptcha-recaptcha' ),
+			),
 			'loggedin_hide'      => array(
 				'label'      => __( 'Logged in Hide', 'advanced-nocaptcha-recaptcha' ),
 				'section_id' => 'other',
@@ -215,7 +247,7 @@ class ANR_Settings {
 				'label'      => __( 'Remove CSS', 'advanced-nocaptcha-recaptcha' ),
 				'section_id' => 'other',
 				'type'       => 'checkbox',
-				'class'      => 'checkbox',
+				'class'      => 'checkbox hidden anr-show-field-for-v2_checkbox',
 				'cb_label'   => __( "Remove this plugin's css from login page?", 'advanced-nocaptcha-recaptcha' ),
 				'desc'       => __( 'This css increase login page width to adjust with Captcha width.', 'advanced-nocaptcha-recaptcha' ),
 			),
@@ -223,7 +255,7 @@ class ANR_Settings {
 				'label'      => __( 'No JS Captcha', 'advanced-nocaptcha-recaptcha' ),
 				'section_id' => 'other',
 				'type'       => 'checkbox',
-				'class'      => 'checkbox',
+				'class'      => 'checkbox hidden anr-show-field-for-v2_checkbox',
 				'cb_label'   => __( 'Show captcha if javascript disabled?', 'advanced-nocaptcha-recaptcha' ),
 				'desc'       => __( 'If JavaScript is a requirement for your site, we advise that you do NOT check this.', 'advanced-nocaptcha-recaptcha' ),
 			),
@@ -366,8 +398,6 @@ class ANR_Settings {
 		add_submenu_page( 'anr-non-exist-menu', 'Advanced noCaptcha reCaptcha - ' . __( 'Instruction', 'advanced-nocaptcha-recaptcha' ), __( 'Instruction', 'advanced-nocaptcha-recaptcha' ), 'manage_options', 'anr-instruction', array( $this, 'instruction_page' ) );
 
 	}
-
-	function admin_settings() {
 	
 	function settings_save() {
 		if ( current_user_can( 'manage_options' ) && isset( $_POST['anr_admin_options'] ) && isset( $_POST['action'] ) && 'update' === $_POST['action'] && isset( $_GET['page'] ) && 'anr-admin-settings' === $_GET['page'] ) {
@@ -383,6 +413,8 @@ class ANR_Settings {
 			exit;
 		}
 	}
+
+	function admin_settings() {
 		?>
 		<div class="wrap">
 			<div id="poststuff">
