@@ -13,6 +13,7 @@ class ANR_Settings {
 
 	function actions_filters() {
 		add_action( 'admin_init', array( $this, 'admin_init' ) );
+		add_action( 'admin_init', array( $this, 'settings_save' ), 99 );
 		add_filter( 'plugin_action_links_' . plugin_basename( ANR_PLUGIN_FILE ), array( $this, 'add_settings_link' ) );
 
 		if ( is_multisite() ) {
@@ -367,7 +368,9 @@ class ANR_Settings {
 	}
 
 	function admin_settings() {
-		if ( isset( $_POST['anr_admin_options'] ) && isset( $_POST['action'] ) && 'update' === $_POST['action'] ) {
+	
+	function settings_save() {
+		if ( current_user_can( 'manage_options' ) && isset( $_POST['anr_admin_options'] ) && isset( $_POST['action'] ) && 'update' === $_POST['action'] && isset( $_GET['page'] ) && 'anr-admin-settings' === $_GET['page'] ) {
 			check_admin_referer( 'anr_admin_options-options' );
 
 			$value = wp_unslash( $_POST['anr_admin_options'] );
@@ -375,10 +378,11 @@ class ANR_Settings {
 				$value = [];
 			}
 			anr_update_option( $value );
-
+			
 			wp_safe_redirect( admin_url( 'options-general.php?page=anr-admin-settings&updated=true' ) );
 			exit;
 		}
+	}
 		?>
 		<div class="wrap">
 			<div id="poststuff">
