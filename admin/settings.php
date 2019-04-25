@@ -15,6 +15,7 @@ class ANR_Settings {
 		add_action( 'admin_init', array( $this, 'admin_init' ) );
 		add_action( 'admin_init', array( $this, 'settings_save' ), 99 );
 		add_filter( 'plugin_action_links_' . plugin_basename( ANR_PLUGIN_FILE ), array( $this, 'add_settings_link' ) );
+		add_action('admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 
 		if ( is_multisite() ) {
 			$same_settings = apply_filters( 'anr_same_settings_for_all_sites', false );
@@ -27,6 +28,10 @@ class ANR_Settings {
 			add_action( 'admin_menu', array( $this, 'menu_page' ) );
 		}
 
+	}
+	
+	function admin_enqueue_scripts() {
+		wp_register_script( 'anr-admin', ANR_PLUGIN_URL . 'assets/js/admin.js', array( 'jquery' ), ANR_PLUGIN_VERSION, true );
 	}
 
 	function admin_init() {
@@ -415,6 +420,7 @@ class ANR_Settings {
 	}
 
 	function admin_settings() {
+		wp_enqueue_script( 'anr-admin' );
 		?>
 		<div class="wrap">
 			<div id="poststuff">
