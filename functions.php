@@ -66,6 +66,20 @@ function anr_plugin_update_32( $prev_version ) {
 	}
 }
 
+add_action( 'anr_plugin_update', 'anr_plugin_update_51' );
+
+function anr_plugin_update_50( $prev_version ) {
+	if ( version_compare( $prev_version, '5.1', '<' ) ) {
+		$options = [];
+		if ( 'invisible' === anr_get_option( 'size' ) ) {
+			$options['size']            = 'normal';
+			$options['captcha_version'] = 'v2_invisible';
+		}
+
+		anr_update_option( $options );
+	}
+}
+
 function anr_get_option( $option, $default = '', $section = 'anr_admin_options' ) {
 
 	if ( is_multisite() ) {
