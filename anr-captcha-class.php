@@ -114,7 +114,8 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 			$site_key = trim( anr_get_option( 'site_key' ) );
 			$number   = $this->total_captcha();
 
-			$field = '<div class="anr_captcha_field"><div id="anr_captcha_field_' . $number . '"></div></div>';
+			$field = '<div class="anr_captcha_field"><div id="anr_captcha_field_' . $number . '" class="anr_captcha_field_div">';
+			$field .= '</div></div>';
 
 			if ( 1 == $no_js && 'v2_checkbox' === $version ) {
 				$field .= '<noscript>
