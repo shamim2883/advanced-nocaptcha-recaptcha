@@ -161,67 +161,166 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 
 			$included = true;
 
-			$site_key = trim( anr_get_option( 'site_key' ) );
-			$theme    = anr_get_option( 'theme', 'light' );
-			$size     = anr_get_option( 'size', 'normal' );
+			$version = anr_get_option( 'captcha_version', 'v2_checkbox' );
+
+			if ( 'v2_checkbox' === $version ) {
+				$this->v2_checkbox_script();
+			} elseif ( 'v2_invisible' === $version ) {
+				$this->v2_invisible_script();
+			} elseif ( 'v3' === $version ) {
+				$this->v3_script();
+			}
+		}
+
+		function v2_checkbox_script() {
+			$number = $this->total_captcha();
+			?>
+			<script type="text/javascript">
+				var anr_onloadCallback = function() {
+					var anr_obj = {
+						'sitekey' : '<?php echo esc_js( trim( anr_get_option( 'site_key' ) ) ); ?>',
+						'size' : '<?php echo esc_js( anr_get_option( 'size', 'normal' ) ); ?>',
+						'theme' : '<?php echo esc_js( anr_get_option( 'theme', 'light' ) ); ?>',
+					};
+					<?php
+					for ( $num = 1; $num <= $number; $num++ ) {
+						?>
+						var anr_captcha_<?php echo $num; ?>;
+						anr_captcha_<?php echo $num; ?> = grecaptcha.render('anr_captcha_field_<?php echo $num; ?>', anr_obj );
+						if ( typeof wc_checkout_params !== 'undefined' ) {
+							jQuery( document.body ).on( 'checkout_error', function(){
+								grecaptcha.reset(anr_captcha_<?php echo $num; ?>);
+							});
+						}
+						if ( typeof wpcf7 !== 'undefined' ) {
+							document.addEventListener( 'wpcf7submit', function() {
+								grecaptcha.reset(anr_captcha_<?php echo $num; ?>);
+							}, false );
+						}
+					<?php } ?>
+				};
+			</script>
+			<?php
 			$language = trim( anr_get_option( 'language' ) );
 
-				$lang = '';
+			$lang = '';
 			if ( $language ) {
-				$lang = "&hl=$language";
+				$lang = '&hl=' . $language;
 			}
-
+			$google_url = 'https://www.google.com/recaptcha/api.js?onload=anr_onloadCallback&render=explicit' . $lang;
 			?>
-		<script type="text/javascript">
-		var anr_onloadCallback = function() {
-			var anr_obj = {
-			'sitekey' : '<?php echo esc_js( $site_key ); ?>',
-			'size' : '<?php echo esc_js( $size ); ?>',
-		};
-			<?php
-			if ( 'invisible' == $size ) {
-				wp_enqueue_script( 'jquery' );
-				?>
-				anr_obj.badge = '<?php echo esc_js( anr_get_option( 'badge', 'bottomright' ) ); ?>';
-			<?php } else { ?>
-			anr_obj.theme = '<?php echo esc_js( $theme ); ?>';
-		<?php } ?>
-		
-			<?php for ( $num = 1; $num <= $number; $num++ ) { ?>
-				var anr_captcha_<?php echo $num; ?>;
-				
-			<?php if ( 'invisible' == $size ) { ?>
-				var anr_form<?php echo $num; ?> = jQuery('#anr_captcha_field_<?php echo $num; ?>').closest('form')[0];
-				anr_obj.callback = function(){ anr_form<?php echo $num; ?>.submit(); };
-				anr_obj["expired-callback"] = function(){ grecaptcha.reset(anr_captcha_<?php echo $num; ?>); };
-				
-				anr_form<?php echo $num; ?>.onsubmit = function(evt){
-					evt.preventDefault();
-					//grecaptcha.reset(anr_captcha_<?php echo $num; ?>);
-					grecaptcha.execute(anr_captcha_<?php echo $num; ?>);
-				};
-			<?php } ?>
-			
-			anr_captcha_<?php echo $num; ?> = grecaptcha.render('anr_captcha_field_<?php echo $num; ?>', anr_obj );
-			if ( typeof wc_checkout_params !== 'undefined' ) {
-				jQuery( document.body ).on( 'checkout_error', function(){
-					grecaptcha.reset(anr_captcha_<?php echo $num; ?>);
-				});
-			}
-			if ( typeof wpcf7 !== 'undefined' ) {
-				document.addEventListener( 'wpcf7submit', function() {
-					grecaptcha.reset(anr_captcha_<?php echo $num; ?>);
-				}, false );
-			}
-		<?php } ?>
-		  };
-		</script>
-		<script src="https://www.google.com/recaptcha/api.js?onload=anr_onloadCallback&render=explicit<?php echo esc_js( $lang ); ?>"
+			<script src="<?php echo esc_url( $google_url ); ?>"
 			async defer>
-		</script>
-
+			</script>
 			<?php
+		}
 
+		function v2_invisible_script() {
+			?>
+			<script type="text/javascript">
+				var anr_onloadCallback = function() {
+					for ( var i = 0; i < document.forms.length; i++ ) {
+						var form = document.forms[i];
+						var captcha_div = form.querySelector( '.anr_captcha_field_div' );
+
+						if ( null === captcha_div )
+							continue;
+						captcha_div.innerHTML = '';
+						( function( form ) {		
+							var anr_captcha = grecaptcha.render( captcha_div,{
+								'sitekey' : '<?php echo esc_js( trim( anr_get_option( 'site_key' ) ) ); ?>',
+								'size'  : 'invisible',
+								'theme' : '<?php echo esc_js( anr_get_option( 'theme', 'light' ) ); ?>',
+								'badge' : '<?php echo esc_js( anr_get_option( 'badge', 'bottomright' ) ); ?>',
+								'callback' : function ( token ) {
+									if( typeof jQuery != 'undefined' ){
+										jQuery(form).submit();
+										grecaptcha.reset( anr_captcha );
+									} else {
+										HTMLFormElement.prototype.submit.call( form );
+									}
+								},
+								'expired-callback' : function(){
+									grecaptcha.reset( anr_captcha );
+								}
+							});
+							var cf7_submit = form.querySelector( '.wpcf7-submit' );
+							
+							if( null !== cf7_submit && ( typeof jQuery !== 'undefined' ) ){
+								jQuery( cf7_submit ).off('click').on('click', function( e ){
+									e.preventDefault();
+									jQuery( '.ajax-loader', form ).addClass( 'is-active' );
+									grecaptcha.execute( anr_captcha );
+								});
+							} else {
+								form.onsubmit = function( e ){
+									e.preventDefault();
+									grecaptcha.execute( anr_captcha );
+								};
+							}
+						})(form);
+					}
+				};
+			</script>
+			<?php
+			$language = trim( anr_get_option( 'language' ) );
+
+			$lang = '';
+			if ( $language ) {
+				$lang = '&hl=' . $language;
+			}
+			$google_url = 'https://www.google.com/recaptcha/api.js?onload=anr_onloadCallback&render=explicit' . $lang;
+			?>
+			<script src="<?php echo esc_url( $google_url ); ?>"
+			async defer>
+			</script>
+			<?php
+		}
+
+		function v3_script() {
+			// v3 support v2 script. So use it
+			// $this->v2_invisible_script();
+			
+			$language = trim( anr_get_option( 'language' ) );
+			$site_key = trim( anr_get_option( 'site_key' ) );
+
+			$lang = '';
+			if ( $language ) {
+				$lang = '&hl=' . $language;
+			}
+
+			$google_url = 'https://www.google.com/recaptcha/api.js?render=' . $site_key . $lang;
+			?>
+			<script src="<?php echo esc_url( $google_url ); ?>"></script>
+			<script type="text/javascript">
+			( function( grecaptcha ) {
+
+				var anr_onloadCallback = function() {
+					grecaptcha.execute(
+						'<?php echo esc_js( $site_key ); ?>',
+						{ action: 'advanced_nocaptcha_recaptcha' }
+					).then( function( token ) {
+						for ( var i = 0; i < document.forms.length; i++ ) {
+							var form = document.forms[i];
+							var captcha = form.querySelector( 'input[name="g-recaptcha-response"]' );
+							if ( null === captcha )
+								continue;
+
+							captcha.value = token;
+						}
+					});
+				};
+
+				grecaptcha.ready( anr_onloadCallback );
+
+				document.addEventListener( 'wpcf7submit', anr_onloadCallback, false );
+				if ( typeof wc_checkout_params !== 'undefined' ) {
+					jQuery( document.body ).on( 'checkout_error', anr_onloadCallback );
+				}
+
+			} )( grecaptcha );
+			</script>
+			<?php
 		}
 
 
