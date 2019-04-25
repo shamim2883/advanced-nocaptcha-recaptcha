@@ -4,7 +4,7 @@ Tags: recaptcha,nocaptcha,invisible,no captcha,bot,spam,captcha,woocommerce capt
 Donate link: https://www.paypal.me/hasanshamim
 Requires at least: 4.4
 Tested up to: 5.1.1
-Stable tag: 5.1
+Stable tag: 5.2
 Requires PHP: 5.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -87,7 +87,7 @@ You can access your file via FTP or file manager and rename "advanced-nocaptcha-
 
 == Changelog ==
 
-= 5.1 =
+= 5.2 =
 
 * Now support reCaptcha v3 also
 * Fix: invisible captcha sometimes was not working
