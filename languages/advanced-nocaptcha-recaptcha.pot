@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Advanced noCaptcha reCaptcha 5.1\n"
-"POT-Creation-Date: 2019-04-25 11:02+0600\n"
+"POT-Creation-Date: 2019-04-25 13:06+0600\n"
 "PO-Revision-Date: 2018-04-12 17:20+0600\n"
 "Last-Translator: \n"
 "Language-Team: Shamim\n"
@@ -367,174 +367,190 @@ msgid "Show login Captcha after how many failed attempts? 0 = show always"
 msgstr ""
 
 #: admin/settings.php:224
-msgid "Captcha Score"
+msgid "v3 Script Load"
 msgstr ""
 
 #: admin/settings.php:230
-msgid "0.0"
+msgid "All Pages"
 msgstr ""
 
 #: admin/settings.php:231
-msgid "0.1"
-msgstr ""
-
-#: admin/settings.php:232
-msgid "0.2"
+msgid "Form Pages"
 msgstr ""
 
 #: admin/settings.php:233
-msgid "0.3"
-msgstr ""
-
-#: admin/settings.php:234
-msgid "0.4"
-msgstr ""
-
-#: admin/settings.php:235
-msgid "0.5"
+msgid "Loading in All Pages help google for analytics"
 msgstr ""
 
 #: admin/settings.php:236
-msgid "0.6"
-msgstr ""
-
-#: admin/settings.php:237
-msgid "0.7"
-msgstr ""
-
-#: admin/settings.php:238
-msgid "0.8"
-msgstr ""
-
-#: admin/settings.php:239
-msgid "0.9"
-msgstr ""
-
-#: admin/settings.php:240
-msgid "1.0"
+msgid "Captcha Score"
 msgstr ""
 
 #: admin/settings.php:242
-msgid "Higher means more sensitive"
+msgid "0.0"
+msgstr ""
+
+#: admin/settings.php:243
+msgid "0.1"
+msgstr ""
+
+#: admin/settings.php:244
+msgid "0.2"
 msgstr ""
 
 #: admin/settings.php:245
-msgid "Logged in Hide"
+msgid "0.3"
+msgstr ""
+
+#: admin/settings.php:246
+msgid "0.4"
+msgstr ""
+
+#: admin/settings.php:247
+msgid "0.5"
+msgstr ""
+
+#: admin/settings.php:248
+msgid "0.6"
 msgstr ""
 
 #: admin/settings.php:249
-msgid "Hide Captcha for logged in users?"
+msgid "0.7"
+msgstr ""
+
+#: admin/settings.php:250
+msgid "0.8"
+msgstr ""
+
+#: admin/settings.php:251
+msgid "0.9"
 msgstr ""
 
 #: admin/settings.php:252
-msgid "Remove CSS"
+msgid "1.0"
 msgstr ""
 
-#: admin/settings.php:256
-msgid "Remove this plugin's css from login page?"
+#: admin/settings.php:254
+msgid "Higher means more sensitive"
 msgstr ""
 
 #: admin/settings.php:257
-msgid "This css increase login page width to adjust with Captcha width."
+msgid "Logged in Hide"
 msgstr ""
 
-#: admin/settings.php:260
-msgid "No JS Captcha"
+#: admin/settings.php:261
+msgid "Hide Captcha for logged in users?"
 msgstr ""
 
 #: admin/settings.php:264
+msgid "Remove CSS"
+msgstr ""
+
+#: admin/settings.php:268
+msgid "Remove this plugin's css from login page?"
+msgstr ""
+
+#: admin/settings.php:269
+msgid "This css increase login page width to adjust with Captcha width."
+msgstr ""
+
+#: admin/settings.php:272
+msgid "No JS Captcha"
+msgstr ""
+
+#: admin/settings.php:276
 msgid "Show captcha if javascript disabled?"
 msgstr ""
 
-#: admin/settings.php:265
+#: admin/settings.php:277
 msgid ""
 "If JavaScript is a requirement for your site, we advise that you do NOT "
 "check this."
 msgstr ""
 
-#: admin/settings.php:379
+#: admin/settings.php:391
 #, php-format
 msgid "No hook defined for %s"
 msgstr ""
 
-#: admin/settings.php:402 admin/settings.php:427
+#: admin/settings.php:414 admin/settings.php:439
 msgid "Advanced noCaptcha & invisible captcha Settings"
 msgstr ""
 
-#: admin/settings.php:402
+#: admin/settings.php:414
 msgid "Advanced noCaptcha & invisible captcha"
 msgstr ""
 
-#: admin/settings.php:403
+#: admin/settings.php:415
 msgid "Instruction"
 msgstr ""
 
-#: admin/settings.php:455
+#: admin/settings.php:467
 msgid "Plugin Author"
 msgstr ""
 
-#: admin/settings.php:471
+#: admin/settings.php:483
 msgid "Support Development"
 msgstr ""
 
-#: admin/settings.php:492
+#: admin/settings.php:504
 msgid "Advanced noCaptcha reCaptcha Setup Instruction"
 msgstr ""
 
-#: admin/settings.php:497
+#: admin/settings.php:509
 #, php-format
 msgid ""
 "Get your site key and secret key from <a href=\"%s\" target=\"_blank"
 "\">GOOGLE</a> if you do not have already."
 msgstr ""
 
-#: admin/settings.php:498
+#: admin/settings.php:510
 #, php-format
 msgid "Goto %s page of this plugin and set up as you need. and ENJOY..."
 msgstr ""
 
-#: admin/settings.php:500
+#: admin/settings.php:512
 msgid "Implement noCaptcha in Contact Form 7"
 msgstr ""
 
-#: admin/settings.php:501
+#: admin/settings.php:513
 #, php-format
 msgid "To show noCaptcha use %s"
 msgstr ""
 
-#: admin/settings.php:503
+#: admin/settings.php:515
 msgid "Implement noCaptcha in WooCommerce"
 msgstr ""
 
-#: admin/settings.php:504
+#: admin/settings.php:516
 msgid ""
 "If Login Form, Registration Form, Lost Password Form, Reset Password Form is "
 "selected in SETTINGS page of this plugin they will show and verify Captcha "
 "in WooCommerce respective forms also."
 msgstr ""
 
-#: admin/settings.php:506
+#: admin/settings.php:518
 msgid "If you want to implement noCaptcha in any other custom form"
 msgstr ""
 
-#: admin/settings.php:507
+#: admin/settings.php:519
 #, php-format
 msgid "To show noCaptcha in a form use %1$s OR %2$s"
 msgstr ""
 
-#: admin/settings.php:508
+#: admin/settings.php:520
 #, php-format
 msgid "To verify use %s. It will return true on success otherwise false."
 msgstr ""
 
-#: admin/settings.php:509
+#: admin/settings.php:521
 #, php-format
 msgid ""
 "For paid support pleasse visit <a href=\"%s\" target=\"_blank\">Advanced "
 "noCaptcha reCaptcha</a>"
 msgstr ""
 
-#: admin/settings.php:527
+#: admin/settings.php:539
 msgid "Settings"
 msgstr ""
 
