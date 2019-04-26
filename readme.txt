@@ -1,10 +1,10 @@
 === Advanced noCaptcha & invisible Captcha (v2 & v3) ===
 Contributors: shamim51
 Tags: recaptcha,nocaptcha,invisible,no captcha,bot,spam,captcha,woocommerce captcha,woocommerce nocaptcha, woocommerce,widget,plugin,sidebar,shortcode,page,posts,comments,google,bbpress,multisite,multiple,v2,v3
-Donate link: https://www.paypal.me/hasanshamim
+Donate link: https://www.shamimsplugins.com/products/advanced-nocaptcha-and-invisible-captcha-pro/
 Requires at least: 4.4
 Tested up to: 5.1.1
-Stable tag: 5.2
+Stable tag: 5.3
 Requires PHP: 5.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -37,11 +37,12 @@ Show noCaptcha or invisible captcha in Comment Form (after Comment textarea befo
 
 = Options =
 
+* You can select which version of reCaptcha will be used (v2 I'm not robot checkbox, v2 invisible or v3)
 * Language can be changed
-* Theme can be changed
-* Size can be changed or set as invisible
-* Badge location can be changed
 * Error message can be changed
+* For v2 I'm not robot: Theme, Size can be changed.
+* For v2 Invisible: Theme, badge location can be changed.
+* For v3: Score and when to load script can be changed
 * Option to show/hide captcha for logged in users
 * Captcha will show if javascript disabled also (optional)
 
@@ -86,6 +87,10 @@ You can access your file via FTP or file manager and rename "advanced-nocaptcha-
 8. Advanced noCaptcha reCaptcha Setup Instruction
 
 == Changelog ==
+
+= 5.3 =
+
+* Fix: Compatibility issue with reCaptcha v3 and CF7 version 5.1 & 5.1.1
 
 = 5.2 =
 
