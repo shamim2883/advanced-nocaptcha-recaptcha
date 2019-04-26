@@ -41,7 +41,7 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 				add_filter( 'woocommerce_registration_errors', array( $this, 'wc_registration_verify' ), 10, 3 );
 				// add_action ('woocommerce_checkout_after_order_review', array($this, 'wc_form_field') );
 			}
-			
+
 			if ( anr_is_form_enabled( 'bp_register' ) ) {
 				add_action( 'bp_before_registration_submit_buttons', array( $this, 'bp_form_field' ), 99 );
 				add_action( 'bp_signup_validate', array( $this, 'bp_registration_verify' ) );
@@ -79,6 +79,10 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 			}
 
 			if ( function_exists( 'wpcf7_add_form_tag' ) ) {
+				$cf7_option = get_option( 'wpcf7' );
+				if ( ! is_array( $cf7_option ) || empty( $cf7_option['recaptcha'] ) ) {
+					remove_filter( 'wpcf7_form_hidden_fields', 'wpcf7_recaptcha_add_hidden_fields', 100, 1 );
+				}
 				wpcf7_add_form_tag( 'anr_nocaptcha', array( $this, 'wpcf7_form_field' ), array( 'name-attr' => true ) );
 				add_filter( 'wpcf7_validate_anr_nocaptcha', array( $this, 'wpcf7_verify' ), 10, 2 );
 			} elseif ( function_exists( 'wpcf7_add_shortcode' ) ) {
@@ -506,7 +510,7 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 
 			return $errors;
 		}
-		
+
 		function bp_form_field() {
 			$loggedin_hide = anr_get_option( 'loggedin_hide' );
 
@@ -518,7 +522,7 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 
 			anr_captcha_form_field( true );
 		}
-		
+
 		function bp_registration_verify() {
 			if ( ! $this->verify() ) {
 				buddypress()->signup->errors['anr_error'] = anr_get_option( 'error_message' );
@@ -605,7 +609,7 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 		}
 
 		function wc_checkout_verify( $data, $errors ) {
-			$is_reg_enable = apply_filters( 'woocommerce_checkout_registration_enabled', 'yes' === get_option( 'woocommerce_enable_signup_and_login_from_checkout' ) );
+			$is_reg_enable   = apply_filters( 'woocommerce_checkout_registration_enabled', 'yes' === get_option( 'woocommerce_enable_signup_and_login_from_checkout' ) );
 			$is_reg_required = apply_filters( 'woocommerce_checkout_registration_required', 'yes' !== get_option( 'woocommerce_enable_guest_checkout' ) );
 
 			if ( ! is_user_logged_in() && $is_reg_enable && anr_is_form_enabled( 'registration' ) && ( $is_reg_required || ! empty( $data['createaccount'] ) ) ) {
