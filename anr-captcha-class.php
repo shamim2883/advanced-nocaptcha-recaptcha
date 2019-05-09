@@ -177,31 +177,34 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 		}
 
 		function v2_checkbox_script() {
-			$number = $this->total_captcha();
 			?>
 			<script type="text/javascript">
 				var anr_onloadCallback = function() {
-					var anr_obj = {
-						'sitekey' : '<?php echo esc_js( trim( anr_get_option( 'site_key' ) ) ); ?>',
-						'size' : '<?php echo esc_js( anr_get_option( 'size', 'normal' ) ); ?>',
-						'theme' : '<?php echo esc_js( anr_get_option( 'theme', 'light' ) ); ?>',
-					};
-					<?php
-					for ( $num = 1; $num <= $number; $num++ ) {
-						?>
-						var anr_captcha_<?php echo $num; ?>;
-						anr_captcha_<?php echo $num; ?> = grecaptcha.render('anr_captcha_field_<?php echo $num; ?>', anr_obj );
-						if ( typeof wc_checkout_params !== 'undefined' ) {
-							jQuery( document.body ).on( 'checkout_error', function(){
-								grecaptcha.reset(anr_captcha_<?php echo $num; ?>);
+					for ( var i = 0; i < document.forms.length; i++ ) {
+						var form = document.forms[i];
+						var captcha_div = form.querySelector( '.anr_captcha_field_div' );
+
+						if ( null === captcha_div )
+							continue;
+						captcha_div.innerHTML = '';
+						( function( form ) {	
+							var anr_captcha = grecaptcha.render( captcha_div,{
+								'sitekey' : '<?php echo esc_js( trim( anr_get_option( 'site_key' ) ) ); ?>',
+								'size'  : '<?php echo esc_js( anr_get_option( 'size', 'normal' ) ); ?>',
+								'theme' : '<?php echo esc_js( anr_get_option( 'theme', 'light' ) ); ?>'
 							});
-						}
-						if ( typeof wpcf7 !== 'undefined' ) {
-							document.addEventListener( 'wpcf7submit', function() {
-								grecaptcha.reset(anr_captcha_<?php echo $num; ?>);
-							}, false );
-						}
-					<?php } ?>
+							if ( typeof wc_checkout_params !== 'undefined' ) {
+								jQuery( document.body ).on( 'checkout_error', function(){
+									grecaptcha.reset(anr_captcha);
+								});
+							}
+							if ( typeof wpcf7 !== 'undefined' ) {
+								document.addEventListener( 'wpcf7submit', function() {
+									grecaptcha.reset(anr_captcha);
+								}, false );
+							}
+						})(form);
+					}
 				};
 			</script>
 			<?php
