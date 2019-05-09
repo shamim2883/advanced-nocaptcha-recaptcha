@@ -75,6 +75,10 @@ class ANR_Settings {
 	}
 
 	function get_fields() {
+		$score_values = [];
+		for ( $i = 0.0; $i <= 1; $i += 0.1 ) {
+			$score_values[ "$i" ] = number_format_i18n( $i, 1 );
+		}
 		$fields = array(
 			'captcha_version'            => array(
 				'label'      => __( 'Version', 'advanced-nocaptcha-recaptcha' ),
@@ -238,19 +242,7 @@ class ANR_Settings {
 				'type'       => 'select',
 				'class'      => 'regular hidden anr-show-field-for-v3',
 				'std'        => '0.5',
-				'options'    => array(
-					'0.0' => __( '0.0', 'advanced-nocaptcha-recaptcha' ),
-					'0.1' => __( '0.1', 'advanced-nocaptcha-recaptcha' ),
-					'0.2' => __( '0.2', 'advanced-nocaptcha-recaptcha' ),
-					'0.3' => __( '0.3', 'advanced-nocaptcha-recaptcha' ),
-					'0.4' => __( '0.4', 'advanced-nocaptcha-recaptcha' ),
-					'0.5' => __( '0.5', 'advanced-nocaptcha-recaptcha' ),
-					'0.6' => __( '0.6', 'advanced-nocaptcha-recaptcha' ),
-					'0.7' => __( '0.7', 'advanced-nocaptcha-recaptcha' ),
-					'0.8' => __( '0.8', 'advanced-nocaptcha-recaptcha' ),
-					'0.9' => __( '0.9', 'advanced-nocaptcha-recaptcha' ),
-					'1.0' => __( '1.0', 'advanced-nocaptcha-recaptcha' ),
-				),
+				'options'    => $score_values,
 				'desc'       => __( 'Higher means more sensitive', 'advanced-nocaptcha-recaptcha' ),
 			),
 			'loggedin_hide'      => array(
