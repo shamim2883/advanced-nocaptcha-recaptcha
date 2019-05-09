@@ -237,7 +237,7 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 								'theme' : '<?php echo esc_js( anr_get_option( 'theme', 'light' ) ); ?>',
 								'badge' : '<?php echo esc_js( anr_get_option( 'badge', 'bottomright' ) ); ?>',
 								'callback' : function ( token ) {
-									if( typeof jQuery != 'undefined' ){
+									if( typeof jQuery !== 'undefined' ){
 										jQuery(form).submit();
 										grecaptcha.reset( anr_captcha );
 									} else {
