@@ -1,8 +1,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Advanced noCaptcha reCaptcha 5.1\n"
-"POT-Creation-Date: 2019-04-25 13:06+0600\n"
+"Project-Id-Version: Advanced noCaptcha reCaptcha 5.4\n"
+"POT-Creation-Date: 2019-05-12 15:21+0600\n"
 "PO-Revision-Date: 2018-04-12 17:20+0600\n"
 "Last-Translator: \n"
 "Language-Team: Shamim\n"
@@ -10,7 +10,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.1.1\n"
+"X-Generator: Poedit 2.2.1\n"
 "X-Poedit-Basepath: ..\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-KeywordsList: __;_e\n"
@@ -35,530 +35,486 @@ msgstr ""
 msgid "Other Settings"
 msgstr ""
 
-#: admin/settings.php:80
+#: admin/settings.php:84
 msgid "Version"
 msgstr ""
 
-#: admin/settings.php:86
+#: admin/settings.php:90
 msgid "V2 \"I'm not a robot\""
 msgstr ""
 
-#: admin/settings.php:87
+#: admin/settings.php:91
 msgid "V2 Invisible"
 msgstr ""
 
-#: admin/settings.php:88
+#: admin/settings.php:92
 msgid "V3"
 msgstr ""
 
-#: admin/settings.php:90
+#: admin/settings.php:94
 msgid ""
 "Select your reCaptcha version. Make sure to use site key and secret key for "
 "your selected version."
 msgstr ""
 
-#: admin/settings.php:93
+#: admin/settings.php:97
 msgid "Site Key"
 msgstr ""
 
-#: admin/settings.php:97
+#: admin/settings.php:101
 msgid "Secret Key"
 msgstr ""
 
-#: admin/settings.php:101
+#: admin/settings.php:105
 msgid "Enabled Forms"
 msgstr ""
 
-#: admin/settings.php:106
+#: admin/settings.php:110
 msgid "Login Form"
 msgstr ""
 
-#: admin/settings.php:107
+#: admin/settings.php:111
 msgid "Registration Form"
 msgstr ""
 
-#: admin/settings.php:108
+#: admin/settings.php:112
 msgid "Multisite User Signup Form"
 msgstr ""
 
-#: admin/settings.php:109
+#: admin/settings.php:113
 msgid "Lost Password Form"
 msgstr ""
 
-#: admin/settings.php:110
+#: admin/settings.php:114
 msgid "Reset Password Form"
 msgstr ""
 
-#: admin/settings.php:111
+#: admin/settings.php:115
 msgid "Comment Form"
 msgstr ""
 
-#: admin/settings.php:112
+#: admin/settings.php:116
 msgid "bbPress New topic"
 msgstr ""
 
-#: admin/settings.php:113
+#: admin/settings.php:117
 msgid "bbPress reply to topic"
 msgstr ""
 
-#: admin/settings.php:114
+#: admin/settings.php:118
 msgid "BuddyPress register"
 msgstr ""
 
-#: admin/settings.php:115
+#: admin/settings.php:119
 msgid "WooCommerce Checkout"
 msgstr ""
 
-#: admin/settings.php:117
+#: admin/settings.php:121
 #, php-format
 msgid "For other forms see <a href=\"%s\">Instruction</a>"
 msgstr ""
 
-#: admin/settings.php:120
+#: admin/settings.php:124
 msgid "Error Message"
 msgstr ""
 
-#: admin/settings.php:122
+#: admin/settings.php:126
 msgid "Please solve Captcha correctly"
 msgstr ""
 
-#: admin/settings.php:125
+#: admin/settings.php:129
 msgid "Captcha Language"
 msgstr ""
 
-#: admin/settings.php:130
+#: admin/settings.php:134
 msgid "Auto Detect"
 msgstr ""
 
-#: admin/settings.php:131
+#: admin/settings.php:135
 msgid "Arabic"
 msgstr ""
 
-#: admin/settings.php:132
+#: admin/settings.php:136
 msgid "Bulgarian"
 msgstr ""
 
-#: admin/settings.php:133
+#: admin/settings.php:137
 msgid "Catalan"
 msgstr ""
 
-#: admin/settings.php:134
+#: admin/settings.php:138
 msgid "Chinese (Simplified)"
 msgstr ""
 
-#: admin/settings.php:135
+#: admin/settings.php:139
 msgid "Chinese (Traditional)"
 msgstr ""
 
-#: admin/settings.php:136
+#: admin/settings.php:140
 msgid "Croatian"
 msgstr ""
 
-#: admin/settings.php:137
+#: admin/settings.php:141
 msgid "Czech"
 msgstr ""
 
-#: admin/settings.php:138
+#: admin/settings.php:142
 msgid "Danish"
 msgstr ""
 
-#: admin/settings.php:139
+#: admin/settings.php:143
 msgid "Dutch"
 msgstr ""
 
-#: admin/settings.php:140
+#: admin/settings.php:144
 msgid "English (UK)"
 msgstr ""
 
-#: admin/settings.php:141
+#: admin/settings.php:145
 msgid "English (US)"
 msgstr ""
 
-#: admin/settings.php:142
+#: admin/settings.php:146
 msgid "Filipino"
 msgstr ""
 
-#: admin/settings.php:143
+#: admin/settings.php:147
 msgid "Finnish"
 msgstr ""
 
-#: admin/settings.php:144
+#: admin/settings.php:148
 msgid "French"
 msgstr ""
 
-#: admin/settings.php:145
+#: admin/settings.php:149
 msgid "French (Canadian)"
 msgstr ""
 
-#: admin/settings.php:146
+#: admin/settings.php:150
 msgid "German"
 msgstr ""
 
-#: admin/settings.php:147
+#: admin/settings.php:151
 msgid "German (Austria)"
 msgstr ""
 
-#: admin/settings.php:148
+#: admin/settings.php:152
 msgid "German (Switzerland)"
 msgstr ""
 
-#: admin/settings.php:149
+#: admin/settings.php:153
 msgid "Greek"
 msgstr ""
 
-#: admin/settings.php:150
+#: admin/settings.php:154
 msgid "Hebrew"
 msgstr ""
 
-#: admin/settings.php:151
+#: admin/settings.php:155
 msgid "Hindi"
 msgstr ""
 
-#: admin/settings.php:152
+#: admin/settings.php:156
 msgid "Hungarain"
 msgstr ""
 
-#: admin/settings.php:153
+#: admin/settings.php:157
 msgid "Indonesian"
 msgstr ""
 
-#: admin/settings.php:154
+#: admin/settings.php:158
 msgid "Italian"
 msgstr ""
 
-#: admin/settings.php:155
+#: admin/settings.php:159
 msgid "Japanese"
 msgstr ""
 
-#: admin/settings.php:156
+#: admin/settings.php:160
 msgid "Korean"
 msgstr ""
 
-#: admin/settings.php:157
+#: admin/settings.php:161
 msgid "Latvian"
 msgstr ""
 
-#: admin/settings.php:158
+#: admin/settings.php:162
 msgid "Lithuanian"
 msgstr ""
 
-#: admin/settings.php:159
+#: admin/settings.php:163
 msgid "Norwegian"
 msgstr ""
 
-#: admin/settings.php:160
+#: admin/settings.php:164
 msgid "Persian"
 msgstr ""
 
-#: admin/settings.php:161
+#: admin/settings.php:165
 msgid "Polish"
 msgstr ""
 
-#: admin/settings.php:162
+#: admin/settings.php:166
 msgid "Portuguese"
 msgstr ""
 
-#: admin/settings.php:163
+#: admin/settings.php:167
 msgid "Portuguese (Brazil)"
 msgstr ""
 
-#: admin/settings.php:164
+#: admin/settings.php:168
 msgid "Portuguese (Portugal)"
 msgstr ""
 
-#: admin/settings.php:165
+#: admin/settings.php:169
 msgid "Romanian"
 msgstr ""
 
-#: admin/settings.php:166
+#: admin/settings.php:170
 msgid "Russian"
 msgstr ""
 
-#: admin/settings.php:167
+#: admin/settings.php:171
 msgid "Serbian"
 msgstr ""
 
-#: admin/settings.php:168
+#: admin/settings.php:172
 msgid "Slovak"
 msgstr ""
 
-#: admin/settings.php:169
+#: admin/settings.php:173
 msgid "Slovenian"
 msgstr ""
 
-#: admin/settings.php:170
+#: admin/settings.php:174
 msgid "Spanish"
 msgstr ""
 
-#: admin/settings.php:171
+#: admin/settings.php:175
 msgid "Spanish (Latin America)"
 msgstr ""
 
-#: admin/settings.php:172
+#: admin/settings.php:176
 msgid "Swedish"
 msgstr ""
 
-#: admin/settings.php:173
+#: admin/settings.php:177
 msgid "Thai"
 msgstr ""
 
-#: admin/settings.php:174
+#: admin/settings.php:178
 msgid "Turkish"
 msgstr ""
 
-#: admin/settings.php:175
+#: admin/settings.php:179
 msgid "Ukrainian"
 msgstr ""
 
-#: admin/settings.php:176
+#: admin/settings.php:180
 msgid "Vietnamese"
 msgstr ""
 
-#: admin/settings.php:180
+#: admin/settings.php:184
 msgid "Theme"
 msgstr ""
 
-#: admin/settings.php:186
+#: admin/settings.php:190
 msgid "Light"
 msgstr ""
 
-#: admin/settings.php:187
+#: admin/settings.php:191
 msgid "Dark"
 msgstr ""
 
-#: admin/settings.php:191
+#: admin/settings.php:195
 msgid "Size"
 msgstr ""
 
-#: admin/settings.php:197
+#: admin/settings.php:201
 msgid "Normal"
 msgstr ""
 
-#: admin/settings.php:198
+#: admin/settings.php:202
 msgid "Compact"
 msgstr ""
 
-#: admin/settings.php:202
+#: admin/settings.php:206
 msgid "Badge"
 msgstr ""
 
-#: admin/settings.php:208
+#: admin/settings.php:212
 msgid "Bottom Right"
 msgstr ""
 
-#: admin/settings.php:209
+#: admin/settings.php:213
 msgid "Bottom Left"
 msgstr ""
 
-#: admin/settings.php:210
+#: admin/settings.php:214
 msgid "Inline"
 msgstr ""
 
-#: admin/settings.php:212
+#: admin/settings.php:216
 msgid "Badge shows for invisible captcha"
 msgstr ""
 
-#: admin/settings.php:215
+#: admin/settings.php:219
 msgid "Failed login Captcha"
 msgstr ""
 
-#: admin/settings.php:221
+#: admin/settings.php:225
 msgid "Show login Captcha after how many failed attempts? 0 = show always"
 msgstr ""
 
-#: admin/settings.php:224
+#: admin/settings.php:228
 msgid "v3 Script Load"
 msgstr ""
 
-#: admin/settings.php:230
+#: admin/settings.php:234
 msgid "All Pages"
 msgstr ""
 
-#: admin/settings.php:231
+#: admin/settings.php:235
 msgid "Form Pages"
 msgstr ""
 
-#: admin/settings.php:233
+#: admin/settings.php:237
 msgid "Loading in All Pages help google for analytics"
 msgstr ""
 
-#: admin/settings.php:236
+#: admin/settings.php:240
 msgid "Captcha Score"
 msgstr ""
 
-#: admin/settings.php:242
-msgid "0.0"
-msgstr ""
-
-#: admin/settings.php:243
-msgid "0.1"
-msgstr ""
-
-#: admin/settings.php:244
-msgid "0.2"
-msgstr ""
-
-#: admin/settings.php:245
-msgid "0.3"
-msgstr ""
-
 #: admin/settings.php:246
-msgid "0.4"
-msgstr ""
-
-#: admin/settings.php:247
-msgid "0.5"
-msgstr ""
-
-#: admin/settings.php:248
-msgid "0.6"
-msgstr ""
-
-#: admin/settings.php:249
-msgid "0.7"
-msgstr ""
-
-#: admin/settings.php:250
-msgid "0.8"
-msgstr ""
-
-#: admin/settings.php:251
-msgid "0.9"
-msgstr ""
-
-#: admin/settings.php:252
-msgid "1.0"
-msgstr ""
-
-#: admin/settings.php:254
 msgid "Higher means more sensitive"
 msgstr ""
 
-#: admin/settings.php:257
+#: admin/settings.php:249
 msgid "Logged in Hide"
 msgstr ""
 
-#: admin/settings.php:261
+#: admin/settings.php:253
 msgid "Hide Captcha for logged in users?"
 msgstr ""
 
-#: admin/settings.php:264
+#: admin/settings.php:256
 msgid "Remove CSS"
 msgstr ""
 
-#: admin/settings.php:268
+#: admin/settings.php:260
 msgid "Remove this plugin's css from login page?"
 msgstr ""
 
-#: admin/settings.php:269
+#: admin/settings.php:261
 msgid "This css increase login page width to adjust with Captcha width."
 msgstr ""
 
-#: admin/settings.php:272
+#: admin/settings.php:264
 msgid "No JS Captcha"
 msgstr ""
 
-#: admin/settings.php:276
+#: admin/settings.php:268
 msgid "Show captcha if javascript disabled?"
 msgstr ""
 
-#: admin/settings.php:277
+#: admin/settings.php:269
 msgid ""
 "If JavaScript is a requirement for your site, we advise that you do NOT "
 "check this."
 msgstr ""
 
-#: admin/settings.php:391
+#: admin/settings.php:383
 #, php-format
 msgid "No hook defined for %s"
 msgstr ""
 
-#: admin/settings.php:414 admin/settings.php:439
+#: admin/settings.php:406 admin/settings.php:431
 msgid "Advanced noCaptcha & invisible captcha Settings"
 msgstr ""
 
-#: admin/settings.php:414
+#: admin/settings.php:406
 msgid "Advanced noCaptcha & invisible captcha"
 msgstr ""
 
-#: admin/settings.php:415
+#: admin/settings.php:407
 msgid "Instruction"
 msgstr ""
 
-#: admin/settings.php:467
+#: admin/settings.php:459
 msgid "Plugin Author"
 msgstr ""
 
-#: admin/settings.php:483
+#: admin/settings.php:475
 msgid "Support Development"
 msgstr ""
 
-#: admin/settings.php:504
+#: admin/settings.php:496
 msgid "Advanced noCaptcha reCaptcha Setup Instruction"
 msgstr ""
 
-#: admin/settings.php:509
+#: admin/settings.php:501
 #, php-format
 msgid ""
 "Get your site key and secret key from <a href=\"%s\" target=\"_blank"
 "\">GOOGLE</a> if you do not have already."
 msgstr ""
 
-#: admin/settings.php:510
+#: admin/settings.php:502
 #, php-format
 msgid "Goto %s page of this plugin and set up as you need. and ENJOY..."
 msgstr ""
 
-#: admin/settings.php:512
+#: admin/settings.php:504
 msgid "Implement noCaptcha in Contact Form 7"
 msgstr ""
 
-#: admin/settings.php:513
+#: admin/settings.php:505
 #, php-format
 msgid "To show noCaptcha use %s"
 msgstr ""
 
-#: admin/settings.php:515
+#: admin/settings.php:507
 msgid "Implement noCaptcha in WooCommerce"
 msgstr ""
 
-#: admin/settings.php:516
+#: admin/settings.php:508
 msgid ""
 "If Login Form, Registration Form, Lost Password Form, Reset Password Form is "
 "selected in SETTINGS page of this plugin they will show and verify Captcha "
 "in WooCommerce respective forms also."
 msgstr ""
 
-#: admin/settings.php:518
+#: admin/settings.php:510
 msgid "If you want to implement noCaptcha in any other custom form"
 msgstr ""
 
-#: admin/settings.php:519
+#: admin/settings.php:511
 #, php-format
 msgid "To show noCaptcha in a form use %1$s OR %2$s"
 msgstr ""
 
-#: admin/settings.php:520
+#: admin/settings.php:512
 #, php-format
 msgid "To verify use %s. It will return true on success otherwise false."
 msgstr ""
 
-#: admin/settings.php:521
+#: admin/settings.php:513
 #, php-format
 msgid ""
 "For paid support pleasse visit <a href=\"%s\" target=\"_blank\">Advanced "
 "noCaptcha reCaptcha</a>"
 msgstr ""
 
-#: admin/settings.php:539
+#: admin/settings.php:531
 msgid "Settings"
 msgstr ""
 
-#: anr-captcha-class.php:104
+#: anr-captcha-class.php:108
 msgid "ERROR"
 msgstr ""
 
-#: anr-captcha-class.php:560
+#: anr-captcha-class.php:567
 msgid "Comment Submission Failure"
 msgstr ""
 
