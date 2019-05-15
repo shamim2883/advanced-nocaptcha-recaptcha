@@ -50,6 +50,10 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 			if ( anr_is_form_enabled( 'ms_user_signup' ) && is_multisite() ) {
 				add_action( 'signup_extra_fields', array( $this, 'ms_form_field' ), 99 );
 				add_filter( 'wpmu_validate_user_signup', array( $this, 'ms_form_field_verify' ) );
+				
+				add_action( 'signup_blogform', array( $this, 'ms_form_field' ), 99 );
+				add_filter( 'wpmu_validate_blog_signup', array( $this, 'ms_blog_verify' ) );
+				
 			}
 
 			if ( anr_is_form_enabled( 'lost_password' ) ) {
@@ -533,6 +537,14 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 		}
 
 		function ms_form_field_verify( $result ) {
+			if ( isset( $_POST['stage'] ) && 'validate-user-signup' === $_POST['stage'] && ! $this->verify() ) {
+				$result['errors']->add( 'anr_error', anr_get_option( 'error_message' ) );
+			}
+
+			return $result;
+		}
+		
+		function ms_blog_verify( $result ) {
 			if ( ! $this->verify() ) {
 				$result['errors']->add( 'anr_error', anr_get_option( 'error_message' ) );
 			}
