@@ -69,7 +69,7 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 				add_filter( 'validate_password_reset', array( $this, 'reset_password_verify' ), 10, 2 );
 			}
 
-			if ( anr_is_form_enabled( 'comment' ) ) {
+			if ( anr_is_form_enabled( 'comment' ) && ( ! is_admin() || ! current_user_can( 'moderate_comments' ) ) ) {
 				if ( ! is_user_logged_in() ) {
 					add_action( 'comment_form_after_fields', array( $this, 'form_field' ), 99 );
 				} else {
