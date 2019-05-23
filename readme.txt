@@ -4,7 +4,7 @@ Tags: recaptcha,nocaptcha,invisible,no captcha,bot,spam,captcha,woocommerce capt
 Donate link: https://www.shamimsplugins.com/products/advanced-nocaptcha-and-invisible-captcha-pro/
 Requires at least: 4.4
 Tested up to: 5.2
-Stable tag: 5.4
+Stable tag: 5.5
 Requires PHP: 5.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -87,6 +87,11 @@ You can access your file via FTP or file manager and rename "advanced-nocaptcha-
 8. Advanced noCaptcha reCaptcha Setup Instruction
 
 == Changelog ==
+
+= 5.5 =
+
+* Fix: Multisite site signup during registration failed due to double verification.
+* Fix: Comment reply failed from back-end.
 
 = 5.4 =
 
