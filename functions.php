@@ -189,6 +189,8 @@ function anr_captcha_form_field( $echo = false ) {
 }
 
 function anr_verify_captcha( $response = false ) {
+	static $last_verify = null;
+	
 	$secre_key  = trim( anr_get_option( 'secret_key' ) );
 	$remoteip = $_SERVER['REMOTE_ADDR'];
 	$verify = false;
@@ -209,6 +211,10 @@ function anr_verify_captcha( $response = false ) {
 
 	if ( ! $response || ! $remoteip ) {
 		return $verify;
+	}
+	
+	if ( null !== $last_verify ) {
+		return $last_verify;
 	}
 
 	$url = 'https://www.google.com/recaptcha/api/siteverify';
@@ -240,6 +246,7 @@ function anr_verify_captcha( $response = false ) {
 			$verify = true;
 		}
 	}
+	$last_verify = $verify;
 
 	return apply_filters( 'anr_verify_captcha', $verify, $result, $response );
 }
