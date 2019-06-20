@@ -247,6 +247,7 @@ function anr_verify_captcha( $response = false ) {
 		}
 	}
 	$verify = apply_filters( 'anr_verify_captcha', $verify, $result, $response );
+	
 	$last_verify = $verify;
 
 	return $verify;
