@@ -16,8 +16,8 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 
 		function actions_filters() {
 			if ( anr_is_form_enabled( 'fep_contact_form' ) ) {
-					add_action( 'fepcf_message_form_after_content', array( $this, 'form_field' ), 99 );
-					add_action( 'fepcf_action_message_before_send', array( $this, 'fepcf_verify' ) );
+				add_action( 'fepcf_message_form_after_content', array( $this, 'form_field' ), 99 );
+				add_action( 'fepcf_action_message_before_send', array( $this, 'fepcf_verify' ) );
 			}
 
 			if ( anr_is_form_enabled( 'login' ) && ! defined( 'XMLRPC_REQUEST' ) ) {
@@ -50,10 +50,10 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 			if ( anr_is_form_enabled( 'ms_user_signup' ) && is_multisite() ) {
 				add_action( 'signup_extra_fields', array( $this, 'ms_form_field' ), 99 );
 				add_filter( 'wpmu_validate_user_signup', array( $this, 'ms_form_field_verify' ) );
-				
+
 				add_action( 'signup_blogform', array( $this, 'ms_form_field' ), 99 );
 				add_filter( 'wpmu_validate_blog_signup', array( $this, 'ms_blog_verify' ) );
-				
+
 			}
 
 			if ( anr_is_form_enabled( 'lost_password' ) ) {
@@ -157,7 +157,7 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 
 		function footer_script() {
 			static $included = false;
-			
+
 			$number          = $this->total_captcha();
 			$version = anr_get_option( 'captcha_version', 'v2_checkbox' );
 
@@ -191,7 +191,7 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 						if ( null === captcha_div )
 							continue;
 						captcha_div.innerHTML = '';
-						( function( form ) {	
+						( function( form ) {
 							var anr_captcha = grecaptcha.render( captcha_div,{
 								'sitekey' : '<?php echo esc_js( trim( anr_get_option( 'site_key' ) ) ); ?>',
 								'size'  : '<?php echo esc_js( anr_get_option( 'size', 'normal' ) ); ?>',
@@ -218,10 +218,10 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 			if ( $language ) {
 				$lang = '&hl=' . $language;
 			}
-			$google_url = 'https://www.google.com/recaptcha/api.js?onload=anr_onloadCallback&render=explicit' . $lang;
+			$google_url = apply_filters( 'anr_v2_checkbox_script_api_src', 'https://www.google.com/recaptcha/api.js?onload=anr_onloadCallback&render=explicit' . $lang, $lang );
 			?>
 			<script src="<?php echo esc_url( $google_url ); ?>"
-			async defer>
+				async defer>
 			</script>
 			<?php
 		}
@@ -237,7 +237,7 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 						if ( null === captcha_div )
 							continue;
 						captcha_div.innerHTML = '';
-						( function( form ) {		
+						( function( form ) {
 							var anr_captcha = grecaptcha.render( captcha_div,{
 								'sitekey' : '<?php echo esc_js( trim( anr_get_option( 'site_key' ) ) ); ?>',
 								'size'  : 'invisible',
@@ -256,7 +256,7 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 								}
 							});
 							var cf7_submit = form.querySelector( '.wpcf7-submit' );
-							
+
 							if( null !== cf7_submit && ( typeof jQuery !== 'undefined' ) ){
 								jQuery( cf7_submit ).off('click').on('click', function( e ){
 									e.preventDefault();
@@ -280,10 +280,10 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 			if ( $language ) {
 				$lang = '&hl=' . $language;
 			}
-			$google_url = 'https://www.google.com/recaptcha/api.js?onload=anr_onloadCallback&render=explicit' . $lang;
+			$google_url = apply_filters( 'anr_v2_invisible_script_api_src', 'https://www.google.com/recaptcha/api.js?onload=anr_onloadCallback&render=explicit' . $lang, $lang );
 			?>
 			<script src="<?php echo esc_url( $google_url ); ?>"
-			async defer>
+				async defer>
 			</script>
 			<?php
 		}
@@ -291,7 +291,7 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 		function v3_script() {
 			// v3 support v2 script. So use it
 			// $this->v2_invisible_script();
-			
+
 			$language = trim( anr_get_option( 'language' ) );
 			$site_key = trim( anr_get_option( 'site_key' ) );
 
@@ -300,36 +300,36 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 				$lang = '&hl=' . $language;
 			}
 
-			$google_url = 'https://www.google.com/recaptcha/api.js?render=' . $site_key . $lang;
+			$google_url = apply_filters( 'anr_v3_script_api_src', 'https://www.google.com/recaptcha/api.js?render=' . $site_key . $lang, $site_key, $lang );
 			?>
 			<script src="<?php echo esc_url( $google_url ); ?>"></script>
 			<script type="text/javascript">
-			( function( grecaptcha ) {
+				( function( grecaptcha ) {
 
-				var anr_onloadCallback = function() {
-					grecaptcha.execute(
-						'<?php echo esc_js( $site_key ); ?>',
-						{ action: 'advanced_nocaptcha_recaptcha' }
-					).then( function( token ) {
-						for ( var i = 0; i < document.forms.length; i++ ) {
-							var form = document.forms[i];
-							var captcha = form.querySelector( 'input[name="g-recaptcha-response"]' );
-							if ( null === captcha )
-								continue;
+					var anr_onloadCallback = function() {
+						grecaptcha.execute(
+							'<?php echo esc_js( $site_key ); ?>',
+							{ action: 'advanced_nocaptcha_recaptcha' }
+						).then( function( token ) {
+							for ( var i = 0; i < document.forms.length; i++ ) {
+								var form = document.forms[i];
+								var captcha = form.querySelector( 'input[name="g-recaptcha-response"]' );
+								if ( null === captcha )
+									continue;
 
-							captcha.value = token;
-						}
-					});
-				};
+								captcha.value = token;
+							}
+						});
+					};
 
-				grecaptcha.ready( anr_onloadCallback );
+					grecaptcha.ready( anr_onloadCallback );
 
-				document.addEventListener( 'wpcf7submit', anr_onloadCallback, false );
-				if ( typeof wc_checkout_params !== 'undefined' ) {
-					jQuery( document.body ).on( 'checkout_error', anr_onloadCallback );
-				}
+					document.addEventListener( 'wpcf7submit', anr_onloadCallback, false );
+					if ( typeof wc_checkout_params !== 'undefined' ) {
+						jQuery( document.body ).on( 'checkout_error', anr_onloadCallback );
+					}
 
-			} )( grecaptcha );
+				} )( grecaptcha );
 			</script>
 			<?php
 		}
@@ -425,7 +425,7 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 				echo '<p class="error">' . $errmsg . '</p>';
 			}
 
-				anr_captcha_form_field( true );
+			anr_captcha_form_field( true );
 
 		}
 
@@ -436,8 +436,8 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 				return $defaults;
 			}
 
-				$defaults = $defaults . anr_captcha_form_field( false );
-				return $defaults;
+			$defaults = $defaults . anr_captcha_form_field( false );
+			return $defaults;
 
 		}
 
@@ -476,10 +476,10 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 					}
 					$wpdb->insert(
 						$wpdb->postmeta, array(
-							'post_id'    => $post_id,
-							'meta_key'   => md5( $_SERVER['REMOTE_ADDR'] ),
-							'meta_value' => $username,
-						), array( '%d', '%s', '%s' )
+						'post_id'    => $post_id,
+						'meta_key'   => md5( $_SERVER['REMOTE_ADDR'] ),
+						'meta_value' => $username,
+					), array( '%d', '%s', '%s' )
 					);
 				}
 				// return $user;
@@ -543,7 +543,7 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 
 			return $result;
 		}
-		
+
 		function ms_blog_verify( $result ) {
 			if ( ! $this->verify() ) {
 				$result['errors']->add( 'anr_error', anr_get_option( 'error_message' ) );
