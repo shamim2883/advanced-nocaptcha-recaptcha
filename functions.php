@@ -181,76 +181,15 @@ add_shortcode( 'anr-captcha', 'anr_captcha_form_field' );
 
 function anr_captcha_form_field( $echo = false ) {
 	if ( $echo ) {
-		echo anr_captcha_class::init()->captcha_form_field();
+		anr_captcha_class::init()->form_field();
 	} else {
-		return anr_captcha_class::init()->captcha_form_field();
+		return anr_captcha_class::init()->form_field_return();
 	}
 
 }
 
 function anr_verify_captcha( $response = false ) {
-	static $last_verify = null;
-	
-	$secre_key  = trim( anr_get_option( 'secret_key' ) );
-	$remoteip = $_SERVER['REMOTE_ADDR'];
-	$verify = false;
-	
-	if ( false === $response ) {
-		$response = isset( $_POST['g-recaptcha-response'] ) ? $_POST['g-recaptcha-response'] : '';
-	}
-	
-	$pre_check = apply_filters( 'anr_verify_captcha_pre', null, $response );
-	
-	if ( null !== $pre_check ) {
-		return $pre_check;
-	}
-
-	if ( ! $secre_key ) { // if $secre_key is not set
-		return true;
-	}
-
-	if ( ! $response || ! $remoteip ) {
-		return $verify;
-	}
-	
-	if ( null !== $last_verify ) {
-		return $last_verify;
-	}
-
-	$url = 'https://www.google.com/recaptcha/api/siteverify';
-
-	// make a POST request to the Google reCAPTCHA Server
-	$request = wp_remote_post(
-		$url, array(
-			'timeout' => 10,
-			'body'    => array(
-				'secret'   => $secre_key,
-				'response' => $response,
-				'remoteip' => $remoteip,
-			),
-		)
-	);
-
-	// get the request response body
-	$request_body = wp_remote_retrieve_body( $request );
-	if ( ! $request_body ) {
-		return $verify;
-	}
-
-		$result = json_decode( $request_body, true );
-	if ( isset( $result['success'] ) && true == $result['success'] ) {
-		if ( 'v3' === anr_get_option( 'captcha_version' ) ) {
-			$score = isset( $result['score'] ) ? $result['score'] : 0;
-			$verify = anr_get_option( 'score', '0.5' ) <= $score;
-		} else {
-			$verify = true;
-		}
-	}
-	$verify = apply_filters( 'anr_verify_captcha', $verify, $result, $response );
-	
-	$last_verify = $verify;
-
-	return $verify;
+	return anr_captcha_class::init()->verify( $response );
 }
 
 add_filter( 'shake_error_codes', 'anr_add_shake_error_codes' );
