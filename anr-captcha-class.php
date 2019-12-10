@@ -73,7 +73,7 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 				if ( ! is_user_logged_in() ) {
 					add_action( 'comment_form_after_fields', array( $this, 'form_field' ), 99 );
 				} else {
-					add_filter( 'comment_form_field_comment', array( $this, 'comment_form_field' ), 99 );
+					add_filter( 'comment_form_field_comment', array( $this, 'form_field_return' ), 99 );
 				}
 				if ( version_compare( get_bloginfo( 'version' ), '4.9.0', '>=' ) ) {
 					add_filter( 'pre_comment_approved', array( $this, 'comment_verify_490' ), 99 );
@@ -336,14 +336,14 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 
 
 		function form_field() {
-			$loggedin_hide = anr_get_option( 'loggedin_hide' );
-
-			if ( is_user_logged_in() && $loggedin_hide ) {
-				return;
+			echo $this->form_field_return();
 			}
 
-			anr_captcha_form_field( true );
-
+		function form_field_return( $return = '' ) {
+			if ( is_user_logged_in() && anr_get_option( 'loggedin_hide' ) ) {
+				return $return;
+		}
+			return $return . $this->captcha_form_field();
 		}
 
 		function post_id() {
@@ -394,13 +394,8 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 
 		function login_form_return( $field = '' ) {
 			if ( $this->show_login_captcha() ) {
-
-				if ( is_user_logged_in() && anr_get_option( 'loggedin_hide' ) ) {
-					return $field;
+				$field = $this->form_field_return( $field );
 				}
-
-				$field = $field . anr_captcha_form_field( false );
-			}
 			return $field;
 		}
 
@@ -415,30 +410,10 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 		}
 
 		function ms_form_field( $errors ) {
-			$loggedin_hide = anr_get_option( 'loggedin_hide' );
-
-			if ( is_user_logged_in() && $loggedin_hide ) {
-				return;
-			}
-
 			if ( $errmsg = $errors->get_error_message( 'anr_error' ) ) {
 				echo '<p class="error">' . $errmsg . '</p>';
 			}
-
-			anr_captcha_form_field( true );
-
-		}
-
-		function comment_form_field( $defaults ) {
-			$loggedin_hide = anr_get_option( 'loggedin_hide' );
-
-			if ( is_user_logged_in() && $loggedin_hide ) {
-				return $defaults;
-			}
-
-			$defaults = $defaults . anr_captcha_form_field( false );
-			return $defaults;
-
+			$this->form_field();
 		}
 
 		function verify() {
@@ -519,15 +494,9 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 		}
 
 		function bp_form_field() {
-			$loggedin_hide = anr_get_option( 'loggedin_hide' );
-
-			if ( is_user_logged_in() && $loggedin_hide ) {
-				return;
-			}
-
 			do_action( 'bp_anr_error_errors' );
 
-			anr_captcha_form_field( true );
+			$this->form_field();
 		}
 
 		function bp_registration_verify() {
@@ -600,7 +569,7 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 				return '';
 			}
 
-			return anr_captcha_form_field( false ) . sprintf( '<span class="wpcf7-form-control-wrap %s"></span>', $tag->name );
+			return $this->form_field_return() . sprintf( '<span class="wpcf7-form-control-wrap %s"></span>', $tag->name );
 		}
 
 		function wpcf7_verify( $result, $tag ) {
