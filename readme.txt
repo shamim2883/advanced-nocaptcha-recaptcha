@@ -3,8 +3,8 @@ Contributors: shamim51
 Tags: recaptcha,nocaptcha,invisible,no captcha,bot,spam,captcha,woocommerce captcha,woocommerce nocaptcha, woocommerce,widget,plugin,sidebar,shortcode,page,posts,comments,google,bbpress,multisite,multiple,v2,v3
 Donate link: https://www.shamimsplugins.com/products/advanced-nocaptcha-and-invisible-captcha-pro/
 Requires at least: 4.4
-Tested up to: 5.2
-Stable tag: 5.5
+Tested up to: 5.3
+Stable tag: 5.6
 Requires PHP: 5.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -87,6 +87,12 @@ You can access your file via FTP or file manager and rename "advanced-nocaptcha-
 8. Advanced noCaptcha reCaptcha Setup Instruction
 
 == Changelog ==
+
+= 5.6 =
+
+* Return last verify incase of duplicate checking.
+* Add google scripts src filters.
+* Custom hook and captcha shortcode now support logged in setup.
 
 = 5.5 =
 
