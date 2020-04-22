@@ -200,3 +200,16 @@ function anr_add_shake_error_codes( $shake_error_codes ) {
 	return $shake_error_codes;
 }
 
+function anr_fs_uninstall_cleanup() {
+	global $wpdb;
+
+	$post_id = $wpdb->get_var( "SELECT ID FROM $wpdb->posts WHERE post_type = 'anr-post' LIMIT 1" );
+
+	if ( $post_id ) {
+		// There may have too many post meta. delete them first in one query.
+		$wpdb->query( $wpdb->prepare( "DELETE FROM $wpdb->postmeta WHERE post_id = %d", $post_id ) );
+		
+		wp_delete_post( $post_id, true );
+	}
+}
+
