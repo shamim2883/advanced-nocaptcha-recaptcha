@@ -57,6 +57,8 @@ class ANR {
 
 		//cleanup after uninstall
 		anr_fs()->add_action('after_uninstall', 'anr_fs_uninstall_cleanup');
+		//Support fourm link in admin dashboard sidebar
+		anr_fs()->add_filter( 'support_forum_url', 'anr_fs_support_forum_url' );
 	}
 } //END Class
 
