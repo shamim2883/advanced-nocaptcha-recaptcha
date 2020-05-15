@@ -198,7 +198,7 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 								'size'  : '<?php echo esc_js( anr_get_option( 'size', 'normal' ) ); ?>',
 								'theme' : '<?php echo esc_js( anr_get_option( 'theme', 'light' ) ); ?>'
 							});
-							if ( typeof wc_checkout_params !== 'undefined' ) {
+							if ( typeof jQuery !== 'undefined' ) {
 								jQuery( document.body ).on( 'checkout_error', function(){
 									grecaptcha.reset(anr_captcha);
 								});
@@ -326,9 +326,12 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 					grecaptcha.ready( anr_onloadCallback );
 
 					document.addEventListener( 'wpcf7submit', anr_onloadCallback, false );
-					if ( typeof wc_checkout_params !== 'undefined' ) {
+					if ( typeof jQuery !== 'undefined' ) {
+						//Woocommerce
 						jQuery( document.body ).on( 'checkout_error', anr_onloadCallback );
 					}
+					//token is valid for 2 minutes, So get new token every after 1 minutes 50 seconds
+					setInterval(anr_onloadCallback, 110000);
 
 				} )( grecaptcha );
 			</script>
