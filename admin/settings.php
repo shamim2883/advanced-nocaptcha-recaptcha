@@ -273,9 +273,9 @@ class ANR_Settings {
 			$fields['pro_notice'] = array(
 				'section_id' => 'forms',
 				'type'       => 'html',
-				'std'        => '<div class="notice notice-success inline">
-					<p>To support development of "Advanced noCaptcha & invisible Captcha" plugin please purchase PRO version. <a class="button button-secondary" href="https://www.shamimsplugins.com/products/advanced-nocaptcha-and-invisible-captcha-pro/">View Details</a></p>
-				</div>',
+				'std'        => sprintf( '<div class="notice notice-success inline">
+					<p>To support development of "Advanced noCaptcha & invisible Captcha" plugin please purchase PRO version. <a class="button button-secondary" href="%1$s">View Details</a></p>
+				</div>', function_exists( 'anr_fs' ) ? anr_fs()->get_upgrade_url() : 'https://www.shamimsplugins.com/products/advanced-nocaptcha-and-invisible-captcha-pro/' ),
 			);
 		endif;
 		
@@ -470,20 +470,20 @@ class ANR_Settings {
 				</div>
 			</div>';
 			if ( ! class_exists( 'ANR_Pro' ) ) :
-			$return .= '<div class="postbox">
+			$return .= sprintf( '<div class="postbox">
 					<h3 class="hndle" style="text-align: center;">
 						<span>' . __( 'Support Development', 'advanced-nocaptcha-recaptcha' ) . '</span>
 					</h3>
 
 					<div class="inside">
 						<div style="text-align: center; margin: auto">
-						<a style="text-decoration:none;" href="https://www.shamimsplugins.com/products/advanced-nocaptcha-and-invisible-captcha-pro/">To support development of "Advanced noCaptcha & invisible Captcha" plugin please purchase
+						<a style="text-decoration:none;" href="%1$s">To support development of "Advanced noCaptcha & invisible Captcha" plugin please purchase
 						<div style="font-size:24px;color:red;margin:10px;">PRO</div>
 						version only for USD 10</a>
-						<p><a class="button button-secondary" href="https://www.shamimsplugins.com/products/advanced-nocaptcha-and-invisible-captcha-pro/">View Details</a></p>
+						<p><a class="button button-secondary" href="%1$s">View Details</a></p>
 					</div>
 				</div>
-			</div>';
+			</div>', function_exists( 'anr_fs' ) ? anr_fs()->get_upgrade_url() : 'https://www.shamimsplugins.com/products/advanced-nocaptcha-and-invisible-captcha-pro/' );
 		endif;
 		return $return;
 	}
