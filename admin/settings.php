@@ -245,6 +245,13 @@ class ANR_Settings {
 				'options'    => $score_values,
 				'desc'       => __( 'Higher means more sensitive', 'advanced-nocaptcha-recaptcha' ),
 			),
+			'whitelisted_ips'              => array(
+				'label'      => __( 'Whitelisted IPs', 'advanced-nocaptcha-recaptcha' ),
+				'section_id' => 'other',
+				'type'       => 'textarea',
+				'class'      => 'regular',
+				'desc'       => __( 'One per line', 'advanced-nocaptcha-recaptcha' ),
+			),
 			'loggedin_hide'      => array(
 				'label'      => __( 'Logged in Hide', 'advanced-nocaptcha-recaptcha' ),
 				'section_id' => 'other',

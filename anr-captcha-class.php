@@ -346,7 +346,11 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 		function form_field_return( $return = '' ) {
 			if ( is_user_logged_in() && anr_get_option( 'loggedin_hide' ) ) {
 				return $return;
-		}
+			}
+			$ip = $_SERVER['REMOTE_ADDR'];
+			if ( in_array( $ip, array_filter( explode( '\n', anr_get_option( 'whitelisted_ips' ) ) ) ) ) {
+				return $return;
+			}
 			return $return . $this->captcha_form_field();
 		}
 
@@ -376,6 +380,9 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 
 			$show_captcha = true;
 			$ip           = $_SERVER['REMOTE_ADDR'];
+			if ( in_array( $ip, array_filter( explode( '\n', anr_get_option( 'whitelisted_ips' ) ) ) ) ) {
+				return false;
+			}
 			// filter_var( $ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE );
 			$count   = absint( anr_get_option( 'failed_login_allow' ) );
 			$post_id = $this->post_id();
@@ -430,6 +437,10 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 			$secre_key  = trim( anr_get_option( 'secret_key' ) );
 			$remoteip = $_SERVER['REMOTE_ADDR'];
 			$verify = false;
+
+			if ( in_array( $remoteip, array_filter( explode( '\n', anr_get_option( 'whitelisted_ips' ) ) ) ) ) {
+				return true;
+			}
 			
 			if ( false === $response ) {
 				$response = isset( $_POST['g-recaptcha-response'] ) ? $_POST['g-recaptcha-response'] : '';
@@ -625,11 +636,6 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 		}
 
 		function wpcf7_form_field( $tag ) {
-			$loggedin_hide = anr_get_option( 'loggedin_hide' );
-
-			if ( is_user_logged_in() && $loggedin_hide ) {
-				return '';
-			}
 
 			return $this->form_field_return() . sprintf( '<span class="wpcf7-form-control-wrap %s"></span>', $tag->name );
 		}
