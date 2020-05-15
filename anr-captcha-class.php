@@ -477,7 +477,8 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 			if ( isset( $result['success'] ) && true == $result['success'] ) {
 				if ( 'v3' === anr_get_option( 'captcha_version' ) ) {
 					$score = isset( $result['score'] ) ? $result['score'] : 0;
-					$verify = anr_get_option( 'score', '0.5' ) <= $score;
+					$action = isset( $result['action'] ) ? $result['action'] : '';
+					$verify = anr_get_option( 'score', '0.5' ) <= $score && 'advanced_nocaptcha_recaptcha' == $action;
 				} else {
 					$verify = true;
 				}
