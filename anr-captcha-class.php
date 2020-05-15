@@ -23,6 +23,7 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 			if ( anr_is_form_enabled( 'login' ) && ! defined( 'XMLRPC_REQUEST' ) ) {
 				add_action( 'login_form', array( $this, 'login_form_field' ), 99 );
 				add_filter( 'login_form_middle', array( $this, 'login_form_return' ), 99 );
+				add_action( 'um_after_login_fields', array( $this, 'login_form_field' ), 99 );
 				add_action( 'woocommerce_login_form', array( $this, 'login_form_field' ), 99 );
 				add_filter( 'authenticate', array( $this, 'login_verify' ), 999, 3 );
 
