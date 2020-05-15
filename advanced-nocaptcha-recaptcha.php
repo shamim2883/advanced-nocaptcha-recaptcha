@@ -3,11 +3,12 @@
 Plugin Name: Advanced noCaptcha & invisible Captcha
 Plugin URI: https://www.shamimsplugins.com/contact-us/
 Description: Show noCaptcha or invisible captcha in Comment Form, bbPress, BuddyPress, WooCommerce, CF7, Login, Register, Lost Password, Reset Password. Also can implement in any other form easily.
-Version: 5.6
+Version: 5.7
 Author: Shamim Hasan
 Author URI: https://www.shamimsplugins.com/contact-us/
 Text Domain: advanced-nocaptcha-recaptcha
 License: GPLv2 or later
+WC tested up to: 4.0.1
 */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -40,7 +41,7 @@ class ANR {
 	}
 
 	private function constants() {
-		define( 'ANR_PLUGIN_VERSION', '5.6' );
+		define( 'ANR_PLUGIN_VERSION', '5.7' );
 		define( 'ANR_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 		define( 'ANR_PLUGIN_URL', plugins_url( '/', __FILE__ ) );
 		define( 'ANR_PLUGIN_FILE', __FILE__ );
@@ -82,22 +83,21 @@ if ( function_exists( 'anr_fs' ) ) {
 					'premium_slug'        => 'advanced-nocaptcha-and-invisible-captcha-pro',
 					'type'                => 'plugin',
 					'public_key'          => 'pk_8758a9fa397c3760defbec41e2e35',
-					'is_premium'          => true,
+					'is_premium'          => false,
 					'premium_suffix'      => 'PRO',
 					// If your plugin is a serviceware, set this option to false.
 					'has_premium_version' => true,
 					'has_addons'          => false,
 					'has_paid_plans'      => true,
+					'is_live'             => true,
 					'menu'                => array(
 						'slug'           => 'anr-admin-settings',
+						'contact'        => false,
 						'network'        => true,
 						'parent'         => array(
 							'slug' => 'options-general.php',
 						),
 					),
-					// Set the SDK to work in a sandbox mode (for development & testing).
-					// IMPORTANT: MAKE SURE TO REMOVE SECRET KEY BEFORE DEPLOYMENT.
-					//'secret_key'          => '',
 				) );
 			}
 	

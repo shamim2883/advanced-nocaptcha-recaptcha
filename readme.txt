@@ -1,10 +1,10 @@
 === Advanced noCaptcha & invisible Captcha (v2 & v3) ===
 Contributors: shamim51
-Tags: recaptcha,nocaptcha,invisible,no captcha,bot,spam,captcha,woocommerce captcha,woocommerce nocaptcha, woocommerce,widget,plugin,sidebar,shortcode,page,posts,comments,google,bbpress,multisite,multiple,v2,v3
+Tags: recaptcha,nocaptcha,invisible,bot,spam,captcha,woocommerce,widget,plugin,comments,google,bbpress
 Donate link: https://www.shamimsplugins.com/products/advanced-nocaptcha-and-invisible-captcha-pro/
 Requires at least: 4.4
-Tested up to: 5.3
-Stable tag: 5.6
+Tested up to: 5.4
+Stable tag: 5.7
 Requires PHP: 5.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -87,6 +87,12 @@ You can access your file via FTP or file manager and rename "advanced-nocaptcha-
 8. Advanced noCaptcha reCaptcha Setup Instruction
 
 == Changelog ==
+
+= 5.7 =
+
+* IP whitelist feature added.
+* Captcha V3 timeout issue fixed.
+* UM login issue fixed.
 
 = 5.6 =
 
