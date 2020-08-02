@@ -252,6 +252,18 @@ class ANR_Settings {
 				'class'      => 'regular',
 				'desc'       => __( 'One per line', 'advanced-nocaptcha-recaptcha' ),
 			),
+			'recaptcha_domain'      => array(
+				'label'      => __( 'Recaptcha Domain', 'advanced-nocaptcha-recaptcha' ),
+				'section_id' => 'other',
+				'type'       => 'select',
+				'class'      => 'regular',
+				'std'        => anr_recaptcha_domain(),
+				'options'    => array(
+					'google.com'   => 'google.com',
+					'google.net'   => 'google.net',
+				),
+				'desc'        => __( 'If any one is blocked in your country select other one.', 'advanced-nocaptcha-recaptcha' ),
+			),
 			'loggedin_hide'      => array(
 				'label'      => __( 'Logged in Hide', 'advanced-nocaptcha-recaptcha' ),
 				'section_id' => 'other',
