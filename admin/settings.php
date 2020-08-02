@@ -416,9 +416,52 @@ class ANR_Settings {
 		foreach ( $value as $option_slug => $option_value ) {
 			if ( isset( $fields[ $option_slug ] ) && ! empty( $fields[ $option_slug ]['sanitize_callback'] ) ) {
 				$value[ $option_slug ] = call_user_func( $fields[ $option_slug ]['sanitize_callback'], $option_value );
+			} elseif ( isset( $fields[ $option_slug ] ) ) {
+				$value[ $option_slug ] = $this->posted_value_sanitize( $option_value, $fields[ $option_slug ] );
 			}
 		}
 		return $value;
+	}
+
+	function posted_value_sanitize( $value, $field ) {
+		$sanitized = $value;
+			switch ( $field['type'] ) {
+				case 'text':
+				case 'hidden':
+				$sanitized = sanitize_text_field( trim( $value ) );
+				break;
+			case 'url':
+				$sanitized = esc_url( $value );
+				break;
+			case 'number':
+				$sanitized = absint( $value );
+				break;
+			case 'textarea':
+			case 'wp_editor':
+			case 'teeny':
+				$sanitized = wp_kses_post( $value );
+				break;
+			case 'checkbox':
+				$sanitized = absint( $value );
+				break;
+			case 'multicheck':
+				$sanitized = is_array( $value ) ? array_filter( $value ) : array();
+				foreach( $sanitized as $key => $p_value ) {
+					if ( ! array_key_exists( $p_value, $field['options'] ) ) {
+						unset( $sanitized[ $key ] );
+					}
+				}
+				break;
+			case 'select':
+				if ( ! array_key_exists( $value, $field['options'] ) ) {
+					$sanitized = isset($field['std'])? $field['std'] : '';
+				}
+				break;
+			default:
+				$sanitized = apply_filters( 'anr_settings_field_sanitize_filter_' . $field['type'], $value, $field );
+				break;
+		}
+		return apply_filters( 'anr_settings_field_sanitize_filter', $sanitized, $field, $value );
 	}
 
 	function menu_page() {
