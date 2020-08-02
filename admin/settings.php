@@ -17,13 +17,8 @@ class ANR_Settings {
 		add_filter( 'plugin_action_links_' . plugin_basename( ANR_PLUGIN_FILE ), array( $this, 'add_settings_link' ) );
 		add_action('admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 
-		if ( is_multisite() ) {
-			$same_settings = apply_filters( 'anr_same_settings_for_all_sites', false );
-		} else {
-			$same_settings = false;
-		}
-		if ( $same_settings ) {
-			add_action( 'network_admin_menu', array( $this, 'menu_page' ) );
+		if ( anr_same_settings_for_all_sites() ) {
+			add_action( 'network_admin_menu', array( $this, 'network_menu_page' ) );
 		} else {
 			add_action( 'admin_menu', array( $this, 'menu_page' ) );
 		}
@@ -118,7 +113,7 @@ class ANR_Settings {
 					'bp_register'       => __( 'BuddyPress register', 'advanced-nocaptcha-recaptcha' ),
 					'wc_checkout'    => __( 'WooCommerce Checkout', 'advanced-nocaptcha-recaptcha' ),
 				),
-				'desc'       => sprintf( __( 'For other forms see <a href="%s">Instruction</a>', 'advanced-nocaptcha-recaptcha' ), esc_url( admin_url( 'admin.php?page=anr-instruction' ) ) ),
+				'desc'       => sprintf( __( 'For other forms see <a href="%s">Instruction</a>', 'advanced-nocaptcha-recaptcha' ), esc_url( network_admin_url( 'admin.php?page=anr-instruction' ) ) ),
 			),
 			'error_message'      => array(
 				'label'      => __( 'Error Message', 'advanced-nocaptcha-recaptcha' ),
@@ -469,6 +464,12 @@ class ANR_Settings {
 		add_submenu_page( 'anr-non-exist-menu', 'Advanced noCaptcha reCaptcha - ' . __( 'Instruction', 'advanced-nocaptcha-recaptcha' ), __( 'Instruction', 'advanced-nocaptcha-recaptcha' ), 'manage_options', 'anr-instruction', array( $this, 'instruction_page' ) );
 
 	}
+
+	function network_menu_page() {
+		add_submenu_page( 'settings.php', __( 'Advanced noCaptcha & invisible captcha Settings', 'advanced-nocaptcha-recaptcha' ), __( 'Advanced noCaptcha & invisible captcha', 'advanced-nocaptcha-recaptcha' ), 'manage_network_options', 'anr-admin-settings', array( $this, 'admin_settings' ) );
+		add_submenu_page( 'anr-non-exist-menu', 'Advanced noCaptcha reCaptcha - ' . __( 'Instruction', 'advanced-nocaptcha-recaptcha' ), __( 'Instruction', 'advanced-nocaptcha-recaptcha' ), 'manage_network_options', 'anr-instruction', array( $this, 'instruction_page' ) );
+
+	}
 	
 	function settings_save() {
 		if ( current_user_can( 'manage_options' ) && isset( $_POST['anr_admin_options'] ) && isset( $_POST['action'] ) && 'update' === $_POST['action'] && isset( $_GET['page'] ) && 'anr-admin-settings' === $_GET['page'] ) {
@@ -480,7 +481,7 @@ class ANR_Settings {
 			}
 			anr_update_option( $value );
 			
-			wp_safe_redirect( admin_url( 'options-general.php?page=anr-admin-settings&updated=true' ) );
+			wp_safe_redirect( add_query_arg( 'updated', true ) );
 			exit;
 		}
 	}
@@ -495,7 +496,7 @@ class ANR_Settings {
 					<div id="post-body-content">
 						<div id="tab_container">
 							<?php settings_errors( 'anr_admin_options' ); ?>
-							<form method="post" action="<?php echo esc_attr( admin_url( 'options-general.php?page=anr-admin-settings' ) ); ?>">
+							<form method="post" action="">
 								<?php
 								settings_fields( 'anr_admin_options' );
 								do_settings_sections( 'anr_admin_options' );

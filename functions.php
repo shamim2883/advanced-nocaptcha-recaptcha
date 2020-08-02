@@ -15,12 +15,7 @@ add_action( 'anr_plugin_update', 'anr_plugin_update_32' );
 
 function anr_plugin_update_32( $prev_version ) {
 	if ( version_compare( $prev_version, '3.2', '<' ) ) {
-		if ( is_multisite() ) {
-			$same_settings = apply_filters( 'anr_same_settings_for_all_sites', false );
-		} else {
-			$same_settings = false;
-		}
-		if ( $same_settings ) {
+		if ( anr_same_settings_for_all_sites() ) {
 			$options = get_site_option( 'anr_admin_options' );
 		} else {
 			$options = get_option( 'anr_admin_options' );
@@ -82,12 +77,7 @@ function anr_plugin_update_51( $prev_version ) {
 
 function anr_get_option( $option, $default = '', $section = 'anr_admin_options' ) {
 
-	if ( is_multisite() ) {
-		$same_settings = apply_filters( 'anr_same_settings_for_all_sites', false );
-	} else {
-		$same_settings = false;
-	}
-	if ( $same_settings ) {
+	if ( anr_same_settings_for_all_sites() ) {
 		$options = get_site_option( $section );
 	} else {
 		$options = get_option( $section );
@@ -113,13 +103,7 @@ function anr_update_option( $options, $value = '', $section = 'anr_admin_options
 	if ( ! is_array( $options ) ) {
 		return false;
 	}
-
-	if ( is_multisite() ) {
-		$same_settings = apply_filters( 'anr_same_settings_for_all_sites', false );
-	} else {
-		$same_settings = false;
-	}
-	if ( $same_settings ) {
+	if ( anr_same_settings_for_all_sites() ) {
 		update_site_option( $section, wp_parse_args( $options, get_site_option( $section ) ) );
 	} else {
 		update_option( $section, wp_parse_args( $options, get_option( $section ) ) );
@@ -220,4 +204,12 @@ function anr_fs_support_forum_url( $wp_org_support_forum_url ) {
 function anr_recaptcha_domain(){
 	$domain = anr_get_option( 'recaptcha_domain', 'google.com' );
 	return apply_filters( 'anr_recaptcha_domain', $domain );
+}
+
+function anr_same_settings_for_all_sites(){
+	$same_settings = false;
+	if ( is_multisite() ) {
+		$same_settings = apply_filters( 'anr_same_settings_for_all_sites', false );
+	}
+	return $same_settings;
 }
