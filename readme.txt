@@ -1,10 +1,10 @@
 === Advanced noCaptcha & invisible Captcha (v2 & v3) ===
 Contributors: shamim51
-Tags: recaptcha,nocaptcha,invisible,bot,spam,captcha,woocommerce,widget,plugin,comments,google,bbpress
+Tags: recaptcha,nocaptcha,invisible,bot,spam
 Donate link: https://www.shamimsplugins.com/products/advanced-nocaptcha-and-invisible-captcha-pro/
 Requires at least: 4.4
-Tested up to: 5.4
-Stable tag: 5.7.1
+Tested up to: 5.5
+Stable tag: 6.1.1
 Requires PHP: 5.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -72,6 +72,9 @@ If you are not using v3 then script will only load when there is form in that pa
 = How to set captcha in contact form 7? =
 To show noCaptcha use [anr_nocaptcha g-recaptcha-response]
 
+= How to set captcha in WooCommerce? =
+If Login Form, Registration Form, Lost Password Form, Reset Password Form is selected in SETTINGS page of this plugin, they will show and verify Captcha in WooCommerce respective forms as well.
+
 = How to login if i am locked out? =
 You can access your file via FTP or file manager and rename "advanced-nocaptcha-recaptcha" folder to something else. Then login as normal. Then rename back this folder.
 
@@ -87,6 +90,13 @@ You can access your file via FTP or file manager and rename "advanced-nocaptcha-
 8. Advanced noCaptcha reCaptcha Setup Instruction
 
 == Changelog ==
+
+= 6.1.1 =
+
+* recaptcha domain can now be changed from settings.
+* footer script hook priority changed.
+* use same settings if network activated.
+* for cf7, use this plugins captcha instead of cf7 captcha.
 
 = 5.7.1 =
 

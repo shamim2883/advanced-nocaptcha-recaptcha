@@ -3,7 +3,7 @@
 Plugin Name: Advanced noCaptcha & invisible Captcha
 Plugin URI: https://www.shamimsplugins.com/contact-us/
 Description: Show noCaptcha or invisible captcha in Comment Form, bbPress, BuddyPress, WooCommerce, CF7, Login, Register, Lost Password, Reset Password. Also can implement in any other form easily.
-Version: 5.7.1
+Version: 6.1.1
 Author: Shamim Hasan
 Author URI: https://www.shamimsplugins.com/contact-us/
 Text Domain: advanced-nocaptcha-recaptcha
@@ -42,7 +42,7 @@ class ANR {
 	}
 
 	private function constants() {
-		define( 'ANR_PLUGIN_VERSION', '5.7.1' );
+		define( 'ANR_PLUGIN_VERSION', '6.1.1' );
 		define( 'ANR_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 		define( 'ANR_PLUGIN_URL', plugins_url( '/', __FILE__ ) );
 		define( 'ANR_PLUGIN_FILE', __FILE__ );
