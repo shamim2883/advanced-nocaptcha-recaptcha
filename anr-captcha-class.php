@@ -84,9 +84,13 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 			}
 
 			if ( function_exists( 'wpcf7_add_form_tag' ) ) {
-				$cf7_option = get_option( 'wpcf7' );
-				if ( ! is_array( $cf7_option ) || empty( $cf7_option['recaptcha'] ) ) {
-					remove_filter( 'wpcf7_form_hidden_fields', 'wpcf7_recaptcha_add_hidden_fields', 100, 1 );
+				if( class_exists( 'WPCF7' ) && WPCF7::get_option( 'recaptcha' ) && apply_filters( 'anr_remove_cf7_recaptcha', true ) ) {
+					//remove recaptcha keys from CF7 which will disable CF7 recaptcha
+					WPCF7::update_option( 'recaptcha', null );
+				}
+				if( is_user_logged_in() && anr_get_option( 'loggedin_hide' ) ) {
+					//enable verify nonce otherwie is_user_logged_in() return false when validate recaptcha
+					add_filter( 'wpcf7_verify_nonce', '__return_true' );
 				}
 				wpcf7_add_form_tag( 'anr_nocaptcha', array( $this, 'wpcf7_form_field' ), array( 'name-attr' => true ) );
 				add_filter( 'wpcf7_validate_anr_nocaptcha', array( $this, 'wpcf7_verify' ), 10, 2 );
