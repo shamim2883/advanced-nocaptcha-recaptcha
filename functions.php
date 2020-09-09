@@ -207,9 +207,9 @@ function anr_recaptcha_domain(){
 }
 
 function anr_same_settings_for_all_sites(){
-	$same_settings = false;
-	if ( is_multisite() ) {
-		$same_settings = apply_filters( 'anr_same_settings_for_all_sites', false );
+	// Makes sure the plugin is defined before trying to use it
+	if ( ! function_exists( 'is_plugin_active_for_network' ) ) {
+		require_once ABSPATH . '/wp-admin/includes/plugin.php';
 	}
-	return $same_settings;
+	return is_plugin_active_for_network( plugin_basename( ANR_PLUGIN_FILE ) );
 }

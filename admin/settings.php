@@ -19,6 +19,7 @@ class ANR_Settings {
 
 		if ( anr_same_settings_for_all_sites() ) {
 			add_action( 'network_admin_menu', array( $this, 'network_menu_page' ) );
+			add_filter( 'network_admin_plugin_action_links_' . plugin_basename( ANR_PLUGIN_FILE ), array( $this, 'add_settings_link' ) );
 		} else {
 			add_action( 'admin_menu', array( $this, 'menu_page' ) );
 		}
@@ -591,7 +592,8 @@ class ANR_Settings {
 
 	function add_settings_link( $links ) {
 		// add settings link in plugins page
-		$settings_link = '<a href="' . admin_url( 'options-general.php?page=anr-admin-settings' ) . '">' . __( 'Settings', 'advanced-nocaptcha-recaptcha' ) . '</a>';
+		$url = anr_same_settings_for_all_sites() ? network_admin_url( 'settings.php?page=anr-admin-settings' ) : admin_url( 'options-general.php?page=anr-admin-settings' );
+		$settings_link = '<a href="' . $url . '">' . __( 'Settings', 'advanced-nocaptcha-recaptcha' ) . '</a>';
 		array_unshift( $links, $settings_link );
 		return $links;
 	}
