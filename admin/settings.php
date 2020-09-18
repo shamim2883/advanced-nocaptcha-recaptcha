@@ -114,7 +114,7 @@ class ANR_Settings {
 					'bp_register'       => __( 'BuddyPress register', 'advanced-nocaptcha-recaptcha' ),
 					'wc_checkout'    => __( 'WooCommerce Checkout', 'advanced-nocaptcha-recaptcha' ),
 				),
-				'desc'       => sprintf( __( 'For other forms see <a href="%s">Instruction</a>', 'advanced-nocaptcha-recaptcha' ), esc_url( network_admin_url( 'admin.php?page=anr-instruction' ) ) ),
+				'desc'       => sprintf( __( 'For "Contact Form 7" you need to follow <a target="_blank" href="%1$s">this instruction</a>. For other forms see <a href="%2$s">this instruction</a>', 'advanced-nocaptcha-recaptcha' ), esc_url( 'https://www.shamimsplugins.com/docs/advanced-nocaptcha-recaptcha/getting-started-advanced-nocaptcha-recaptcha/implement-in-contact-form-7/' ), esc_url( network_admin_url( 'admin.php?page=anr-instruction' ) ) ),
 			),
 			'error_message'      => array(
 				'label'      => __( 'Error Message', 'advanced-nocaptcha-recaptcha' ),
