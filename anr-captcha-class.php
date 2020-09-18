@@ -84,7 +84,7 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 			}
 
 			if ( function_exists( 'wpcf7_add_form_tag' ) ) {
-				if( class_exists( 'WPCF7' ) && WPCF7::get_option( 'recaptcha' ) && apply_filters( 'anr_remove_cf7_recaptcha', true ) ) {
+				if( class_exists( 'WPCF7' ) && WPCF7::get_option( 'recaptcha' ) && apply_filters( 'anr_remove_cf7_recaptcha', false ) ) {
 					//remove recaptcha keys from CF7 which will disable CF7 recaptcha
 					WPCF7::update_option( 'recaptcha', null );
 				}
