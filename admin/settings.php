@@ -257,6 +257,7 @@ class ANR_Settings {
 				'options'    => array(
 					'google.com'   => 'google.com',
 					'google.net'   => 'google.net',
+					'recaptcha.net' => 'recaptcha.net',
 				),
 				'desc'        => __( 'If any one is blocked in your country select other one.', 'advanced-nocaptcha-recaptcha' ),
 			),
@@ -543,7 +544,7 @@ class ANR_Settings {
 						<div style="text-align: center; margin: auto">
 						<a style="text-decoration:none;" href="%1$s">To support development of "Advanced noCaptcha & invisible Captcha" plugin please purchase
 						<div style="font-size:24px;color:red;margin:10px;">PRO</div>
-						version only for USD 10</a>
+						version</a>
 						<p><a class="button button-secondary" href="%1$s">View Details</a></p>
 					</div>
 				</div>
