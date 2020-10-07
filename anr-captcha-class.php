@@ -114,7 +114,11 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 			if ( false === $mgs ) {
 				$mgs = anr_get_option( 'error_message', '' );
 			}
-			return '<strong>' . __( 'ERROR', 'advanced-nocaptcha-recaptcha' ) . '</strong>: ' . $mgs;
+			if ( ! $mgs ) {
+				$mgs = __( 'Please solve Captcha correctly', 'advanced-nocaptcha-recaptcha' );
+			}
+			$message = '<strong>' . __( 'ERROR', 'advanced-nocaptcha-recaptcha' ) . '</strong>: ' . $mgs;
+			return apply_filters( 'anr_error_message', $message, $mgs );
 		}
 
 		function total_captcha() {
