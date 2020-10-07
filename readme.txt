@@ -4,7 +4,7 @@ Tags: recaptcha,nocaptcha,invisible,bot,spam
 Donate link: https://www.shamimsplugins.com/products/advanced-nocaptcha-and-invisible-captcha-pro/
 Requires at least: 4.4
 Tested up to: 5.5
-Stable tag: 6.1.2
+Stable tag: 6.1.3
 Requires PHP: 5.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -90,6 +90,11 @@ You can access your file via FTP or file manager and rename "advanced-nocaptcha-
 8. Advanced noCaptcha reCaptcha Setup Instruction
 
 == Changelog ==
+
+= 6.1.3 =
+
+* recaptcha.net domain added.
+* Error message now can be translated in file.
 
 = 6.1.2 =
 
@@ -232,6 +237,11 @@ You can access your file via FTP or file manager and rename "advanced-nocaptcha-
 * Initial release.
 
 == Upgrade Notice ==
+
+= 6.1.3 =
+
+* recaptcha.net domain added.
+* Error message now can be translated in file.
 
 = 2.7 =
 
