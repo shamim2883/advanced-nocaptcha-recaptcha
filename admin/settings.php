@@ -36,19 +36,7 @@ class ANR_Settings {
 			add_settings_section( $section_id, $section['section_title'], ! empty( $section['section_callback'] ) ? $section['section_callback'] : null, 'anr_admin_options' );
 		}
 		foreach ( $this->get_fields() as $field_id => $field ) {
-			$args = wp_parse_args(
-				$field, array(
-					'id'         => $field_id,
-					'label'      => '',
-					'cb_label'   => '',
-					'type'       => 'text',
-					'class'      => 'regular-text',
-					'section_id' => '',
-					'desc'       => '',
-					'std'        => '',
-				)
-			);
-			add_settings_field( $args['id'], $args['label'], ! empty( $args['callback'] ) ? $args['callback'] : array( $this, 'callback' ), 'anr_admin_options', $args['section_id'], $args );
+			add_settings_field( $field['id'], $field['label'], ! empty( $field['callback'] ) ? $field['callback'] : array( $this, 'callback' ), 'anr_admin_options', $field['section_id'], $field );
 		}
 	}
 
@@ -294,8 +282,25 @@ class ANR_Settings {
 				</div>', function_exists( 'anr_fs' ) ? anr_fs()->get_upgrade_url() : 'https://www.shamimsplugins.com/products/advanced-nocaptcha-and-invisible-captcha-pro/' ),
 			);
 		endif;
+
+		$fields = apply_filters( 'anr_settings_fields', $fields );
+
+		foreach ( $fields as $field_id => $field ) {
+			$fields[ $field_id ] = wp_parse_args(
+				$field, array(
+					'id'         => $field_id,
+					'label'      => '',
+					'cb_label'   => '',
+					'type'       => 'text',
+					'class'      => 'regular-text',
+					'section_id' => '',
+					'desc'       => '',
+					'std'        => '',
+				)
+			);
+		}
 		
-		return apply_filters( 'anr_settings_fields', $fields );
+		return $fields;
 	}
 
 	function callback( $field ) {
