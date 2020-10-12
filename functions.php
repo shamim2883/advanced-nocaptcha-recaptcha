@@ -149,8 +149,8 @@ function anr_include_require_files() {
 		require_once $fep_file;
 	}
 }
-add_action( 'wp_footer', 'anr_wp_footer', 999 );
-add_action( 'login_footer', 'anr_wp_footer', 999 );
+add_action( 'wp_footer', 'anr_wp_footer', 99999 );
+add_action( 'login_footer', 'anr_wp_footer', 99999 );
 
 function anr_wp_footer() {
 	anr_captcha_class::init()->footer_script();
