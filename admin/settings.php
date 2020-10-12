@@ -57,7 +57,7 @@ class ANR_Settings {
 			'google_keys' => array(
 				'section_title'    => __( 'Google Keys', 'advanced-nocaptcha-recaptcha' ),
 				'section_callback' => function() {
-					printf( __( 'Get reCaptcha keys from <a href="%s">Google</a>. Make sure to get keys for your selected captcha version.', 'advanced-nocaptcha-recaptcha' ), 'https://www.google.com/recaptcha/admin' );
+					printf( __( 'Get reCaptcha keys from <a href="%s" target="_blank" rel="noopener noreferrer">Google</a>. Make sure to get keys for your selected captcha type. <a href="%s" target="_blank" rel="noopener noreferrer">How to get google reCAPTCHA keys?</a>.', 'advanced-nocaptcha-recaptcha' ), 'https://www.google.com/recaptcha/admin', 'https://www.shamimsplugins.com/docs/advanced-nocaptcha-recaptcha/getting-started-advanced-nocaptcha-recaptcha/how-to-get-google-recaptcha-keys/' );
 				},
 			),
 			'forms'       => array(
@@ -77,7 +77,7 @@ class ANR_Settings {
 		}
 		$fields = array(
 			'captcha_version'            => array(
-				'label'      => __( 'Version', 'advanced-nocaptcha-recaptcha' ),
+				'label'      => __( 'reCAPTCHA type', 'advanced-nocaptcha-recaptcha' ),
 				'section_id' => 'google_keys',
 				'type'       => 'select',
 				'class'      => 'regular',
@@ -87,7 +87,7 @@ class ANR_Settings {
 					'v2_invisible' => __( 'V2 Invisible', 'advanced-nocaptcha-recaptcha' ),
 					'v3'           => __( 'V3', 'advanced-nocaptcha-recaptcha' ),
 				),
-				'desc'       => __( 'Select your reCaptcha version. Make sure to use site key and secret key for your selected version.', 'advanced-nocaptcha-recaptcha' ),
+				'desc'       => __( 'Select your reCAPTCHA type. Make sure to use site key and secret key for your selected type.', 'advanced-nocaptcha-recaptcha' ),
 			),
 			'site_key'           => array(
 				'label'      => __( 'Site Key', 'advanced-nocaptcha-recaptcha' ),
@@ -114,7 +114,7 @@ class ANR_Settings {
 					'bp_register'       => __( 'BuddyPress register', 'advanced-nocaptcha-recaptcha' ),
 					'wc_checkout'    => __( 'WooCommerce Checkout', 'advanced-nocaptcha-recaptcha' ),
 				),
-				'desc'       => sprintf( __( 'For "Contact Form 7" you need to follow <a target="_blank" href="%1$s">this instruction</a>. For other forms see <a href="%2$s">this instruction</a>', 'advanced-nocaptcha-recaptcha' ), esc_url( 'https://www.shamimsplugins.com/docs/advanced-nocaptcha-recaptcha/getting-started-advanced-nocaptcha-recaptcha/implement-in-contact-form-7/' ), esc_url( network_admin_url( 'admin.php?page=anr-instruction' ) ) ),
+				'desc'       => sprintf( __( 'For "Contact Form 7" you need to follow <a target="_blank" rel="noopener noreferrer" href="%1$s">this instruction</a>. For other forms see <a href="%2$s">this instruction</a>', 'advanced-nocaptcha-recaptcha' ), esc_url( 'https://www.shamimsplugins.com/docs/advanced-nocaptcha-recaptcha/getting-started-advanced-nocaptcha-recaptcha/implement-in-contact-form-7/' ), esc_url( anr_settings_page_url( 'instruction' ) ) ),
 			),
 			'error_message'      => array(
 				'label'      => __( 'Error Message', 'advanced-nocaptcha-recaptcha' ),
@@ -463,13 +463,13 @@ class ANR_Settings {
 
 	function menu_page() {
 		add_options_page( __( 'Advanced noCaptcha & invisible captcha Settings', 'advanced-nocaptcha-recaptcha' ), __( 'Advanced noCaptcha & invisible captcha', 'advanced-nocaptcha-recaptcha' ), 'manage_options', 'anr-admin-settings', array( $this, 'admin_settings' ) );
-		add_submenu_page( 'anr-non-exist-menu', 'Advanced noCaptcha reCaptcha - ' . __( 'Instruction', 'advanced-nocaptcha-recaptcha' ), __( 'Instruction', 'advanced-nocaptcha-recaptcha' ), 'manage_options', 'anr-instruction', array( $this, 'instruction_page' ) );
+		//add_submenu_page( 'anr-non-exist-menu', 'Advanced noCaptcha reCaptcha - ' . __( 'Instruction', 'advanced-nocaptcha-recaptcha' ), __( 'Instruction', 'advanced-nocaptcha-recaptcha' ), 'manage_options', 'anr-instruction', array( $this, 'instruction_page' ) );
 
 	}
 
 	function network_menu_page() {
 		add_submenu_page( 'settings.php', __( 'Advanced noCaptcha & invisible captcha Settings', 'advanced-nocaptcha-recaptcha' ), __( 'Advanced noCaptcha & invisible captcha', 'advanced-nocaptcha-recaptcha' ), 'manage_network_options', 'anr-admin-settings', array( $this, 'admin_settings' ) );
-		add_submenu_page( 'anr-non-exist-menu', 'Advanced noCaptcha reCaptcha - ' . __( 'Instruction', 'advanced-nocaptcha-recaptcha' ), __( 'Instruction', 'advanced-nocaptcha-recaptcha' ), 'manage_network_options', 'anr-instruction', array( $this, 'instruction_page' ) );
+		//add_submenu_page( 'anr-non-exist-menu', 'Advanced noCaptcha reCaptcha - ' . __( 'Instruction', 'advanced-nocaptcha-recaptcha' ), __( 'Instruction', 'advanced-nocaptcha-recaptcha' ), 'manage_network_options', 'anr-instruction', array( $this, 'instruction_page' ) );
 
 	}
 	
@@ -488,24 +488,45 @@ class ANR_Settings {
 		}
 	}
 
+	function get_tabs(){
+		return [
+			'settings' => __( 'Settings', 'advanced-nocaptcha-recaptcha' ),
+			'instruction' => __( 'Instruction', 'advanced-nocaptcha-recaptcha' ),
+		];
+	}
+
 	function admin_settings() {
 		wp_enqueue_script( 'anr-admin' );
+		$current_tab = 'settings';
+		if( !empty( $_GET['tab'] ) ){
+			$current_tab = $_GET['tab'];
+		}
 		?>
-		<div class="wrap">
+		<div class="wrap fs-section">
+			<h2 class="nav-tab-wrapper">
+			<?php
+			foreach( $this->get_tabs() as $k => $v ){
+				$active = '';
+				if( $k === $current_tab ){
+					$active = ' nav-tab-active';
+				}
+				printf( '<a href="%s" class="nav-tab fs-tab%s">%s</a>', anr_settings_page_url( $k ), $active, $v );
+			}
+			?>
+			</h2>
+			<!-- Plugin settings go here -->
 			<div id="poststuff">
 				<h2><?php _e( 'Advanced noCaptcha & invisible captcha Settings', 'advanced-nocaptcha-recaptcha' ); ?></h2>
 				<div id="post-body" class="metabox-holder columns-2">
 					<div id="post-body-content">
 						<div id="tab_container">
-							<?php settings_errors( 'anr_admin_options' ); ?>
-							<form method="post" action="">
-								<?php
-								settings_fields( 'anr_admin_options' );
-								do_settings_sections( 'anr_admin_options' );
-								do_action( 'anr_admin_setting_form' );
-								submit_button();
-								?>
-							</form>
+							<?php
+							if( 'settings' == $current_tab ){
+								$this->settings_form();
+							} elseif( 'instruction' == $current_tab ){
+								$this->instruction_page();
+							}
+							?>
 						</div><!-- #tab_container-->
 					</div><!-- #post-body-content-->
 					<div id="postbox-container-1" class="postbox-container">
@@ -514,7 +535,40 @@ class ANR_Settings {
 				</div><!-- #post-body -->
 				<br class="clear" />
 			</div><!-- #poststuff -->
-		</div><!-- .wrap -->
+		</div>
+		<?php
+	}
+
+	function settings_form(){
+		?>
+			<?php settings_errors( 'anr_admin_options' ); ?>
+			<form method="post" action="">
+				<?php
+				settings_fields( 'anr_admin_options' );
+				do_settings_sections( 'anr_admin_options' );
+				do_action( 'anr_admin_setting_form' );
+				submit_button();
+				?>
+			</form>
+		<?php
+	}
+	function instruction_page(){
+		?>
+			<div><?php printf( __( 'Get your site key and secret key from <a href="%s" target="_blank" rel="noopener noreferrer">GOOGLE</a> if you do not have already. <a href="%s" target="_blank" rel="noopener noreferrer">How to get google reCAPTCHA keys?</a>.', 'advanced-nocaptcha-recaptcha' ), esc_url( 'https://www.google.com/recaptcha/admin' ), 'https://www.shamimsplugins.com/docs/advanced-nocaptcha-recaptcha/getting-started-advanced-nocaptcha-recaptcha/how-to-get-google-recaptcha-keys/' ); ?></div>
+			<div><?php printf( __( 'Goto %s page of this plugin and set up as you need. and ENJOY...', 'advanced-nocaptcha-recaptcha' ), '<a href="' . esc_url( anr_settings_page_url() ) . '">' . esc_html__( 'Settings', 'advanced-nocaptcha-recaptcha' ) . '</a>' ); ?></div>
+
+			<h3><?php _e( 'Implement noCaptcha in Contact Form 7', 'advanced-nocaptcha-recaptcha' ); ?></h3>
+			<div><?php printf( __( 'To show noCaptcha use %s', 'advanced-nocaptcha-recaptcha' ), '<code>[anr_nocaptcha g-recaptcha-response]</code>' ); ?></div>
+			<div><?php printf( __( 'Full details can be found in <a target="_blank" rel="noopener noreferrer" href="%1$s">this instruction</a>', 'advanced-nocaptcha-recaptcha' ), esc_url( 'https://www.shamimsplugins.com/docs/advanced-nocaptcha-recaptcha/getting-started-advanced-nocaptcha-recaptcha/implement-in-contact-form-7/' ) ) ?></div>
+
+			<h3><?php _e( 'Implement noCaptcha in WooCommerce', 'advanced-nocaptcha-recaptcha' ); ?></h3>
+			<div><?php _e( 'If Login Form, Registration Form, Lost Password Form, Reset Password Form is selected in SETTINGS page of this plugin they will show and verify Captcha in WooCommerce respective forms also.', 'advanced-nocaptcha-recaptcha' ); ?></div>
+			
+			<h3><?php _e( 'If you want to implement noCaptcha in any other custom form', 'advanced-nocaptcha-recaptcha' ); ?></h3>
+			<div><?php printf( __( 'To show noCaptcha in a form use %1$s OR %2$s', 'advanced-nocaptcha-recaptcha' ), "<code>do_action( 'anr_captcha_form_field' )</code>", '<code>[anr-captcha]</code>' ); ?></div>
+			<div><?php printf( __( 'To verify use %s. It will return true on success otherwise false.', 'advanced-nocaptcha-recaptcha' ), '<code>anr_verify_captcha()</code>' ); ?></div>
+			<div><?php printf( __( 'For paid support pleasse visit <a href="%s" target="_blank" rel="noopener noreferrer">Advanced noCaptcha reCaptcha</a>', 'advanced-nocaptcha-recaptcha' ), esc_url( 'https://www.shamimsplugins.com/hire/' ) ); ?></div>
+						
 		<?php
 	}
 
@@ -553,48 +607,9 @@ class ANR_Settings {
 		return $return;
 	}
 
-	function instruction_page() {
-		?>
-		<div class="wrap">
-			<div id="poststuff">
-				<div id="post-body" class="metabox-holder columns-2">
-					<h2><?php _e( 'Advanced noCaptcha reCaptcha Setup Instruction', 'advanced-nocaptcha-recaptcha' ); ?></h2>
-					<!-- main content -->
-					<div id="post-body-content">
-						<div class='postbox'>
-							<div class='inside'>
-								<div><?php printf( __( 'Get your site key and secret key from <a href="%s" target="_blank">GOOGLE</a> if you do not have already.', 'advanced-nocaptcha-recaptcha' ), esc_url( 'https://www.google.com/recaptcha/admin' ) ); ?></div>
-								<div><?php printf( __( 'Goto %s page of this plugin and set up as you need. and ENJOY...', 'advanced-nocaptcha-recaptcha' ), '<a href="' . esc_url( admin_url( 'options-general.php?page=anr-admin-settings' ) ) . '">' . esc_html__( 'Settings', 'advanced-nocaptcha-recaptcha' ) . '</a>' ); ?></div>
-				
-								<h3><?php _e( 'Implement noCaptcha in Contact Form 7', 'advanced-nocaptcha-recaptcha' ); ?></h3>
-								<div><?php printf( __( 'To show noCaptcha use %s', 'advanced-nocaptcha-recaptcha' ), '<code>[anr_nocaptcha g-recaptcha-response]</code>' ); ?></div>
-				
-								<h3><?php _e( 'Implement noCaptcha in WooCommerce', 'advanced-nocaptcha-recaptcha' ); ?></h3>
-								<div><?php _e( 'If Login Form, Registration Form, Lost Password Form, Reset Password Form is selected in SETTINGS page of this plugin they will show and verify Captcha in WooCommerce respective forms also.', 'advanced-nocaptcha-recaptcha' ); ?></div>
-								
-								<h3><?php _e( 'If you want to implement noCaptcha in any other custom form', 'advanced-nocaptcha-recaptcha' ); ?></h3>
-								<div><?php printf( __( 'To show noCaptcha in a form use %1$s OR %2$s', 'advanced-nocaptcha-recaptcha' ), "<code>do_action( 'anr_captcha_form_field' )</code>", '<code>[anr-captcha]</code>' ); ?></div>
-								<div><?php printf( __( 'To verify use %s. It will return true on success otherwise false.', 'advanced-nocaptcha-recaptcha' ), '<code>anr_verify_captcha()</code>' ); ?></div>
-								<div><?php printf( __( 'For paid support pleasse visit <a href="%s" target="_blank">Advanced noCaptcha reCaptcha</a>', 'advanced-nocaptcha-recaptcha' ), esc_url( 'https://www.shamimsplugins.com/hire/' ) ); ?></div>
-							</div>
-						</div>
-						<div><a class="button" href="<?php echo esc_url( admin_url( 'options-general.php?page=anr-admin-settings' ) ); ?>"><?php esc_html_e( 'Back to Settings', 'advanced-nocaptcha-recaptcha' ); ?></a></div>
-					</div>
-					<div id="postbox-container-1" class="postbox-container">
-						<?php echo $this->anr_admin_sidebar(); ?>
-					</div>
-				</div>
-				<br class="clear" />
-			</div>
-		</div>
-		<?php
-	}
-
-
 	function add_settings_link( $links ) {
 		// add settings link in plugins page
-		$url = anr_same_settings_for_all_sites() ? network_admin_url( 'settings.php?page=anr-admin-settings' ) : admin_url( 'options-general.php?page=anr-admin-settings' );
-		$settings_link = '<a href="' . $url . '">' . __( 'Settings', 'advanced-nocaptcha-recaptcha' ) . '</a>';
+		$settings_link = '<a href="' . anr_settings_page_url() . '">' . __( 'Settings', 'advanced-nocaptcha-recaptcha' ) . '</a>';
 		array_unshift( $links, $settings_link );
 		return $links;
 	}

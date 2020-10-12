@@ -96,6 +96,7 @@ if ( function_exists( 'anr_fs' ) ) {
 					'has_addons'          => false,
 					'has_paid_plans'      => true,
 					'anonymous_mode'      => true,
+					'navigation'          => 'tabs',
 					'is_live'             => true,
 					'menu'                => array(
 						'slug'           => 'anr-admin-settings',
