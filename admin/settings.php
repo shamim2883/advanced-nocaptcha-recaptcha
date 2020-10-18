@@ -578,21 +578,7 @@ class ANR_Settings {
 	}
 
 	function anr_admin_sidebar() {
-			$return = '<div class="postbox">
-					<h3 class="hndle" style="text-align: center;">
-						<span>' . __( 'Plugin Author', 'advanced-nocaptcha-recaptcha' ) . '</span>
-					</h3>
-
-					<div class="inside">
-						<div style="text-align: center; margin: auto">
-						<strong>Shamim Hasan</strong><br />
-						Know php, MySql, css, javascript, html. Expert in WordPress. <br /><br />
-								
-						You can hire for plugin customization, build custom plugin or any kind of WordPress job via <br> <a
-								href="https://www.shamimsplugins.com/contact-us/"><strong>Contact Form</strong></a>
-					</div>
-				</div>
-			</div>';
+			$return = '';
 			if ( ! class_exists( 'ANR_Pro' ) ) :
 			$return .= '<style>ul.anr-pro-features-ul li.dashicons-yes-alt:before {color:green;}</style>';
 			$return .= sprintf( '<div class="postbox">
