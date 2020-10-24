@@ -23,17 +23,21 @@ Show noCaptcha or invisible captcha in Comment Form (after Comment textarea befo
 = Show noCaptcha on =
 
 * Comment Form (after Comment textarea before submit button)
-* WooCommerce
-* Login
-* Register
-* Multisite User Signup
-* Lost Password
-* Reset Password
-* Contact Form 7
+* Login form
+* Register form
+* Multisite User Signup form
+* Lost Password form
+* Reset Password form
+* WooCommerce Login form
+* WooCommerce Register form
+* WooCommerce Lost Password form
+* WooCommerce Reset Password form
+* WooCommerce Checkout form
+* Contact Form 7 forms
 * FEP Contact Form
-* bbPress New topic
-* bbPress reply to topic
-* BuddyPress register
+* bbPress New topic form
+* bbPress reply to topic form
+* BuddyPress register form
 
 = Options =
 
