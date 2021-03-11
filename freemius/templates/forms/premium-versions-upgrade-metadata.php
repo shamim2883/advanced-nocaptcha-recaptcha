@@ -30,8 +30,6 @@
             array( 'licenses' => $license->quota )
         );
     }
-
-    $plugin_data = $fs->get_plugin_data();
 ?>
 <script type="text/javascript">
 (function( $ ) {
@@ -39,7 +37,7 @@
         var $premiumVersionCheckbox = $( 'input[type="checkbox"][value="<?php echo $fs->get_plugin_basename() ?>"]' );
 
         $premiumVersionCheckbox.addClass( 'license-expired' );
-        $premiumVersionCheckbox.data( 'plugin-name', <?php echo json_encode( $plugin_data['Name'] ) ?> );
+        $premiumVersionCheckbox.data( 'plugin-name', <?php echo json_encode( $fs->get_plugin_data()['Name'] ) ?> );
         $premiumVersionCheckbox.data( 'pricing-url', <?php echo json_encode( $purchase_url ) ?> );
         $premiumVersionCheckbox.data( 'new-version', <?php echo json_encode( $VARS['new_version'] ) ?> );
     });
