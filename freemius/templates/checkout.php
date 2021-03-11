@@ -79,12 +79,7 @@
 
 	if ( $plugin_id == $fs->get_id() ) {
 		$is_premium = $fs->is_premium();
-
-        $bundle_id = $fs->get_bundle_id();
-        if ( ! is_null( $bundle_id ) ) {
-            $context_params['bundle_id'] = $bundle_id;
-        }
-    } else {
+	} else {
 		// Identify the module code version of the checkout context module.
 		if ( $fs->is_addon_activated( $plugin_id ) ) {
 			$fs_addon   = Freemius::get_instance_by_id( $plugin_id );
@@ -101,11 +96,8 @@
 
 		if ( $plugin_id != $fs->get_id() ) {
 			if ( $fs->is_addon_activated( $plugin_id ) ) {
-                $fs_addon   = Freemius::get_instance_by_id( $plugin_id );
-                $addon_site = $fs_addon->get_site();
-                if ( is_object( $addon_site ) ) {
-                    $site = $addon_site;
-                }
+				$fs_addon = Freemius::get_instance_by_id( $plugin_id );
+				$site     = $fs_addon->get_site();
 			}
 		}
 
@@ -182,7 +174,7 @@
 	fs_require_once_template('secure-https-header.php', $view_params);
 ?>
 	<div id="fs_checkout" class="wrap fs-section fs-full-size-wrapper">
-		<div id="fs_frame"></div>
+		<div id="frame"></div>
 		<script type="text/javascript">
 			// http://stackoverflow.com/questions/4583703/jquery-post-request-not-ajax
 			jQuery(function ($) {
@@ -242,7 +234,7 @@
 						src          = base_url + '/?<?php echo http_build_query( $query_params ) ?>#' + encodeURIComponent(document.location.href),
 						// Append the i-frame into the DOM.
 						frame        = $('<i' + 'frame " src="' + src + '" width="100%" height="' + frame_height + 'px" scrolling="no" frameborder="0" style="background: transparent; width: 1px; min-width: 100%;"><\/i' + 'frame>')
-							.appendTo('#fs_frame');
+							.appendTo('#frame');
 
 					FS.PostMessage.init(base_url, [frame[0]]);
 					FS.PostMessage.receiveOnce('height', function (data) {
