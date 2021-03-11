@@ -359,6 +359,10 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 			if ( in_array( $ip, array_filter( explode( '\n', anr_get_option( 'whitelisted_ips' ) ) ) ) ) {
 				return $return;
 			}
+			$user_agent = $_SERVER['HTTP_USER_AGENT'];
+			if ( in_array( $user_agent, array_filter( explode( '\n', anr_get_option( 'whitelisted_agents' ) ) ) ) ) {
+				return $return;
+			}
 			return $return . $this->captcha_form_field();
 		}
 
@@ -388,7 +392,10 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 
 			$show_captcha = true;
 			$ip           = $_SERVER['REMOTE_ADDR'];
+			$user_agent           = $_SERVER['HTTP_USER_AGENT'];
 			if ( in_array( $ip, array_filter( explode( '\n', anr_get_option( 'whitelisted_ips' ) ) ) ) ) {
+				return false;
+			} elseif ( in_array( $user_agent, array_filter( explode( '\n', anr_get_option( 'whitelisted_agents' ) ) ) ) ) {
 				return false;
 			}
 			// filter_var( $ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE );
@@ -444,9 +451,12 @@ if ( ! class_exists( 'anr_captcha_class' ) ) {
 	
 			$secre_key  = trim( anr_get_option( 'secret_key' ) );
 			$remoteip = $_SERVER['REMOTE_ADDR'];
+			$user_agent = $_SERVER['HTTP_USER_AGENT'];
 			$verify = false;
 
 			if ( in_array( $remoteip, array_filter( explode( '\n', anr_get_option( 'whitelisted_ips' ) ) ) ) ) {
+				return true;
+			} elseif ( in_array( $user_agent, array_filter( explode( '\n', anr_get_option( 'whitelisted_agents' ) ) ) ) ) {
 				return true;
 			}
 			

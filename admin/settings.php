@@ -236,6 +236,13 @@ class ANR_Settings {
 				'class'      => 'regular',
 				'desc'       => __( 'One per line', 'advanced-nocaptcha-recaptcha' ),
 			),
+			'whitelisted_agents'              => array(
+				'label'      => __( 'Whitelisted User Agents', 'advanced-nocaptcha-recaptcha' ),
+				'section_id' => 'other',
+				'type'       => 'textarea',
+				'class'      => 'regular',
+				'desc'       => __( 'One per line', 'advanced-nocaptcha-recaptcha' ),
+			),
 			'recaptcha_domain'      => array(
 				'label'      => __( 'Recaptcha Domain', 'advanced-nocaptcha-recaptcha' ),
 				'section_id' => 'other',
